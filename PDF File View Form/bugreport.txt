@@ -1,0 +1,1812 @@
+date/time          : 2019-07-22, 08:43:26, 924ms
+computer name      : 06-409-5
+user name          : 59968 <admin>
+registered owner   : user
+operating system   : Windows XP Service Pack 3 build 2600
+system language    : Russian
+system up time     : 46 minutes 4 seconds
+program up time    : 7 seconds
+processors         : 2x Intel(R) Core(TM)2 Duo CPU E8400 @ 3.00GHz
+physical memory    : 663/2047 MB (free/total)
+free disk space    : (C:) 1,01 GB
+display mode       : 1280x1024, 32 bit
+process id         : $1064
+allocated memory   : 15,15 MB
+largest free block : 1002,18 MB
+executable         : PDFFileViewFormProject.exe
+exec. date/time    : 2019-07-22 08:43
+compiled with      : Delphi 2006/07
+madExcept version  : 5.0.0
+callstack crc      : $da4e2688, $3a56fade, $3a56fade
+exception number   : 1
+exception class    : EAccessViolation
+exception message  : Access violation at address 005B2F76 in module 'PDFFileViewFormProject.exe'. Read of address 00000018.
+
+main thread ($1528):
+005b2f76 +006 PDFFileViewFormProject.exe PDFViewFormUnit        1062  +0 TPDFViewForm.actOpenDocumentInAcrobatExecute
+00485e37 +00f PDFFileViewFormProject.exe Classes                         TBasicAction.Execute
+004bac01 +031 PDFFileViewFormProject.exe ActnList                        TContainedAction.Execute
+004bb8c8 +050 PDFFileViewFormProject.exe ActnList                        TCustomAction.Execute
+00485d03 +013 PDFFileViewFormProject.exe Classes                         TBasicActionLink.Execute
+004ac789 +04d PDFFileViewFormProject.exe Controls                        TControl.Click
+00496d92 +01e PDFFileViewFormProject.exe StdCtrls                        TButton.Click
+005048cf +067 PDFFileViewFormProject.exe cxButtons              1665  +8 TcxCustomButton.Click
+00496e90 +00c PDFFileViewFormProject.exe StdCtrls                        TButton.CNCommand
+00504dd9 +045 PDFFileViewFormProject.exe cxButtons              1889  +4 TcxCustomButton.CNCommand
+004ac29b +2bb PDFFileViewFormProject.exe Controls                        TControl.WndProc
+004b00fd +499 PDFFileViewFormProject.exe Controls                        TWinControl.WndProc
+00496c3c +06c PDFFileViewFormProject.exe StdCtrls                        TButtonControl.WndProc
+00504d5e +06e PDFFileViewFormProject.exe cxButtons              1867 +18 TcxCustomButton.WndProc
+004abf28 +024 PDFFileViewFormProject.exe Controls                        TControl.Perform
+004b0233 +023 PDFFileViewFormProject.exe Controls                        DoControlMsg
+004b09a7 +00b PDFFileViewFormProject.exe Controls                        TWinControl.WMCommand
+004ac29b +2bb PDFFileViewFormProject.exe Controls                        TControl.WndProc
+7c90e470 +010 ntdll.dll                                                  KiUserCallbackDispatcher
+004ac29b +2bb PDFFileViewFormProject.exe Controls                        TControl.WndProc
+004b00fd +499 PDFFileViewFormProject.exe Controls                        TWinControl.WndProc
+004af888 +02c PDFFileViewFormProject.exe Controls                        TWinControl.MainWndProc
+004864d8 +014 PDFFileViewFormProject.exe Classes                         StdWndProc
+7c90e470 +010 ntdll.dll                                                  KiUserCallbackDispatcher
+7e3792de +044 USER32.dll                                                 SendMessageW
+004ac29b +2bb PDFFileViewFormProject.exe Controls                        TControl.WndProc
+7e37a993 +016 USER32.dll                                                 CallWindowProcA
+004b01df +0d7 PDFFileViewFormProject.exe Controls                        TWinControl.DefaultHandler
+004acbc0 +010 PDFFileViewFormProject.exe Controls                        TControl.WMLButtonUp
+004ac29b +2bb PDFFileViewFormProject.exe Controls                        TControl.WndProc
+004b00fd +499 PDFFileViewFormProject.exe Controls                        TWinControl.WndProc
+00496c3c +06c PDFFileViewFormProject.exe StdCtrls                        TButtonControl.WndProc
+00504d5e +06e PDFFileViewFormProject.exe cxButtons              1867 +18 TcxCustomButton.WndProc
+004af888 +02c PDFFileViewFormProject.exe Controls                        TWinControl.MainWndProc
+004864d8 +014 PDFFileViewFormProject.exe Classes                         StdWndProc
+7e3696c2 +00a USER32.dll                                                 DispatchMessageA
+004c8bd8 +0fc PDFFileViewFormProject.exe Forms                           TApplication.ProcessMessage
+004c8c12 +00a PDFFileViewFormProject.exe Forms                           TApplication.HandleMessage
+004c548b +187 PDFFileViewFormProject.exe Forms                           TCustomForm.ShowModal
+005b343b +02b PDFFileViewFormProject.exe TestFormUnit             34  +6 TForm5.Button1Click
+004ac7a0 +064 PDFFileViewFormProject.exe Controls                        TControl.Click
+00496d92 +01e PDFFileViewFormProject.exe StdCtrls                        TButton.Click
+00496e90 +00c PDFFileViewFormProject.exe StdCtrls                        TButton.CNCommand
+004ac29b +2bb PDFFileViewFormProject.exe Controls                        TControl.WndProc
+004b00fd +499 PDFFileViewFormProject.exe Controls                        TWinControl.WndProc
+00496c3c +06c PDFFileViewFormProject.exe StdCtrls                        TButtonControl.WndProc
+004abf28 +024 PDFFileViewFormProject.exe Controls                        TControl.Perform
+004b0233 +023 PDFFileViewFormProject.exe Controls                        DoControlMsg
+004b09a7 +00b PDFFileViewFormProject.exe Controls                        TWinControl.WMCommand
+004c40c4 +02c PDFFileViewFormProject.exe Forms                           TCustomForm.WMCommand
+004ac29b +2bb PDFFileViewFormProject.exe Controls                        TControl.WndProc
+004b00fd +499 PDFFileViewFormProject.exe Controls                        TWinControl.WndProc
+004c1549 +4c1 PDFFileViewFormProject.exe Forms                           TCustomForm.WndProc
+004af888 +02c PDFFileViewFormProject.exe Controls                        TWinControl.MainWndProc
+004864d8 +014 PDFFileViewFormProject.exe Classes                         StdWndProc
+7c90e470 +010 ntdll.dll                                                  KiUserCallbackDispatcher
+7e3792de +044 USER32.dll                                                 SendMessageW
+7e37a993 +016 USER32.dll                                                 CallWindowProcA
+004b01df +0d7 PDFFileViewFormProject.exe Controls                        TWinControl.DefaultHandler
+004acbc0 +010 PDFFileViewFormProject.exe Controls                        TControl.WMLButtonUp
+004ac29b +2bb PDFFileViewFormProject.exe Controls                        TControl.WndProc
+004b00fd +499 PDFFileViewFormProject.exe Controls                        TWinControl.WndProc
+00496c3c +06c PDFFileViewFormProject.exe StdCtrls                        TButtonControl.WndProc
+004af888 +02c PDFFileViewFormProject.exe Controls                        TWinControl.MainWndProc
+004864d8 +014 PDFFileViewFormProject.exe Classes                         StdWndProc
+7e3696c2 +00a USER32.dll                                                 DispatchMessageA
+004c8bd8 +0fc PDFFileViewFormProject.exe Forms                           TApplication.ProcessMessage
+004c8c12 +00a PDFFileViewFormProject.exe Forms                           TApplication.HandleMessage
+004c8e32 +096 PDFFileViewFormProject.exe Forms                           TApplication.Run
+005b5ca7 +03b PDFFileViewFormProject.exe PDFFileViewFormProject   26  +3 initialization
+
+thread $7c4: <priority:15>
+7c90df58 +0a ntdll.dll     NtWaitForSingleObject
+7c8025d5 +85 kernel32.dll  WaitForSingleObjectEx
+7c80253d +0d kernel32.dll  WaitForSingleObject
+
+modules:
+00400000 PDFFileViewFormProject.exe                C:\Documents and Settings\59968\Мои документы\Borland Studio Projects\PDF File View Form
+02b90000 zlock_kbd.dll              9.0.0.255      C:\Program Files\Zecurion\Endpoint
+10000000 zlock_gdi.dll              9.0.0.255      C:\Program Files\Zecurion\Endpoint
+4ebe0000 gdiplus.dll                5.2.6002.22791 C:\WINDOWS\WinSxS\x86_Microsoft.Windows.GdiPlus_6595b64144ccf1df_1.0.6002.22791_x-ww_c8dff154
+5b260000 uxtheme.dll                6.0.2900.5512  C:\WINDOWS\system32
+5bd50000 NETAPI32.dll               5.1.2600.6260  C:\WINDOWS\system32
+71a80000 WS2HELP.dll                5.1.2600.5512  C:\WINDOWS\system32
+71a90000 WS2_32.dll                 5.1.2600.5512  C:\WINDOWS\system32
+71ab0000 wsock32.dll                5.1.2600.5512  C:\WINDOWS\system32
+71b00000 MPR.dll                    5.1.2600.5512  C:\WINDOWS\system32
+71bd0000 SAMLIB.dll                 5.1.2600.5512  C:\WINDOWS\system32
+746e0000 MSCTF.dll                  5.1.2600.5512  C:\WINDOWS\system32
+76330000 WINSTA.dll                 5.1.2600.5512  C:\WINDOWS\system32
+76350000 msimg32.dll                5.1.2600.5512  C:\WINDOWS\system32
+76380000 comdlg32.dll               6.0.2900.5512  C:\WINDOWS\system32
+769a0000 USERENV.dll                5.1.2600.5512  C:\WINDOWS\system32
+76f40000 WTSAPI32.dll               5.1.2600.5512  C:\WINDOWS\system32
+76f50000 WLDAP32.dll                5.1.2600.5512  C:\WINDOWS\system32
+77110000 oleaut32.dll               5.1.2600.6341  C:\WINDOWS\system32
+773c0000 comctl32.dll               6.0.2900.6028  C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.6028_x-ww_61e65202
+774d0000 ole32.dll                  5.1.2600.6168  C:\WINDOWS\system32
+77680000 NTMARTA.DLL                5.1.2600.5512  C:\WINDOWS\system32
+77910000 SETUPAPI.dll               5.1.2600.5512  C:\WINDOWS\system32
+77bf0000 version.dll                5.1.2600.5512  C:\WINDOWS\system32
+77c00000 msvcrt.dll                 7.0.2600.5512  C:\WINDOWS\system32
+77dc0000 ADVAPI32.dll               5.1.2600.6382  C:\WINDOWS\system32
+77e70000 RPCRT4.dll                 5.1.2600.6022  C:\WINDOWS\system32
+77f10000 GDI32.dll                  5.1.2600.5698  C:\WINDOWS\system32
+77f60000 SHLWAPI.dll                6.0.2900.5912  C:\WINDOWS\system32
+77fe0000 Secur32.dll                5.1.2600.5834  C:\WINDOWS\system32
+7c800000 kernel32.dll               5.1.2600.6293  C:\WINDOWS\system32
+7c900000 ntdll.dll                  5.1.2600.6055  C:\WINDOWS\system32
+7c9c0000 shell32.dll                6.0.2900.6242  C:\WINDOWS\system32
+7e360000 USER32.dll                 5.1.2600.5512  C:\WINDOWS\system32
+
+processes:
+0000 Idle                       0    0
+0004 System                     0    0    normal
+0594 smss.exe                   0    0    normal C:\WINDOWS\system32
+05f8 csrss.exe                  0    0
+0670 winlogon.exe               41   12   high   C:\WINDOWS\system32
+069c services.exe               4    0    normal C:\WINDOWS\system32
+06b0 lsass.exe                  4    0    normal C:\WINDOWS\system32
+0780 svchost.exe                4    0    normal C:\WINDOWS\system32
+07c8 svchost.exe                0    0
+0500 svchost.exe                4    4    normal C:\WINDOWS\System32
+06f8 svchost.exe                0    0
+0120 svchost.exe                0    0
+01b4 spoolsv.exe                4    0    normal C:\WINDOWS\system32
+0404 avpsus.exe                 4    0    normal C:\Program Files\Kaspersky Lab\Kaspersky Endpoint Security 10 for Windows SP1
+0528 BSQLServer.exe             4    1    normal C:\Program Files\Embarcadero\RAD Studio\7.0\bin
+0584 mDNSResponder.exe          4    0    normal C:\Program Files\Bonjour
+0464 DataSnapDemoService.exe    23   15   normal C:\Documents and Settings\59968\Мои документы\RAD Studio\Projects\DataSnapDemoProject
+02d4 Explorer.EXE               443  241  normal C:\WINDOWS
+0380 hasplms.exe                4    0    normal C:\WINDOWS\system32
+03bc jqs.exe                    4    0    idle   C:\Program Files\Java\jre7\bin
+03d4 klnagent.exe               4    0    normal C:\Program Files\Kaspersky Lab\NetworkAgent
+03f8 TSVNCache.exe              8    1    normal C:\Program Files\TortoiseSVN\bin
+048c MDM.EXE                    4    0    normal C:\Program Files\Common Files\Microsoft Shared\VS7DEBUG
+02b4 RTHDCPL.EXE                759  157  normal C:\WINDOWS
+043c RUNDLL32.EXE               16   5    normal C:\WINDOWS\system32
+0444 2GISTrayNotifier.exe       18   9    normal C:\Program Files\2gis\3.0
+0484 avp.exe                    21   10   normal C:\Program Files\Kaspersky Lab\Kaspersky Endpoint Security 10 for Windows SP1
+05e0 Greenshot.exe              31   20   normal C:\Program Files\Greenshot
+05e4 jusched.exe                8    1    normal C:\Program Files\Common Files\Java\Java Update
+07f0 sqlservr.exe               4    0    normal C:\Program Files\Microsoft SQL Server\MSSQL10.MSSQLSERVER\MSSQL\Binn
+0870 nvsvc32.exe                8    1    normal C:\WINDOWS\system32
+0a0c pg_ctl.exe                 0    0
+0ac0 ctfmon.exe                 25   9    normal C:\WINDOWS\system32
+0b28 postgres.exe               0    0
+0b38 sqlbrowser.exe             0    0
+0b50 miranda32.exe              1129 400  normal D:\Program Files\MirandaCorporate
+0b58 postgres.exe               0    0
+0b7c sqlwriter.exe              4    0    normal C:\Program Files\Microsoft SQL Server\90\Shared
+0bf0 svchost.exe                4    0    normal C:\WINDOWS\system32
+0c08 zservice15.exe             4    1    normal C:\Program Files\Common Files\SecurIT
+0ddc avp.exe                    31   10   normal C:\Program Files\Kaspersky Lab\Kaspersky Endpoint Security 10 for Windows SP1
+0914 postgres.exe               0    0
+090c GoldenDict.exe             80   30   normal C:\Program Files\GoldenDict
+0a38 msmsgs.exe                 9    10   normal C:\Program Files\Messenger
+0b94 postgres.exe               0    0
+09bc postgres.exe               0    0
+09ec postgres.exe               0    0
+0e60 postgres.exe               0    0
+0b14 postgres.exe               0    0
+0cbc postgres.exe               0    0
+08a8 ScreenTranslator.exe       13   16   normal C:\Program Files\Screen Translator
+0984 bds.exe                    3333 1143 normal C:\Program Files\Borland\BDS\4.0\Bin
+0fcc pgadmin3.exe               1274 338  normal C:\Program Files\pgAdmin III\1.22
+02d8 wmiapsrv.exe               4    0    normal C:\WINDOWS\system32\wbem
+09e0 zgu_agent.exe              31   3    normal C:\Program Files\Zecurion\Endpoint
+1228 postgres.exe               0    0
+1230 postgres.exe               0    0
+1238 postgres.exe               0    0
+1240 postgres.exe               0    0
+1248 postgres.exe               0    0
+02b8 zlu_agent.exe              36   9    normal C:\PROGRA~1\Zecurion\Endpoint
+0dc0 vapm.exe                   4    0    normal C:\Program Files\Kaspersky Lab\NetworkAgent
+0c84 unsecapp.exe               0    0
+11ac requests7.exe              372  344  normal \\Server-file\Prog_UMZ\Delphi\ZAJAV
+068c bds.exe                    3281 1136 normal C:\Program Files\Borland\BDS\4.0\Bin
+1064 PDFFileViewFormProject.exe 165  97   normal C:\Documents and Settings\59968\Мои документы\Borland Studio Projects\PDF File View Form
+0d4c wmiprvse.exe               0    0
+
+hardware:
++ DVD и CD-ROM дисководы
+  - DTSOFT Virtual CdRom Device
+  - Optiarc DVD RW AD-7200S
++ IDE ATA/ATAPI контроллеры
+  - Intel(R) ICH10 Family 2 port Serial ATA Storage Controller 2 - 3A26 (driver 9.0.0.1005)
+  - Intel(R) ICH10 Family 4 port Serial ATA Storage Controller 1 - 3A20 (driver 9.0.0.1005)
+  - Вторичный канал IDE
+  - Вторичный канал IDE
+  - Вторичный канал IDE
+  - Первичный канал IDE
+  - Первичный канал IDE
+  - Первичный канал IDE
+  - Стандартный двухканальный контроллер PCI IDE
++ Видеоадаптеры
+  - NVIDIA GeForce 9600 GT (driver 6.14.11.7531)
++ Дисководы гибких дисков
+  - Дисковод гибких дисков
++ Дисковые устройства
+  - WDC WD2500AAKS-22VSA0
+  - WDC WD5000AZLX-75K2TA0
++ Звуковые, видео и игровые устройства
+  - Realtek High Definition Audio (driver 5.10.0.5667)
+  - Аудио кодеки
+  - Видео кодеки
+  - Драйверы аудио (без PnP)
+  - Устройства записи видео (без PnP)
+  - Устройство управления
++ Клавиатуры
+  - Клавиатура HID
++ Компьютер
+  - Многопроцессорный компьютер с ACPI
++ Контроллеры гибких дисков
+  - Стандартный контроллер гибких дисков
++ Контроллеры универсальной последовательной шины USB
+  - Intel(R) ICH10 Family USB Enhanced Host Controller - 3A3A (driver 9.0.0.1005)
+  - Intel(R) ICH10 Family USB Enhanced Host Controller - 3A3C (driver 9.0.0.1005)
+  - Intel(R) ICH10 Family USB Universal Host Controller - 3A34 (driver 9.0.0.1005)
+  - Intel(R) ICH10 Family USB Universal Host Controller - 3A35 (driver 9.0.0.1005)
+  - Intel(R) ICH10 Family USB Universal Host Controller - 3A36 (driver 9.0.0.1005)
+  - Intel(R) ICH10 Family USB Universal Host Controller - 3A37 (driver 9.0.0.1005)
+  - Intel(R) ICH10 Family USB Universal Host Controller - 3A38 (driver 9.0.0.1005)
+  - Intel(R) ICH10 Family USB Universal Host Controller - 3A39 (driver 9.0.0.1005)
+  - Корневой USB концентратор
+  - Корневой USB концентратор
+  - Корневой USB концентратор
+  - Корневой USB концентратор
+  - Корневой USB концентратор
+  - Корневой USB концентратор
+  - Корневой USB концентратор
+  - Корневой USB концентратор
+  - Составное USB устройство
++ Мониторы
+  - Модуль подключения монитора
++ Мыши и иные указывающие устройства
+  - Microsoft PS/2 мышь
++ Порты (COM и LPT)
+  - Последовательный порт (COM1)
++ Процессоры
+  - Intel(R) Core(TM)2 Duo CPU     E8400  @ 3.00GHz
+  - Intel(R) Core(TM)2 Duo CPU     E8400  @ 3.00GHz
++ Сетевые платы
+  - Atheros AR8121/AR8113/AR8114 PCI-E Ethernet Controller (driver 1.0.0.27)
+  - Atheros AR8121/AR8113/AR8114 PCI-E Ethernet Controller - Kaspersky Anti-Virus NDIS Miniport (driver 10.0.0.4)
+  - Atheros AR8121/AR8113/AR8114 PCI-E Ethernet Controller - VirtualBox Bridged Networking Driver Miniport (driver 4.1.18.0)
+  - Atheros AR8121/AR8113/AR8114 PCI-E Ethernet Controller - Минипорт планировщика пакетов
+  - VirtualBox Host-Only Ethernet Adapter (driver 4.1.18.0)
+  - VirtualBox Host-Only Ethernet Adapter - Минипорт планировщика пакетов
+  - Минипорт WAN (IP)
+  - Минипорт WAN (IP) - Kaspersky Anti-Virus NDIS Miniport (driver 10.0.0.4)
+  - Минипорт WAN (IP) - Минипорт планировщика пакетов
+  - Минипорт WAN (L2TP)
+  - Минипорт WAN (PPPoE)
+  - Минипорт WAN (PPTP)
+  - Прямой параллельный порт
++ Системные устройства
+  - ATK0110 ACPI UTILITY (driver 1043.2.15.37)
+  - CMOS и часы
+  - DAEMON Tools Virtual Bus (driver 5.0.1.282)
+  - Intel(R) 4 Series Chipset PCI Express Root Port - 2E21 (driver 9.0.0.1009)
+  - Intel(R) 4 Series Chipset Processor to I/O Controller - 2E20 (driver 9.0.0.1009)
+  - Intel(R) 82801 PCI мост - 244E
+  - Intel(R) 82802 Firmware концентратор
+  - Intel(R) ICH10 Family PCI Express Root Port 1 - 3A40 (driver 9.0.0.1009)
+  - Intel(R) ICH10 Family PCI Express Root Port 5 - 3A48 (driver 9.0.0.1009)
+  - Intel(R) ICH10 Family PCI Express Root Port 6 - 3A4A (driver 9.0.0.1009)
+  - Intel(R) ICH10 Family SMBus Controller - 3A30 (driver 9.0.0.1005)
+  - Intel(R) ICH10 LPC Interface Controller - 3A18 (driver 9.0.0.1009)
+  - Microsoft ACPI-совместимая система
+  - Встроенный динамик
+  - Высокоточный таймер событий
+  - Диспетчер логических дисков
+  - Диспетчер томов
+  - Драйвер Microsoft System Management BIOS
+  - Драйвер клавиатуры сервера терминалов
+  - Драйвер мыши сервера терминалов
+  - Драйвер шины Microsoft UAA для High Definition Audio
+  - Кнопка включения питания ACPI
+  - Кнопка фиксированной возможности ACPI
+  - Контроллер прямого доступа к памяти
+  - Перенаправитель устройства сервера терминалов
+  - Перечислитель программных устройств Plug and Play
+  - Порт чтения данных ISAPNP
+  - Программируемый контроллер прерываний
+  - Процессор числовых данных
+  - Ресурсы системной платы
+  - Ресурсы системной платы
+  - Ресурсы системной платы
+  - Ресурсы системной платы
+  - Ресурсы системной платы
+  - Системная плата
+  - Системная плата
+  - Системный таймер
+  - Устройство обновления микропрограмм
+  - Шина PCI
++ Устройства HID (Human Interface Devices)
+  - HID-совместимое устройство
+  - HID-совместимое устройство управления
+  - HID-совместимое устройство управления
+  - USB HID-совместимое устройство
+  - USB HID-совместимое устройство
+
+cpu registers:
+eax = 00000000
+ebx = 00ec87c0
+ecx = 0012e9c0
+edx = 00ec87c0
+esi = 004bafa0
+edi = 00eec6b0
+eip = 005b2f76
+esp = 0012ea30
+ebp = 0012ebb4
+
+stack dump:
+0012ea30  3a 5e 48 00 c0 87 ec 00 - 06 ac 4b 00 1c ec 12 00  :^H.......K.....
+0012ea40  78 b8 4b 00 c0 87 ec 00 - cd b8 4b 00 b8 f9 fe 02  x.K.......K.....
+0012ea50  08 5d 48 00 70 67 fa 02 - 70 67 fa 02 8c c7 4a 00  .]H.pg..pg....J.
+0012ea60  70 67 fa 02 97 6d 49 00 - 01 67 fa 02 d4 48 50 00  pg...mI..g...HP.
+0012ea70  68 48 50 00 70 67 fa 02 - 95 6e 49 00 1c ec 12 00  hHP.pg...nI.....
+0012ea80  de 4d 50 00 70 67 fa 02 - 1c ec 12 00 9e c2 4a 00  .MP.pg........J.
+0012ea90  1c ec 12 00 1c ec 12 00 - 70 67 fa 02 0a 80 00 00  ........pg......
+0012eaa0  38 eb 12 00 3b 94 3e 77 - 0a 80 00 00 22 0f 02 00  8...;.>w...."...
+0012eab0  f0 ea 12 00 94 fd 4a 00 - 70 67 fa 02 bf 8e 3e 77  ......J.pg....>w
+0012eac0  f8 ea 12 00 d1 88 36 7e - 08 13 bb 00 00 00 00 00  ......6~........
+0012ead0  da 88 36 7e 00 00 00 00 - bf 8e 3e 77 a6 88 36 7e  ..6~......>w..6~
+0012eae0  d4 ea 12 00 00 00 00 00 - 44 eb 12 00 70 67 fa 02  ........D...pg..
+0012eaf0  3c eb 12 00 41 6c 49 00 - 8d c7 47 00 50 29 eb 00  <...AlI...G.P)..
+0012eb00  6d f4 48 00 75 f4 48 00 - 76 0e b8 02 68 1f f0 00  m.H.u.H.v...h...
+0012eb10  8b f8 4a 00 3c eb 12 00 - a2 f8 4a 00 aa f8 4a 00  ..J.<.....J...J.
+0012eb20  d8 eb 12 00 b4 f8 4a 00 - 3c eb 12 00 bc eb 12 00  ......J.<.......
+0012eb30  76 0e b8 02 76 0e b8 02 - 70 67 fa 02 54 eb 12 00  v...v...pg..T...
+0012eb40  da 64 48 00 84 00 00 00 - 00 00 00 00 62 03 ab 00  .dH.........b...
+0012eb50  01 00 00 00 80 eb 12 00 - 34 87 36 7e 22 0f 02 00  ........4.6~"...
+0012eb60  84 00 00 00 00 00 00 00 - 62 03 ab 00 76 0e b8 02  ........b...v...
+
+disassembling:
+005b2f70      public PDFViewFormUnit.TPDFViewForm.actOpenDocumentInAcrobatExecute:  ; function entry point
+005b2f70 1062   mov     eax, [eax+$3f8]
+005b2f76      > mov     eax, [eax+$18]
+005b2f79        call    -$11a6 ($5b1dd8)       ; AuxSystemFunctionsUnit.OpenDocument
+005b2f7e 1064   ret
+
+date/time          : 2019-07-22, 08:47:12, 23ms
+computer name      : 06-409-5
+user name          : 59968 <admin>
+registered owner   : user
+operating system   : Windows XP Service Pack 3 build 2600
+system language    : Russian
+system up time     : 49 minutes 49 seconds
+program up time    : 42 seconds
+processors         : 2x Intel(R) Core(TM)2 Duo CPU E8400 @ 3.00GHz
+physical memory    : 684/2047 MB (free/total)
+free disk space    : (C:) 1,02 GB
+display mode       : 1280x1024, 32 bit
+process id         : $ccc
+allocated memory   : 15,17 MB
+largest free block : 1002,18 MB
+executable         : PDFFileViewFormProject.exe
+exec. date/time    : 2019-07-22 08:46
+compiled with      : Delphi 2006/07
+madExcept version  : 5.0.0
+callstack crc      : $041e3e7f, $4d8caff4, $4d8caff4
+exception number   : 1
+exception class    : EAccessViolation
+exception message  : Access violation at address 00537C8D in module 'PDFFileViewFormProject.exe'. Read of address 00000008.
+
+main thread ($a14):
+00537c8d +005 PDFFileViewFormProject.exe PDFDocumentRenderingThreadUnit  743  +2 TRenderedPDFDocument.SetDocumentScaleFactor
+005b2ab2 +03e PDFFileViewFormProject.exe PDFViewFormUnit                 723  +8 TPDFViewForm.UpdateDocumentOrientationAndSize
+005b29b1 +025 PDFFileViewFormProject.exe PDFViewFormUnit                 567 +11 TPDFViewForm.RotateDocumentByGivenDegrees
+005b2f9f +007 PDFFileViewFormProject.exe PDFViewFormUnit                1087  +0 TPDFViewForm.actRotateCounterClockwiseDocumentExecute
+00485e37 +00f PDFFileViewFormProject.exe Classes                                 TBasicAction.Execute
+004bac01 +031 PDFFileViewFormProject.exe ActnList                                TContainedAction.Execute
+004bb8c8 +050 PDFFileViewFormProject.exe ActnList                                TCustomAction.Execute
+00485d03 +013 PDFFileViewFormProject.exe Classes                                 TBasicActionLink.Execute
+004ac789 +04d PDFFileViewFormProject.exe Controls                                TControl.Click
+00496d92 +01e PDFFileViewFormProject.exe StdCtrls                                TButton.Click
+005048cf +067 PDFFileViewFormProject.exe cxButtons                      1665  +8 TcxCustomButton.Click
+00496e90 +00c PDFFileViewFormProject.exe StdCtrls                                TButton.CNCommand
+00504dd9 +045 PDFFileViewFormProject.exe cxButtons                      1889  +4 TcxCustomButton.CNCommand
+004ac29b +2bb PDFFileViewFormProject.exe Controls                                TControl.WndProc
+004b00fd +499 PDFFileViewFormProject.exe Controls                                TWinControl.WndProc
+00496c3c +06c PDFFileViewFormProject.exe StdCtrls                                TButtonControl.WndProc
+00504d5e +06e PDFFileViewFormProject.exe cxButtons                      1867 +18 TcxCustomButton.WndProc
+004abf28 +024 PDFFileViewFormProject.exe Controls                                TControl.Perform
+004b0233 +023 PDFFileViewFormProject.exe Controls                                DoControlMsg
+004b09a7 +00b PDFFileViewFormProject.exe Controls                                TWinControl.WMCommand
+004ac29b +2bb PDFFileViewFormProject.exe Controls                                TControl.WndProc
+7c90e470 +010 ntdll.dll                                                          KiUserCallbackDispatcher
+004ac29b +2bb PDFFileViewFormProject.exe Controls                                TControl.WndProc
+004b00fd +499 PDFFileViewFormProject.exe Controls                                TWinControl.WndProc
+004af888 +02c PDFFileViewFormProject.exe Controls                                TWinControl.MainWndProc
+004864d8 +014 PDFFileViewFormProject.exe Classes                                 StdWndProc
+7c90e470 +010 ntdll.dll                                                          KiUserCallbackDispatcher
+7e3792de +044 USER32.dll                                                         SendMessageW
+004ac29b +2bb PDFFileViewFormProject.exe Controls                                TControl.WndProc
+7e37a993 +016 USER32.dll                                                         CallWindowProcA
+004b01df +0d7 PDFFileViewFormProject.exe Controls                                TWinControl.DefaultHandler
+004acbc0 +010 PDFFileViewFormProject.exe Controls                                TControl.WMLButtonUp
+004ac29b +2bb PDFFileViewFormProject.exe Controls                                TControl.WndProc
+004b00fd +499 PDFFileViewFormProject.exe Controls                                TWinControl.WndProc
+00496c3c +06c PDFFileViewFormProject.exe StdCtrls                                TButtonControl.WndProc
+00504d5e +06e PDFFileViewFormProject.exe cxButtons                      1867 +18 TcxCustomButton.WndProc
+004af888 +02c PDFFileViewFormProject.exe Controls                                TWinControl.MainWndProc
+004864d8 +014 PDFFileViewFormProject.exe Classes                                 StdWndProc
+7e3696c2 +00a USER32.dll                                                         DispatchMessageA
+004c8bd8 +0fc PDFFileViewFormProject.exe Forms                                   TApplication.ProcessMessage
+004c8c12 +00a PDFFileViewFormProject.exe Forms                                   TApplication.HandleMessage
+004c548b +187 PDFFileViewFormProject.exe Forms                                   TCustomForm.ShowModal
+005b343b +02b PDFFileViewFormProject.exe TestFormUnit                     34  +6 TForm5.Button1Click
+004ac7a0 +064 PDFFileViewFormProject.exe Controls                                TControl.Click
+00496d92 +01e PDFFileViewFormProject.exe StdCtrls                                TButton.Click
+00496e90 +00c PDFFileViewFormProject.exe StdCtrls                                TButton.CNCommand
+004ac29b +2bb PDFFileViewFormProject.exe Controls                                TControl.WndProc
+004b00fd +499 PDFFileViewFormProject.exe Controls                                TWinControl.WndProc
+00496c3c +06c PDFFileViewFormProject.exe StdCtrls                                TButtonControl.WndProc
+004abf28 +024 PDFFileViewFormProject.exe Controls                                TControl.Perform
+004b0233 +023 PDFFileViewFormProject.exe Controls                                DoControlMsg
+004b09a7 +00b PDFFileViewFormProject.exe Controls                                TWinControl.WMCommand
+004c40c4 +02c PDFFileViewFormProject.exe Forms                                   TCustomForm.WMCommand
+004ac29b +2bb PDFFileViewFormProject.exe Controls                                TControl.WndProc
+004b00fd +499 PDFFileViewFormProject.exe Controls                                TWinControl.WndProc
+004c1549 +4c1 PDFFileViewFormProject.exe Forms                                   TCustomForm.WndProc
+004af888 +02c PDFFileViewFormProject.exe Controls                                TWinControl.MainWndProc
+004864d8 +014 PDFFileViewFormProject.exe Classes                                 StdWndProc
+7c90e470 +010 ntdll.dll                                                          KiUserCallbackDispatcher
+7e3792de +044 USER32.dll                                                         SendMessageW
+7e37a993 +016 USER32.dll                                                         CallWindowProcA
+004b01df +0d7 PDFFileViewFormProject.exe Controls                                TWinControl.DefaultHandler
+004acbc0 +010 PDFFileViewFormProject.exe Controls                                TControl.WMLButtonUp
+004ac29b +2bb PDFFileViewFormProject.exe Controls                                TControl.WndProc
+004b00fd +499 PDFFileViewFormProject.exe Controls                                TWinControl.WndProc
+00496c3c +06c PDFFileViewFormProject.exe StdCtrls                                TButtonControl.WndProc
+004af888 +02c PDFFileViewFormProject.exe Controls                                TWinControl.MainWndProc
+004864d8 +014 PDFFileViewFormProject.exe Classes                                 StdWndProc
+7e3696c2 +00a USER32.dll                                                         DispatchMessageA
+004c8bd8 +0fc PDFFileViewFormProject.exe Forms                                   TApplication.ProcessMessage
+004c8c12 +00a PDFFileViewFormProject.exe Forms                                   TApplication.HandleMessage
+004c8e32 +096 PDFFileViewFormProject.exe Forms                                   TApplication.Run
+005b5ca7 +03b PDFFileViewFormProject.exe PDFFileViewFormProject           26  +3 initialization
+
+thread $240: <priority:15>
+7c90df58 +0a ntdll.dll     NtWaitForSingleObject
+7c8025d5 +85 kernel32.dll  WaitForSingleObjectEx
+7c80253d +0d kernel32.dll  WaitForSingleObject
+
+modules:
+00400000 PDFFileViewFormProject.exe                C:\Documents and Settings\59968\Мои документы\Borland Studio Projects\PDF File View Form
+02c90000 zlock_kbd.dll              9.0.0.255      C:\Program Files\Zecurion\Endpoint
+10000000 zlock_gdi.dll              9.0.0.255      C:\Program Files\Zecurion\Endpoint
+4ebe0000 gdiplus.dll                5.2.6002.22791 C:\WINDOWS\WinSxS\x86_Microsoft.Windows.GdiPlus_6595b64144ccf1df_1.0.6002.22791_x-ww_c8dff154
+5b260000 uxtheme.dll                6.0.2900.5512  C:\WINDOWS\system32
+5bd50000 NETAPI32.dll               5.1.2600.6260  C:\WINDOWS\system32
+71a80000 WS2HELP.dll                5.1.2600.5512  C:\WINDOWS\system32
+71a90000 WS2_32.dll                 5.1.2600.5512  C:\WINDOWS\system32
+71ab0000 wsock32.dll                5.1.2600.5512  C:\WINDOWS\system32
+71b00000 MPR.dll                    5.1.2600.5512  C:\WINDOWS\system32
+71bd0000 SAMLIB.dll                 5.1.2600.5512  C:\WINDOWS\system32
+746e0000 MSCTF.dll                  5.1.2600.5512  C:\WINDOWS\system32
+76330000 WINSTA.dll                 5.1.2600.5512  C:\WINDOWS\system32
+76350000 msimg32.dll                5.1.2600.5512  C:\WINDOWS\system32
+76380000 comdlg32.dll               6.0.2900.5512  C:\WINDOWS\system32
+769a0000 USERENV.dll                5.1.2600.5512  C:\WINDOWS\system32
+76f40000 WTSAPI32.dll               5.1.2600.5512  C:\WINDOWS\system32
+76f50000 WLDAP32.dll                5.1.2600.5512  C:\WINDOWS\system32
+77110000 oleaut32.dll               5.1.2600.6341  C:\WINDOWS\system32
+773c0000 comctl32.dll               6.0.2900.6028  C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.6028_x-ww_61e65202
+774d0000 ole32.dll                  5.1.2600.6168  C:\WINDOWS\system32
+77680000 NTMARTA.DLL                5.1.2600.5512  C:\WINDOWS\system32
+77910000 SETUPAPI.dll               5.1.2600.5512  C:\WINDOWS\system32
+77bf0000 version.dll                5.1.2600.5512  C:\WINDOWS\system32
+77c00000 msvcrt.dll                 7.0.2600.5512  C:\WINDOWS\system32
+77dc0000 ADVAPI32.dll               5.1.2600.6382  C:\WINDOWS\system32
+77e70000 RPCRT4.dll                 5.1.2600.6022  C:\WINDOWS\system32
+77f10000 GDI32.dll                  5.1.2600.5698  C:\WINDOWS\system32
+77f60000 SHLWAPI.dll                6.0.2900.5912  C:\WINDOWS\system32
+77fe0000 Secur32.dll                5.1.2600.5834  C:\WINDOWS\system32
+7c800000 kernel32.dll               5.1.2600.6293  C:\WINDOWS\system32
+7c900000 ntdll.dll                  5.1.2600.6055  C:\WINDOWS\system32
+7c9c0000 shell32.dll                6.0.2900.6242  C:\WINDOWS\system32
+7e360000 USER32.dll                 5.1.2600.5512  C:\WINDOWS\system32
+
+processes:
+0000 Idle                       0    0
+0004 System                     0    0    normal
+0594 smss.exe                   0    0    normal C:\WINDOWS\system32
+05f8 csrss.exe                  0    0
+0670 winlogon.exe               41   12   high   C:\WINDOWS\system32
+069c services.exe               4    0    normal C:\WINDOWS\system32
+06b0 lsass.exe                  4    0    normal C:\WINDOWS\system32
+0780 svchost.exe                4    0    normal C:\WINDOWS\system32
+07c8 svchost.exe                0    0
+0500 svchost.exe                4    4    normal C:\WINDOWS\System32
+06f8 svchost.exe                0    0
+0120 svchost.exe                0    0
+01b4 spoolsv.exe                4    0    normal C:\WINDOWS\system32
+0404 avpsus.exe                 4    0    normal C:\Program Files\Kaspersky Lab\Kaspersky Endpoint Security 10 for Windows SP1
+0528 BSQLServer.exe             4    1    normal C:\Program Files\Embarcadero\RAD Studio\7.0\bin
+0584 mDNSResponder.exe          4    0    normal C:\Program Files\Bonjour
+0464 DataSnapDemoService.exe    23   15   normal C:\Documents and Settings\59968\Мои документы\RAD Studio\Projects\DataSnapDemoProject
+02d4 Explorer.EXE               508  261  normal C:\WINDOWS
+0380 hasplms.exe                4    0    normal C:\WINDOWS\system32
+03bc jqs.exe                    4    0    idle   C:\Program Files\Java\jre7\bin
+03d4 klnagent.exe               4    0    normal C:\Program Files\Kaspersky Lab\NetworkAgent
+03f8 TSVNCache.exe              8    1    normal C:\Program Files\TortoiseSVN\bin
+048c MDM.EXE                    4    0    normal C:\Program Files\Common Files\Microsoft Shared\VS7DEBUG
+02b4 RTHDCPL.EXE                759  157  normal C:\WINDOWS
+043c RUNDLL32.EXE               16   5    normal C:\WINDOWS\system32
+0444 2GISTrayNotifier.exe       18   9    normal C:\Program Files\2gis\3.0
+0484 avp.exe                    21   10   normal C:\Program Files\Kaspersky Lab\Kaspersky Endpoint Security 10 for Windows SP1
+05e0 Greenshot.exe              31   20   normal C:\Program Files\Greenshot
+05e4 jusched.exe                8    1    normal C:\Program Files\Common Files\Java\Java Update
+07f0 sqlservr.exe               4    0    normal C:\Program Files\Microsoft SQL Server\MSSQL10.MSSQLSERVER\MSSQL\Binn
+0870 nvsvc32.exe                8    1    normal C:\WINDOWS\system32
+0a0c pg_ctl.exe                 0    0
+0ac0 ctfmon.exe                 25   9    normal C:\WINDOWS\system32
+0b28 postgres.exe               0    0
+0b38 sqlbrowser.exe             0    0
+0b50 miranda32.exe              1129 400  normal D:\Program Files\MirandaCorporate
+0b58 postgres.exe               0    0
+0b7c sqlwriter.exe              4    0    normal C:\Program Files\Microsoft SQL Server\90\Shared
+0bf0 svchost.exe                4    0    normal C:\WINDOWS\system32
+0c08 zservice15.exe             4    1    normal C:\Program Files\Common Files\SecurIT
+0ddc avp.exe                    31   10   normal C:\Program Files\Kaspersky Lab\Kaspersky Endpoint Security 10 for Windows SP1
+0914 postgres.exe               0    0
+090c GoldenDict.exe             80   30   normal C:\Program Files\GoldenDict
+0a38 msmsgs.exe                 9    10   normal C:\Program Files\Messenger
+0b94 postgres.exe               0    0
+09bc postgres.exe               0    0
+09ec postgres.exe               0    0
+0e60 postgres.exe               0    0
+0b14 postgres.exe               0    0
+0cbc postgres.exe               0    0
+08a8 ScreenTranslator.exe       13   16   normal C:\Program Files\Screen Translator
+0984 bds.exe                    3333 1143 normal C:\Program Files\Borland\BDS\4.0\Bin
+0fcc pgadmin3.exe               1274 338  normal C:\Program Files\pgAdmin III\1.22
+02d8 wmiapsrv.exe               4    0    normal C:\WINDOWS\system32\wbem
+09e0 zgu_agent.exe              31   3    normal C:\Program Files\Zecurion\Endpoint
+1228 postgres.exe               0    0
+1230 postgres.exe               0    0
+1238 postgres.exe               0    0
+1240 postgres.exe               0    0
+1248 postgres.exe               0    0
+02b8 zlu_agent.exe              36   9    normal C:\PROGRA~1\Zecurion\Endpoint
+0dc0 vapm.exe                   4    0    normal C:\Program Files\Kaspersky Lab\NetworkAgent
+0c84 unsecapp.exe               0    0
+11ac requests7.exe              372  344  normal \\Server-file\Prog_UMZ\Delphi\ZAJAV
+068c bds.exe                    3317 1160 normal C:\Program Files\Borland\BDS\4.0\Bin
+1330 wmiprvse.exe               0    0
+0ccc PDFFileViewFormProject.exe 165  97   normal C:\Documents and Settings\59968\Мои документы\Borland Studio Projects\PDF File View Form
+0da8 notepad.exe                26   17   normal C:\WINDOWS\system32
+
+hardware:
++ DVD и CD-ROM дисководы
+  - DTSOFT Virtual CdRom Device
+  - Optiarc DVD RW AD-7200S
++ IDE ATA/ATAPI контроллеры
+  - Intel(R) ICH10 Family 2 port Serial ATA Storage Controller 2 - 3A26 (driver 9.0.0.1005)
+  - Intel(R) ICH10 Family 4 port Serial ATA Storage Controller 1 - 3A20 (driver 9.0.0.1005)
+  - Вторичный канал IDE
+  - Вторичный канал IDE
+  - Вторичный канал IDE
+  - Первичный канал IDE
+  - Первичный канал IDE
+  - Первичный канал IDE
+  - Стандартный двухканальный контроллер PCI IDE
++ Видеоадаптеры
+  - NVIDIA GeForce 9600 GT (driver 6.14.11.7531)
++ Дисководы гибких дисков
+  - Дисковод гибких дисков
++ Дисковые устройства
+  - WDC WD2500AAKS-22VSA0
+  - WDC WD5000AZLX-75K2TA0
++ Звуковые, видео и игровые устройства
+  - Realtek High Definition Audio (driver 5.10.0.5667)
+  - Аудио кодеки
+  - Видео кодеки
+  - Драйверы аудио (без PnP)
+  - Устройства записи видео (без PnP)
+  - Устройство управления
++ Клавиатуры
+  - Клавиатура HID
++ Компьютер
+  - Многопроцессорный компьютер с ACPI
++ Контроллеры гибких дисков
+  - Стандартный контроллер гибких дисков
++ Контроллеры универсальной последовательной шины USB
+  - Intel(R) ICH10 Family USB Enhanced Host Controller - 3A3A (driver 9.0.0.1005)
+  - Intel(R) ICH10 Family USB Enhanced Host Controller - 3A3C (driver 9.0.0.1005)
+  - Intel(R) ICH10 Family USB Universal Host Controller - 3A34 (driver 9.0.0.1005)
+  - Intel(R) ICH10 Family USB Universal Host Controller - 3A35 (driver 9.0.0.1005)
+  - Intel(R) ICH10 Family USB Universal Host Controller - 3A36 (driver 9.0.0.1005)
+  - Intel(R) ICH10 Family USB Universal Host Controller - 3A37 (driver 9.0.0.1005)
+  - Intel(R) ICH10 Family USB Universal Host Controller - 3A38 (driver 9.0.0.1005)
+  - Intel(R) ICH10 Family USB Universal Host Controller - 3A39 (driver 9.0.0.1005)
+  - Корневой USB концентратор
+  - Корневой USB концентратор
+  - Корневой USB концентратор
+  - Корневой USB концентратор
+  - Корневой USB концентратор
+  - Корневой USB концентратор
+  - Корневой USB концентратор
+  - Корневой USB концентратор
+  - Составное USB устройство
++ Мониторы
+  - Модуль подключения монитора
++ Мыши и иные указывающие устройства
+  - Microsoft PS/2 мышь
++ Порты (COM и LPT)
+  - Последовательный порт (COM1)
++ Процессоры
+  - Intel(R) Core(TM)2 Duo CPU     E8400  @ 3.00GHz
+  - Intel(R) Core(TM)2 Duo CPU     E8400  @ 3.00GHz
++ Сетевые платы
+  - Atheros AR8121/AR8113/AR8114 PCI-E Ethernet Controller (driver 1.0.0.27)
+  - Atheros AR8121/AR8113/AR8114 PCI-E Ethernet Controller - Kaspersky Anti-Virus NDIS Miniport (driver 10.0.0.4)
+  - Atheros AR8121/AR8113/AR8114 PCI-E Ethernet Controller - VirtualBox Bridged Networking Driver Miniport (driver 4.1.18.0)
+  - Atheros AR8121/AR8113/AR8114 PCI-E Ethernet Controller - Минипорт планировщика пакетов
+  - VirtualBox Host-Only Ethernet Adapter (driver 4.1.18.0)
+  - VirtualBox Host-Only Ethernet Adapter - Минипорт планировщика пакетов
+  - Минипорт WAN (IP)
+  - Минипорт WAN (IP) - Kaspersky Anti-Virus NDIS Miniport (driver 10.0.0.4)
+  - Минипорт WAN (IP) - Минипорт планировщика пакетов
+  - Минипорт WAN (L2TP)
+  - Минипорт WAN (PPPoE)
+  - Минипорт WAN (PPTP)
+  - Прямой параллельный порт
++ Системные устройства
+  - ATK0110 ACPI UTILITY (driver 1043.2.15.37)
+  - CMOS и часы
+  - DAEMON Tools Virtual Bus (driver 5.0.1.282)
+  - Intel(R) 4 Series Chipset PCI Express Root Port - 2E21 (driver 9.0.0.1009)
+  - Intel(R) 4 Series Chipset Processor to I/O Controller - 2E20 (driver 9.0.0.1009)
+  - Intel(R) 82801 PCI мост - 244E
+  - Intel(R) 82802 Firmware концентратор
+  - Intel(R) ICH10 Family PCI Express Root Port 1 - 3A40 (driver 9.0.0.1009)
+  - Intel(R) ICH10 Family PCI Express Root Port 5 - 3A48 (driver 9.0.0.1009)
+  - Intel(R) ICH10 Family PCI Express Root Port 6 - 3A4A (driver 9.0.0.1009)
+  - Intel(R) ICH10 Family SMBus Controller - 3A30 (driver 9.0.0.1005)
+  - Intel(R) ICH10 LPC Interface Controller - 3A18 (driver 9.0.0.1009)
+  - Microsoft ACPI-совместимая система
+  - Встроенный динамик
+  - Высокоточный таймер событий
+  - Диспетчер логических дисков
+  - Диспетчер томов
+  - Драйвер Microsoft System Management BIOS
+  - Драйвер клавиатуры сервера терминалов
+  - Драйвер мыши сервера терминалов
+  - Драйвер шины Microsoft UAA для High Definition Audio
+  - Кнопка включения питания ACPI
+  - Кнопка фиксированной возможности ACPI
+  - Контроллер прямого доступа к памяти
+  - Перенаправитель устройства сервера терминалов
+  - Перечислитель программных устройств Plug and Play
+  - Порт чтения данных ISAPNP
+  - Программируемый контроллер прерываний
+  - Процессор числовых данных
+  - Ресурсы системной платы
+  - Ресурсы системной платы
+  - Ресурсы системной платы
+  - Ресурсы системной платы
+  - Ресурсы системной платы
+  - Системная плата
+  - Системная плата
+  - Системный таймер
+  - Устройство обновления микропрограмм
+  - Шина PCI
++ Устройства HID (Human Interface Devices)
+  - HID-совместимое устройство
+  - HID-совместимое устройство управления
+  - HID-совместимое устройство управления
+  - USB HID-совместимое устройство
+  - USB HID-совместимое устройство
+
+cpu registers:
+eax = 00000000
+ebx = 0302d850
+ecx = 0012e9f0
+edx = 00000000
+esi = 004bafa0
+edi = 00ee5380
+eip = 00537c8d
+esp = 0012ea00
+ebp = 0012ea00
+
+stack dump:
+0012ea00  20 ea 12 00 b7 2a 5b 00 - 00 00 00 40 e1 7a 84 3f   ....*[....@.z.?
+0012ea10  c0 ed 12 00 08 49 40 00 - 20 ea 12 00 c0 0f ec 00  .....I@. .......
+0012ea20  b4 eb 12 00 b6 29 5b 00 - a6 ff ff ff a4 2f 5b 00  .....)[....../[.
+0012ea30  3a 5e 48 00 c0 0f ec 00 - 06 ac 4b 00 1c ec 12 00  :^H.......K.....
+0012ea40  78 b8 4b 00 c0 0f ec 00 - cd b8 4b 00 d0 6a 02 03  x.K.......K..j..
+0012ea50  08 5d 48 00 40 cb fd 02 - 40 cb fd 02 8c c7 4a 00  .]H.@...@.....J.
+0012ea60  40 cb fd 02 97 6d 49 00 - 01 cb fd 02 d4 48 50 00  @....mI......HP.
+0012ea70  68 48 50 00 40 cb fd 02 - 95 6e 49 00 1c ec 12 00  hHP.@....nI.....
+0012ea80  de 4d 50 00 40 cb fd 02 - 1c ec 12 00 9e c2 4a 00  .MP.@.........J.
+0012ea90  1c ec 12 00 1c ec 12 00 - 40 cb fd 02 0a 80 00 00  ........@.......
+0012eaa0  38 eb 12 00 3b 94 3e 77 - 0a 80 00 00 04 0f 06 00  8...;.>w........
+0012eab0  f0 ea 12 00 94 fd 4a 00 - 40 cb fd 02 bf 8e 3e 77  ......J.@.....>w
+0012eac0  f8 ea 12 00 d1 88 36 7e - 10 64 bb 00 00 00 00 00  ......6~.d......
+0012ead0  da 88 36 7e 00 00 00 00 - bf 8e 3e 77 a6 88 36 7e  ..6~......>w..6~
+0012eae0  d4 ea 12 00 00 00 00 00 - 44 eb 12 00 40 cb fd 02  ........D...@...
+0012eaf0  3c eb 12 00 41 6c 49 00 - 8d c7 47 00 d0 c2 ee 00  <...AlI...G.....
+0012eb00  6d f4 48 00 75 f4 48 00 - b7 0e 55 01 68 1f f0 00  m.H.u.H...U.h...
+0012eb10  8b f8 4a 00 3c eb 12 00 - a2 f8 4a 00 aa f8 4a 00  ..J.<.....J...J.
+0012eb20  d8 eb 12 00 b4 f8 4a 00 - 3c eb 12 00 bc eb 12 00  ......J.<.......
+0012eb30  b7 0e 55 01 b7 0e 55 01 - 40 cb fd 02 54 eb 12 00  ..U...U.@...T...
+
+disassembling:
+00537c88     public PDFDocumentRenderingThreadUnit.TRenderedPDFDocument.SetDocumentScaleFactor:  ; function entry point
+00537c88 741   push    ebp
+00537c89       mov     ebp, esp
+00537c8b       mov     edx, eax
+00537c8d 743 > fld     qword ptr [edx+8]
+00537c90       fcomp   qword ptr [ebp+8]
+00537c93       wait
+00537c94       fnstsw  ax
+00537c96       sahf
+00537c97       jz      loc_537cac
+[...]
+
+date/time          : 2019-07-22, 08:47:15, 255ms
+computer name      : 06-409-5
+user name          : 59968 <admin>
+registered owner   : user
+operating system   : Windows XP Service Pack 3 build 2600
+system language    : Russian
+system up time     : 49 minutes 53 seconds
+program up time    : 45 seconds
+processors         : 2x Intel(R) Core(TM)2 Duo CPU E8400 @ 3.00GHz
+physical memory    : 682/2047 MB (free/total)
+free disk space    : (C:) 1,02 GB
+display mode       : 1280x1024, 32 bit
+process id         : $ccc
+allocated memory   : 16,64 MB
+largest free block : 1002,18 MB
+executable         : PDFFileViewFormProject.exe
+exec. date/time    : 2019-07-22 08:46
+compiled with      : Delphi 2006/07
+madExcept version  : 5.0.0
+callstack crc      : $041e3e7f, $837c5e08, $837c5e08
+exception number   : 2
+exception class    : EAccessViolation
+exception message  : Access violation at address 00537C8D in module 'PDFFileViewFormProject.exe'. Read of address 00000008.
+
+main thread ($a14):
+00537c8d +005 PDFFileViewFormProject.exe PDFDocumentRenderingThreadUnit  743  +2 TRenderedPDFDocument.SetDocumentScaleFactor
+005b2ab2 +03e PDFFileViewFormProject.exe PDFViewFormUnit                 723  +8 TPDFViewForm.UpdateDocumentOrientationAndSize
+005b29b1 +025 PDFFileViewFormProject.exe PDFViewFormUnit                 567 +11 TPDFViewForm.RotateDocumentByGivenDegrees
+005b2f8f +007 PDFFileViewFormProject.exe PDFViewFormUnit                1076  +0 TPDFViewForm.actRotateClockwiseDocumentExecute
+00485e37 +00f PDFFileViewFormProject.exe Classes                                 TBasicAction.Execute
+004bac01 +031 PDFFileViewFormProject.exe ActnList                                TContainedAction.Execute
+004bb8c8 +050 PDFFileViewFormProject.exe ActnList                                TCustomAction.Execute
+00485d03 +013 PDFFileViewFormProject.exe Classes                                 TBasicActionLink.Execute
+004ac789 +04d PDFFileViewFormProject.exe Controls                                TControl.Click
+00496d92 +01e PDFFileViewFormProject.exe StdCtrls                                TButton.Click
+005048cf +067 PDFFileViewFormProject.exe cxButtons                      1665  +8 TcxCustomButton.Click
+00496e90 +00c PDFFileViewFormProject.exe StdCtrls                                TButton.CNCommand
+00504dd9 +045 PDFFileViewFormProject.exe cxButtons                      1889  +4 TcxCustomButton.CNCommand
+004ac29b +2bb PDFFileViewFormProject.exe Controls                                TControl.WndProc
+004b00fd +499 PDFFileViewFormProject.exe Controls                                TWinControl.WndProc
+00496c3c +06c PDFFileViewFormProject.exe StdCtrls                                TButtonControl.WndProc
+00504d5e +06e PDFFileViewFormProject.exe cxButtons                      1867 +18 TcxCustomButton.WndProc
+004abf28 +024 PDFFileViewFormProject.exe Controls                                TControl.Perform
+004b0233 +023 PDFFileViewFormProject.exe Controls                                DoControlMsg
+004b09a7 +00b PDFFileViewFormProject.exe Controls                                TWinControl.WMCommand
+004ac29b +2bb PDFFileViewFormProject.exe Controls                                TControl.WndProc
+7c90e470 +010 ntdll.dll                                                          KiUserCallbackDispatcher
+004ac29b +2bb PDFFileViewFormProject.exe Controls                                TControl.WndProc
+004b00fd +499 PDFFileViewFormProject.exe Controls                                TWinControl.WndProc
+004af888 +02c PDFFileViewFormProject.exe Controls                                TWinControl.MainWndProc
+004864d8 +014 PDFFileViewFormProject.exe Classes                                 StdWndProc
+7c90e470 +010 ntdll.dll                                                          KiUserCallbackDispatcher
+7e3792de +044 USER32.dll                                                         SendMessageW
+004ac29b +2bb PDFFileViewFormProject.exe Controls                                TControl.WndProc
+7e37a993 +016 USER32.dll                                                         CallWindowProcA
+004b01df +0d7 PDFFileViewFormProject.exe Controls                                TWinControl.DefaultHandler
+004acbc0 +010 PDFFileViewFormProject.exe Controls                                TControl.WMLButtonUp
+004ac29b +2bb PDFFileViewFormProject.exe Controls                                TControl.WndProc
+004b00fd +499 PDFFileViewFormProject.exe Controls                                TWinControl.WndProc
+00496c3c +06c PDFFileViewFormProject.exe StdCtrls                                TButtonControl.WndProc
+00504d5e +06e PDFFileViewFormProject.exe cxButtons                      1867 +18 TcxCustomButton.WndProc
+004af888 +02c PDFFileViewFormProject.exe Controls                                TWinControl.MainWndProc
+004864d8 +014 PDFFileViewFormProject.exe Classes                                 StdWndProc
+7e3696c2 +00a USER32.dll                                                         DispatchMessageA
+004c8bd8 +0fc PDFFileViewFormProject.exe Forms                                   TApplication.ProcessMessage
+004c8c12 +00a PDFFileViewFormProject.exe Forms                                   TApplication.HandleMessage
+004c548b +187 PDFFileViewFormProject.exe Forms                                   TCustomForm.ShowModal
+005b343b +02b PDFFileViewFormProject.exe TestFormUnit                     34  +6 TForm5.Button1Click
+004ac7a0 +064 PDFFileViewFormProject.exe Controls                                TControl.Click
+00496d92 +01e PDFFileViewFormProject.exe StdCtrls                                TButton.Click
+00496e90 +00c PDFFileViewFormProject.exe StdCtrls                                TButton.CNCommand
+004ac29b +2bb PDFFileViewFormProject.exe Controls                                TControl.WndProc
+004b00fd +499 PDFFileViewFormProject.exe Controls                                TWinControl.WndProc
+00496c3c +06c PDFFileViewFormProject.exe StdCtrls                                TButtonControl.WndProc
+004abf28 +024 PDFFileViewFormProject.exe Controls                                TControl.Perform
+004b0233 +023 PDFFileViewFormProject.exe Controls                                DoControlMsg
+004b09a7 +00b PDFFileViewFormProject.exe Controls                                TWinControl.WMCommand
+004c40c4 +02c PDFFileViewFormProject.exe Forms                                   TCustomForm.WMCommand
+004ac29b +2bb PDFFileViewFormProject.exe Controls                                TControl.WndProc
+004b00fd +499 PDFFileViewFormProject.exe Controls                                TWinControl.WndProc
+004c1549 +4c1 PDFFileViewFormProject.exe Forms                                   TCustomForm.WndProc
+004af888 +02c PDFFileViewFormProject.exe Controls                                TWinControl.MainWndProc
+004864d8 +014 PDFFileViewFormProject.exe Classes                                 StdWndProc
+7c90e470 +010 ntdll.dll                                                          KiUserCallbackDispatcher
+7e3792de +044 USER32.dll                                                         SendMessageW
+7e37a993 +016 USER32.dll                                                         CallWindowProcA
+004b01df +0d7 PDFFileViewFormProject.exe Controls                                TWinControl.DefaultHandler
+004acbc0 +010 PDFFileViewFormProject.exe Controls                                TControl.WMLButtonUp
+004ac29b +2bb PDFFileViewFormProject.exe Controls                                TControl.WndProc
+004b00fd +499 PDFFileViewFormProject.exe Controls                                TWinControl.WndProc
+00496c3c +06c PDFFileViewFormProject.exe StdCtrls                                TButtonControl.WndProc
+004af888 +02c PDFFileViewFormProject.exe Controls                                TWinControl.MainWndProc
+004864d8 +014 PDFFileViewFormProject.exe Classes                                 StdWndProc
+7e3696c2 +00a USER32.dll                                                         DispatchMessageA
+004c8bd8 +0fc PDFFileViewFormProject.exe Forms                                   TApplication.ProcessMessage
+004c8c12 +00a PDFFileViewFormProject.exe Forms                                   TApplication.HandleMessage
+004c8e32 +096 PDFFileViewFormProject.exe Forms                                   TApplication.Run
+005b5ca7 +03b PDFFileViewFormProject.exe PDFFileViewFormProject           26  +3 initialization
+
+thread $240: <priority:15>
+7c90df58 +0a ntdll.dll     NtWaitForSingleObject
+7c8025d5 +85 kernel32.dll  WaitForSingleObjectEx
+7c80253d +0d kernel32.dll  WaitForSingleObject
+
+modules:
+00400000 PDFFileViewFormProject.exe                 C:\Documents and Settings\59968\Мои документы\Borland Studio Projects\PDF File View Form
+02c90000 zlock_kbd.dll              9.0.0.255       C:\Program Files\Zecurion\Endpoint
+10000000 zlock_gdi.dll              9.0.0.255       C:\Program Files\Zecurion\Endpoint
+4ebe0000 gdiplus.dll                5.2.6002.22791  C:\WINDOWS\WinSxS\x86_Microsoft.Windows.GdiPlus_6595b64144ccf1df_1.0.6002.22791_x-ww_c8dff154
+5b260000 uxtheme.dll                6.0.2900.5512   C:\WINDOWS\system32
+5bd50000 NETAPI32.dll               5.1.2600.6260   C:\WINDOWS\system32
+71a80000 WS2HELP.dll                5.1.2600.5512   C:\WINDOWS\system32
+71a90000 WS2_32.dll                 5.1.2600.5512   C:\WINDOWS\system32
+71ab0000 wsock32.dll                5.1.2600.5512   C:\WINDOWS\system32
+71b00000 MPR.dll                    5.1.2600.5512   C:\WINDOWS\system32
+71bd0000 SAMLIB.dll                 5.1.2600.5512   C:\WINDOWS\system32
+746e0000 MSCTF.dll                  5.1.2600.5512   C:\WINDOWS\system32
+76330000 WINSTA.dll                 5.1.2600.5512   C:\WINDOWS\system32
+76350000 msimg32.dll                5.1.2600.5512   C:\WINDOWS\system32
+76380000 comdlg32.dll               6.0.2900.5512   C:\WINDOWS\system32
+769a0000 USERENV.dll                5.1.2600.5512   C:\WINDOWS\system32
+76be0000 psapi.dll                  5.1.2600.5512   C:\WINDOWS\system32
+76c20000 WINTRUST.dll               5.131.2600.6285 C:\WINDOWS\system32
+76c80000 IMAGEHLP.dll               5.1.2600.6198   C:\WINDOWS\system32
+76f40000 WTSAPI32.dll               5.1.2600.5512   C:\WINDOWS\system32
+76f50000 WLDAP32.dll                5.1.2600.5512   C:\WINDOWS\system32
+77110000 oleaut32.dll               5.1.2600.6341   C:\WINDOWS\system32
+773c0000 comctl32.dll               6.0.2900.6028   C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.6028_x-ww_61e65202
+774d0000 ole32.dll                  5.1.2600.6168   C:\WINDOWS\system32
+77680000 NTMARTA.DLL                5.1.2600.5512   C:\WINDOWS\system32
+77910000 SETUPAPI.dll               5.1.2600.5512   C:\WINDOWS\system32
+77a70000 CRYPT32.dll                5.131.2600.6369 C:\WINDOWS\system32
+77b10000 MSASN1.dll                 5.1.2600.5875   C:\WINDOWS\system32
+77bf0000 version.dll                5.1.2600.5512   C:\WINDOWS\system32
+77c00000 msvcrt.dll                 7.0.2600.5512   C:\WINDOWS\system32
+77dc0000 ADVAPI32.dll               5.1.2600.6382   C:\WINDOWS\system32
+77e70000 RPCRT4.dll                 5.1.2600.6022   C:\WINDOWS\system32
+77f10000 GDI32.dll                  5.1.2600.5698   C:\WINDOWS\system32
+77f60000 SHLWAPI.dll                6.0.2900.5912   C:\WINDOWS\system32
+77fe0000 Secur32.dll                5.1.2600.5834   C:\WINDOWS\system32
+7c800000 kernel32.dll               5.1.2600.6293   C:\WINDOWS\system32
+7c900000 ntdll.dll                  5.1.2600.6055   C:\WINDOWS\system32
+7c9c0000 shell32.dll                6.0.2900.6242   C:\WINDOWS\system32
+7e360000 USER32.dll                 5.1.2600.5512   C:\WINDOWS\system32
+
+processes:
+0000 Idle                       0    0
+0004 System                     0    0    normal
+0594 smss.exe                   0    0    normal C:\WINDOWS\system32
+05f8 csrss.exe                  0    0
+0670 winlogon.exe               41   12   high   C:\WINDOWS\system32
+069c services.exe               4    0    normal C:\WINDOWS\system32
+06b0 lsass.exe                  4    0    normal C:\WINDOWS\system32
+0780 svchost.exe                4    0    normal C:\WINDOWS\system32
+07c8 svchost.exe                0    0
+0500 svchost.exe                4    4    normal C:\WINDOWS\System32
+06f8 svchost.exe                0    0
+0120 svchost.exe                0    0
+01b4 spoolsv.exe                4    0    normal C:\WINDOWS\system32
+0404 avpsus.exe                 4    0    normal C:\Program Files\Kaspersky Lab\Kaspersky Endpoint Security 10 for Windows SP1
+0528 BSQLServer.exe             4    1    normal C:\Program Files\Embarcadero\RAD Studio\7.0\bin
+0584 mDNSResponder.exe          4    0    normal C:\Program Files\Bonjour
+0464 DataSnapDemoService.exe    23   15   normal C:\Documents and Settings\59968\Мои документы\RAD Studio\Projects\DataSnapDemoProject
+02d4 Explorer.EXE               516  263  normal C:\WINDOWS
+0380 hasplms.exe                4    0    normal C:\WINDOWS\system32
+03bc jqs.exe                    4    0    idle   C:\Program Files\Java\jre7\bin
+03d4 klnagent.exe               4    0    normal C:\Program Files\Kaspersky Lab\NetworkAgent
+03f8 TSVNCache.exe              8    1    normal C:\Program Files\TortoiseSVN\bin
+048c MDM.EXE                    4    0    normal C:\Program Files\Common Files\Microsoft Shared\VS7DEBUG
+02b4 RTHDCPL.EXE                759  157  normal C:\WINDOWS
+043c RUNDLL32.EXE               16   5    normal C:\WINDOWS\system32
+0444 2GISTrayNotifier.exe       18   9    normal C:\Program Files\2gis\3.0
+0484 avp.exe                    21   10   normal C:\Program Files\Kaspersky Lab\Kaspersky Endpoint Security 10 for Windows SP1
+05e0 Greenshot.exe              31   20   normal C:\Program Files\Greenshot
+05e4 jusched.exe                8    1    normal C:\Program Files\Common Files\Java\Java Update
+07f0 sqlservr.exe               4    0    normal C:\Program Files\Microsoft SQL Server\MSSQL10.MSSQLSERVER\MSSQL\Binn
+0870 nvsvc32.exe                8    1    normal C:\WINDOWS\system32
+0a0c pg_ctl.exe                 0    0
+0ac0 ctfmon.exe                 25   9    normal C:\WINDOWS\system32
+0b28 postgres.exe               0    0
+0b38 sqlbrowser.exe             0    0
+0b50 miranda32.exe              1129 400  normal D:\Program Files\MirandaCorporate
+0b58 postgres.exe               0    0
+0b7c sqlwriter.exe              4    0    normal C:\Program Files\Microsoft SQL Server\90\Shared
+0bf0 svchost.exe                4    0    normal C:\WINDOWS\system32
+0c08 zservice15.exe             4    1    normal C:\Program Files\Common Files\SecurIT
+0ddc avp.exe                    31   10   normal C:\Program Files\Kaspersky Lab\Kaspersky Endpoint Security 10 for Windows SP1
+0914 postgres.exe               0    0
+090c GoldenDict.exe             80   30   normal C:\Program Files\GoldenDict
+0a38 msmsgs.exe                 9    10   normal C:\Program Files\Messenger
+0b94 postgres.exe               0    0
+09bc postgres.exe               0    0
+09ec postgres.exe               0    0
+0e60 postgres.exe               0    0
+0b14 postgres.exe               0    0
+0cbc postgres.exe               0    0
+08a8 ScreenTranslator.exe       13   16   normal C:\Program Files\Screen Translator
+0984 bds.exe                    3333 1143 normal C:\Program Files\Borland\BDS\4.0\Bin
+0fcc pgadmin3.exe               1274 338  normal C:\Program Files\pgAdmin III\1.22
+02d8 wmiapsrv.exe               4    0    normal C:\WINDOWS\system32\wbem
+09e0 zgu_agent.exe              31   3    normal C:\Program Files\Zecurion\Endpoint
+1228 postgres.exe               0    0
+1230 postgres.exe               0    0
+1238 postgres.exe               0    0
+1240 postgres.exe               0    0
+1248 postgres.exe               0    0
+02b8 zlu_agent.exe              36   9    normal C:\PROGRA~1\Zecurion\Endpoint
+0dc0 vapm.exe                   4    0    normal C:\Program Files\Kaspersky Lab\NetworkAgent
+0c84 unsecapp.exe               0    0
+11ac requests7.exe              372  344  normal \\Server-file\Prog_UMZ\Delphi\ZAJAV
+068c bds.exe                    3315 1160 normal C:\Program Files\Borland\BDS\4.0\Bin
+1330 wmiprvse.exe               0    0
+0ccc PDFFileViewFormProject.exe 166  97   normal C:\Documents and Settings\59968\Мои документы\Borland Studio Projects\PDF File View Form
+0da8 notepad.exe                26   17   normal C:\WINDOWS\system32
+
+hardware:
++ DVD и CD-ROM дисководы
+  - DTSOFT Virtual CdRom Device
+  - Optiarc DVD RW AD-7200S
++ IDE ATA/ATAPI контроллеры
+  - Intel(R) ICH10 Family 2 port Serial ATA Storage Controller 2 - 3A26 (driver 9.0.0.1005)
+  - Intel(R) ICH10 Family 4 port Serial ATA Storage Controller 1 - 3A20 (driver 9.0.0.1005)
+  - Вторичный канал IDE
+  - Вторичный канал IDE
+  - Вторичный канал IDE
+  - Первичный канал IDE
+  - Первичный канал IDE
+  - Первичный канал IDE
+  - Стандартный двухканальный контроллер PCI IDE
++ Видеоадаптеры
+  - NVIDIA GeForce 9600 GT (driver 6.14.11.7531)
++ Дисководы гибких дисков
+  - Дисковод гибких дисков
++ Дисковые устройства
+  - WDC WD2500AAKS-22VSA0
+  - WDC WD5000AZLX-75K2TA0
++ Звуковые, видео и игровые устройства
+  - Realtek High Definition Audio (driver 5.10.0.5667)
+  - Аудио кодеки
+  - Видео кодеки
+  - Драйверы аудио (без PnP)
+  - Устройства записи видео (без PnP)
+  - Устройство управления
++ Клавиатуры
+  - Клавиатура HID
++ Компьютер
+  - Многопроцессорный компьютер с ACPI
++ Контроллеры гибких дисков
+  - Стандартный контроллер гибких дисков
++ Контроллеры универсальной последовательной шины USB
+  - Intel(R) ICH10 Family USB Enhanced Host Controller - 3A3A (driver 9.0.0.1005)
+  - Intel(R) ICH10 Family USB Enhanced Host Controller - 3A3C (driver 9.0.0.1005)
+  - Intel(R) ICH10 Family USB Universal Host Controller - 3A34 (driver 9.0.0.1005)
+  - Intel(R) ICH10 Family USB Universal Host Controller - 3A35 (driver 9.0.0.1005)
+  - Intel(R) ICH10 Family USB Universal Host Controller - 3A36 (driver 9.0.0.1005)
+  - Intel(R) ICH10 Family USB Universal Host Controller - 3A37 (driver 9.0.0.1005)
+  - Intel(R) ICH10 Family USB Universal Host Controller - 3A38 (driver 9.0.0.1005)
+  - Intel(R) ICH10 Family USB Universal Host Controller - 3A39 (driver 9.0.0.1005)
+  - Корневой USB концентратор
+  - Корневой USB концентратор
+  - Корневой USB концентратор
+  - Корневой USB концентратор
+  - Корневой USB концентратор
+  - Корневой USB концентратор
+  - Корневой USB концентратор
+  - Корневой USB концентратор
+  - Составное USB устройство
++ Мониторы
+  - Модуль подключения монитора
++ Мыши и иные указывающие устройства
+  - Microsoft PS/2 мышь
++ Порты (COM и LPT)
+  - Последовательный порт (COM1)
++ Процессоры
+  - Intel(R) Core(TM)2 Duo CPU     E8400  @ 3.00GHz
+  - Intel(R) Core(TM)2 Duo CPU     E8400  @ 3.00GHz
++ Сетевые платы
+  - Atheros AR8121/AR8113/AR8114 PCI-E Ethernet Controller (driver 1.0.0.27)
+  - Atheros AR8121/AR8113/AR8114 PCI-E Ethernet Controller - Kaspersky Anti-Virus NDIS Miniport (driver 10.0.0.4)
+  - Atheros AR8121/AR8113/AR8114 PCI-E Ethernet Controller - VirtualBox Bridged Networking Driver Miniport (driver 4.1.18.0)
+  - Atheros AR8121/AR8113/AR8114 PCI-E Ethernet Controller - Минипорт планировщика пакетов
+  - VirtualBox Host-Only Ethernet Adapter (driver 4.1.18.0)
+  - VirtualBox Host-Only Ethernet Adapter - Минипорт планировщика пакетов
+  - Минипорт WAN (IP)
+  - Минипорт WAN (IP) - Kaspersky Anti-Virus NDIS Miniport (driver 10.0.0.4)
+  - Минипорт WAN (IP) - Минипорт планировщика пакетов
+  - Минипорт WAN (L2TP)
+  - Минипорт WAN (PPPoE)
+  - Минипорт WAN (PPTP)
+  - Прямой параллельный порт
++ Системные устройства
+  - ATK0110 ACPI UTILITY (driver 1043.2.15.37)
+  - CMOS и часы
+  - DAEMON Tools Virtual Bus (driver 5.0.1.282)
+  - Intel(R) 4 Series Chipset PCI Express Root Port - 2E21 (driver 9.0.0.1009)
+  - Intel(R) 4 Series Chipset Processor to I/O Controller - 2E20 (driver 9.0.0.1009)
+  - Intel(R) 82801 PCI мост - 244E
+  - Intel(R) 82802 Firmware концентратор
+  - Intel(R) ICH10 Family PCI Express Root Port 1 - 3A40 (driver 9.0.0.1009)
+  - Intel(R) ICH10 Family PCI Express Root Port 5 - 3A48 (driver 9.0.0.1009)
+  - Intel(R) ICH10 Family PCI Express Root Port 6 - 3A4A (driver 9.0.0.1009)
+  - Intel(R) ICH10 Family SMBus Controller - 3A30 (driver 9.0.0.1005)
+  - Intel(R) ICH10 LPC Interface Controller - 3A18 (driver 9.0.0.1009)
+  - Microsoft ACPI-совместимая система
+  - Встроенный динамик
+  - Высокоточный таймер событий
+  - Диспетчер логических дисков
+  - Диспетчер томов
+  - Драйвер Microsoft System Management BIOS
+  - Драйвер клавиатуры сервера терминалов
+  - Драйвер мыши сервера терминалов
+  - Драйвер шины Microsoft UAA для High Definition Audio
+  - Кнопка включения питания ACPI
+  - Кнопка фиксированной возможности ACPI
+  - Контроллер прямого доступа к памяти
+  - Перенаправитель устройства сервера терминалов
+  - Перечислитель программных устройств Plug and Play
+  - Порт чтения данных ISAPNP
+  - Программируемый контроллер прерываний
+  - Процессор числовых данных
+  - Ресурсы системной платы
+  - Ресурсы системной платы
+  - Ресурсы системной платы
+  - Ресурсы системной платы
+  - Ресурсы системной платы
+  - Системная плата
+  - Системная плата
+  - Системный таймер
+  - Устройство обновления микропрограмм
+  - Шина PCI
++ Устройства HID (Human Interface Devices)
+  - HID-совместимое устройство
+  - HID-совместимое устройство управления
+  - HID-совместимое устройство управления
+  - USB HID-совместимое устройство
+  - USB HID-совместимое устройство
+
+cpu registers:
+eax = 00000000
+ebx = 0302d850
+ecx = 0012e9f0
+edx = 00000000
+esi = 004bafa0
+edi = 00ee5380
+eip = 00537c8d
+esp = 0012ea00
+ebp = 0012ea00
+
+stack dump:
+0012ea00  20 ea 12 00 b7 2a 5b 00 - 00 00 00 40 e1 7a 84 3f   ....*[....@.z.?
+0012ea10  c0 ed 12 00 08 49 40 00 - 20 ea 12 00 10 0f ec 00  .....I@. .......
+0012ea20  b4 eb 12 00 b6 29 5b 00 - 5a 00 00 00 94 2f 5b 00  .....)[.Z..../[.
+0012ea30  3a 5e 48 00 10 0f ec 00 - 06 ac 4b 00 1c ec 12 00  :^H.......K.....
+0012ea40  78 b8 4b 00 10 0f ec 00 - cd b8 4b 00 98 6a 02 03  x.K.......K..j..
+0012ea50  08 5d 48 00 60 c8 fd 02 - 60 c8 fd 02 8c c7 4a 00  .]H.`...`.....J.
+0012ea60  60 c8 fd 02 97 6d 49 00 - 01 c8 fd 02 d4 48 50 00  `....mI......HP.
+0012ea70  68 48 50 00 60 c8 fd 02 - 95 6e 49 00 1c ec 12 00  hHP.`....nI.....
+0012ea80  de 4d 50 00 60 c8 fd 02 - 1c ec 12 00 9e c2 4a 00  .MP.`.........J.
+0012ea90  1c ec 12 00 1c ec 12 00 - 60 c8 fd 02 0a 80 00 00  ........`.......
+0012eaa0  38 eb 12 00 3b 94 3e 77 - 0a 80 00 00 6c 0f 3a 00  8...;.>w....l.:.
+0012eab0  f0 ea 12 00 94 fd 4a 00 - 60 c8 fd 02 bf 8e 3e 77  ......J.`.....>w
+0012eac0  f8 ea 12 00 d1 88 36 7e - f0 62 bb 00 00 00 00 00  ......6~.b......
+0012ead0  da 88 36 7e 00 00 00 00 - bf 8e 3e 77 a6 88 36 7e  ..6~......>w..6~
+0012eae0  d4 ea 12 00 00 00 00 00 - 44 eb 12 00 60 c8 fd 02  ........D...`...
+0012eaf0  3c eb 12 00 41 6c 49 00 - 8d c7 47 00 d0 c2 ee 00  <...AlI...G.....
+0012eb00  6d f4 48 00 75 f4 48 00 - c4 0e 55 01 68 1f f0 00  m.H.u.H...U.h...
+0012eb10  8b f8 4a 00 3c eb 12 00 - a2 f8 4a 00 aa f8 4a 00  ..J.<.....J...J.
+0012eb20  d8 eb 12 00 b4 f8 4a 00 - 3c eb 12 00 bc eb 12 00  ......J.<.......
+0012eb30  c4 0e 55 01 c4 0e 55 01 - 60 c8 fd 02 54 eb 12 00  ..U...U.`...T...
+
+disassembling:
+00537c88     public PDFDocumentRenderingThreadUnit.TRenderedPDFDocument.SetDocumentScaleFactor:  ; function entry point
+00537c88 741   push    ebp
+00537c89       mov     ebp, esp
+00537c8b       mov     edx, eax
+00537c8d 743 > fld     qword ptr [edx+8]
+00537c90       fcomp   qword ptr [ebp+8]
+00537c93       wait
+00537c94       fnstsw  ax
+00537c96       sahf
+00537c97       jz      loc_537cac
+[...]
+
+date/time          : 2019-07-22, 08:52:24, 130ms
+computer name      : 06-409-5
+user name          : 59968 <admin>
+registered owner   : user
+operating system   : Windows XP Service Pack 3 build 2600
+system language    : Russian
+system up time     : 55 minutes 2 seconds
+program up time    : 2 seconds
+processors         : 2x Intel(R) Core(TM)2 Duo CPU E8400 @ 3.00GHz
+physical memory    : 648/2047 MB (free/total)
+free disk space    : (C:) 1,01 GB
+display mode       : 1280x1024, 32 bit
+process id         : $1388
+allocated memory   : 18,02 MB
+largest free block : 757,75 MB
+executable         : PDFFileViewFormProject.exe
+exec. date/time    : 2019-07-22 08:52
+compiled with      : Delphi 2006/07
+madExcept version  : 5.0.0
+callstack crc      : $280ea284, $f28a56aa, $f8fdd684
+exception number   : 1
+exception class    : EAccessViolation
+exception message  : Access violation at address 004B1C42 in module 'PDFFileViewFormProject.exe'. Read of address 000005D9.
+
+main thread ($145c):
+004b1c42 +002 PDFFileViewFormProject.exe Controls                              TWinControl.GetControlCount
+006e7a72 +00e PDFFileViewFormProject.exe PDFViewFormUnit                637 +2 TPDFViewForm.SetActivatedDocumentManipulatingControls
+006e7667 +017 PDFFileViewFormProject.exe PDFViewFormUnit                280 +6 TPDFViewForm.CleanupIfWasRequestedEarlier
+006e8061 +00d PDFFileViewFormProject.exe PDFViewFormUnit                879 +4 TPDFViewForm.OnPDFDocumentRenderingCanceledEventHandle
+0051542f +00f PDFFileViewFormProject.exe CancellationThreadUnit          56 +3 TCancellationThread.RaiseOnCancellationEventHandler
+00486b5a +022 PDFFileViewFormProject.exe Classes                               TThread.Synchronize
+00486cf2 +01e PDFFileViewFormProject.exe Classes                               TThread.Synchronize
+00515454 +020 PDFFileViewFormProject.exe CancellationThreadUnit          66 +5 TCancellationThread.RaiseOnCancellationEventHandlerIf
+0066beef +017 PDFFileViewFormProject.exe PDFDocumentRenderingThreadUnit 409 +5 TPDFDocumentRenderingThread.RaiseOnCancellationEventHandlerIfWasRequested
+0066bf09 +005 PDFFileViewFormProject.exe PDFDocumentRenderingThreadUnit 419 +2 TPDFDocumentRenderingThread.RaiseOnPDFDocumentPageRenderFinishedEventHandler
+004866e9 +0fd PDFFileViewFormProject.exe Classes                               CheckSynchronize
+004cb586 +6b2 PDFFileViewFormProject.exe Forms                                 TApplication.WndProc
+00487e7c +014 PDFFileViewFormProject.exe Classes                               StdWndProc
+7e3696c2 +00a USER32.dll                                                       DispatchMessageA
+004cbc20 +0fc PDFFileViewFormProject.exe Forms                                 TApplication.ProcessMessage
+004cbc5a +00a PDFFileViewFormProject.exe Forms                                 TApplication.HandleMessage
+004cbe7a +096 PDFFileViewFormProject.exe Forms                                 TApplication.Run
+006eaca7 +03b PDFFileViewFormProject.exe PDFFileViewFormProject          26 +3 initialization
+
+thread $10f8 (TPDFDocumentRenderingThread):
+7c90df58 +00a ntdll.dll                                                        NtWaitForSingleObject
+7c8025d5 +085 kernel32.dll                                                     WaitForSingleObjectEx
+7c80253d +00d kernel32.dll                                                     WaitForSingleObject
+00486c4b +113 PDFFileViewFormProject.exe Classes                               TThread.Synchronize
+00486cf2 +01e PDFFileViewFormProject.exe Classes                               TThread.Synchronize
+0066c0c0 +030 PDFFileViewFormProject.exe PDFDocumentRenderingThreadUnit 531 +8 TPDFDocumentRenderingThread.RenderDocumentAsSinglePaged
+0066bf59 +011 PDFFileViewFormProject.exe PDFDocumentRenderingThreadUnit 463 +4 TPDFDocumentRenderingThread.RenderDocument
+0066bddf +02b PDFFileViewFormProject.exe PDFDocumentRenderingThreadUnit 347 +6 TPDFDocumentRenderingThread.Execute
+00461a33 +02b PDFFileViewFormProject.exe madExcept                             HookedTThreadExecute
+004867f8 +034 PDFFileViewFormProject.exe Classes                               ThreadProc
+00405144 +028 PDFFileViewFormProject.exe System                         546 +0 ThreadWrapper
+00461915 +00d PDFFileViewFormProject.exe madExcept                             CallThreadProcSafe
+0046197f +037 PDFFileViewFormProject.exe madExcept                             ThreadExceptFrame
+>> created by main thread ($145c) at:
+005153f6 +016 PDFFileViewFormProject.exe CancellationThreadUnit          41 +2 TCancellationThread.Create
+
+modules:
+00400000 PDFFileViewFormProject.exe                  C:\Documents and Settings\59968\Мои документы\Borland Studio Projects\PDF File View Form
+02cd0000 zlock_kbd.dll              9.0.0.255        C:\Program Files\Zecurion\Endpoint
+10000000 zlock_gdi.dll              9.0.0.255        C:\Program Files\Zecurion\Endpoint
+3f770000 msxml6.dll                 6.20.2502.0      C:\WINDOWS\system32
+4ebe0000 gdiplus.dll                5.2.6002.22791   C:\WINDOWS\WinSxS\x86_Microsoft.Windows.GdiPlus_6595b64144ccf1df_1.0.6002.22791_x-ww_c8dff154
+5b260000 uxtheme.dll                6.0.2900.5512    C:\WINDOWS\system32
+5bd50000 NETAPI32.dll               5.1.2600.6260    C:\WINDOWS\system32
+69890000 FontSub.dll                5.1.2600.5888    C:\WINDOWS\system32
+71a80000 WS2HELP.dll                5.1.2600.5512    C:\WINDOWS\system32
+71a90000 WS2_32.dll                 5.1.2600.5512    C:\WINDOWS\system32
+71ab0000 wsock32.dll                5.1.2600.5512    C:\WINDOWS\system32
+71b00000 MPR.dll                    5.1.2600.5512    C:\WINDOWS\system32
+71bd0000 SAMLIB.dll                 5.1.2600.5512    C:\WINDOWS\system32
+72fc0000 winspool.drv               5.1.2600.5512    C:\WINDOWS\system32
+73af0000 mscms.dll                  5.1.2600.5627    C:\WINDOWS\system32
+746e0000 MSCTF.dll                  5.1.2600.5512    C:\WINDOWS\system32
+76330000 WINSTA.dll                 5.1.2600.5512    C:\WINDOWS\system32
+76350000 msimg32.dll                5.1.2600.5512    C:\WINDOWS\system32
+76380000 comdlg32.dll               6.0.2900.5512    C:\WINDOWS\system32
+769a0000 USERENV.dll                5.1.2600.5512    C:\WINDOWS\system32
+76f40000 WTSAPI32.dll               5.1.2600.5512    C:\WINDOWS\system32
+76f50000 WLDAP32.dll                5.1.2600.5512    C:\WINDOWS\system32
+76fc0000 CLBCATQ.DLL                2001.12.4414.700 C:\WINDOWS\system32
+77040000 COMRes.dll                 2001.12.4414.700 C:\WINDOWS\system32
+77110000 oleaut32.dll               5.1.2600.6341    C:\WINDOWS\system32
+773c0000 comctl32.dll               6.0.2900.6028    C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.6028_x-ww_61e65202
+774d0000 ole32.dll                  5.1.2600.6168    C:\WINDOWS\system32
+77680000 NTMARTA.DLL                5.1.2600.5512    C:\WINDOWS\system32
+77910000 SETUPAPI.dll               5.1.2600.5512    C:\WINDOWS\system32
+77bf0000 version.dll                5.1.2600.5512    C:\WINDOWS\system32
+77c00000 msvcrt.dll                 7.0.2600.5512    C:\WINDOWS\system32
+77dc0000 ADVAPI32.dll               5.1.2600.6382    C:\WINDOWS\system32
+77e70000 RPCRT4.dll                 5.1.2600.6022    C:\WINDOWS\system32
+77f10000 GDI32.dll                  5.1.2600.5698    C:\WINDOWS\system32
+77f60000 SHLWAPI.dll                6.0.2900.5912    C:\WINDOWS\system32
+77fe0000 Secur32.dll                5.1.2600.5834    C:\WINDOWS\system32
+7c800000 kernel32.dll               5.1.2600.6293    C:\WINDOWS\system32
+7c900000 ntdll.dll                  5.1.2600.6055    C:\WINDOWS\system32
+7c9c0000 shell32.dll                6.0.2900.6242    C:\WINDOWS\system32
+7e360000 USER32.dll                 5.1.2600.5512    C:\WINDOWS\system32
+7e690000 SXS.DLL                    5.1.2600.5699    C:\WINDOWS\system32
+
+processes:
+0000 Idle                       0    0
+0004 System                     0    0    normal
+0594 smss.exe                   0    0    normal C:\WINDOWS\system32
+05f8 csrss.exe                  0    0
+0670 winlogon.exe               41   12   high   C:\WINDOWS\system32
+069c services.exe               4    0    normal C:\WINDOWS\system32
+06b0 lsass.exe                  4    0    normal C:\WINDOWS\system32
+0780 svchost.exe                4    0    normal C:\WINDOWS\system32
+07c8 svchost.exe                0    0
+0500 svchost.exe                4    4    normal C:\WINDOWS\System32
+06f8 svchost.exe                0    0
+0120 svchost.exe                0    0
+01b4 spoolsv.exe                4    0    normal C:\WINDOWS\system32
+0404 avpsus.exe                 4    0    normal C:\Program Files\Kaspersky Lab\Kaspersky Endpoint Security 10 for Windows SP1
+0528 BSQLServer.exe             4    1    normal C:\Program Files\Embarcadero\RAD Studio\7.0\bin
+0584 mDNSResponder.exe          4    0    normal C:\Program Files\Bonjour
+0464 DataSnapDemoService.exe    23   15   normal C:\Documents and Settings\59968\Мои документы\RAD Studio\Projects\DataSnapDemoProject
+02d4 Explorer.EXE               545  311  normal C:\WINDOWS
+0380 hasplms.exe                4    0    normal C:\WINDOWS\system32
+03bc jqs.exe                    4    0    idle   C:\Program Files\Java\jre7\bin
+03d4 klnagent.exe               4    0    normal C:\Program Files\Kaspersky Lab\NetworkAgent
+03f8 TSVNCache.exe              8    1    normal C:\Program Files\TortoiseSVN\bin
+048c MDM.EXE                    4    0    normal C:\Program Files\Common Files\Microsoft Shared\VS7DEBUG
+02b4 RTHDCPL.EXE                759  157  normal C:\WINDOWS
+043c RUNDLL32.EXE               16   5    normal C:\WINDOWS\system32
+0444 2GISTrayNotifier.exe       18   9    normal C:\Program Files\2gis\3.0
+0484 avp.exe                    21   10   normal C:\Program Files\Kaspersky Lab\Kaspersky Endpoint Security 10 for Windows SP1
+05e0 Greenshot.exe              31   20   normal C:\Program Files\Greenshot
+05e4 jusched.exe                8    1    normal C:\Program Files\Common Files\Java\Java Update
+07f0 sqlservr.exe               4    0    normal C:\Program Files\Microsoft SQL Server\MSSQL10.MSSQLSERVER\MSSQL\Binn
+0870 nvsvc32.exe                8    1    normal C:\WINDOWS\system32
+0a0c pg_ctl.exe                 0    0
+0ac0 ctfmon.exe                 25   9    normal C:\WINDOWS\system32
+0b28 postgres.exe               0    0
+0b38 sqlbrowser.exe             0    0
+0b50 miranda32.exe              1150 407  normal D:\Program Files\MirandaCorporate
+0b58 postgres.exe               0    0
+0b7c sqlwriter.exe              4    0    normal C:\Program Files\Microsoft SQL Server\90\Shared
+0bf0 svchost.exe                4    0    normal C:\WINDOWS\system32
+0c08 zservice15.exe             4    1    normal C:\Program Files\Common Files\SecurIT
+0ddc avp.exe                    31   10   normal C:\Program Files\Kaspersky Lab\Kaspersky Endpoint Security 10 for Windows SP1
+0914 postgres.exe               0    0
+090c GoldenDict.exe             80   30   normal C:\Program Files\GoldenDict
+0a38 msmsgs.exe                 9    10   normal C:\Program Files\Messenger
+0b94 postgres.exe               0    0
+09bc postgres.exe               0    0
+09ec postgres.exe               0    0
+0e60 postgres.exe               0    0
+0b14 postgres.exe               0    0
+0cbc postgres.exe               0    0
+08a8 ScreenTranslator.exe       13   16   normal C:\Program Files\Screen Translator
+0984 bds.exe                    3333 1143 normal C:\Program Files\Borland\BDS\4.0\Bin
+0fcc pgadmin3.exe               1274 338  normal C:\Program Files\pgAdmin III\1.22
+02d8 wmiapsrv.exe               4    0    normal C:\WINDOWS\system32\wbem
+09e0 zgu_agent.exe              31   3    normal C:\Program Files\Zecurion\Endpoint
+1228 postgres.exe               0    0
+1230 postgres.exe               0    0
+1238 postgres.exe               0    0
+1240 postgres.exe               0    0
+1248 postgres.exe               0    0
+02b8 zlu_agent.exe              36   9    normal C:\PROGRA~1\Zecurion\Endpoint
+0dc0 vapm.exe                   4    0    normal C:\Program Files\Kaspersky Lab\NetworkAgent
+0c84 unsecapp.exe               0    0
+11ac requests7.exe              372  344  normal \\Server-file\Prog_UMZ\Delphi\ZAJAV
+068c bds.exe                    3316 1159 normal C:\Program Files\Borland\BDS\4.0\Bin
+0da8 notepad.exe                26   17   normal C:\WINDOWS\system32
+166c wmiprvse.exe               0    0
+1388 PDFFileViewFormProject.exe 135  68   normal C:\Documents and Settings\59968\Мои документы\Borland Studio Projects\PDF File View Form
+
+hardware:
++ DVD и CD-ROM дисководы
+  - DTSOFT Virtual CdRom Device
+  - Optiarc DVD RW AD-7200S
++ IDE ATA/ATAPI контроллеры
+  - Intel(R) ICH10 Family 2 port Serial ATA Storage Controller 2 - 3A26 (driver 9.0.0.1005)
+  - Intel(R) ICH10 Family 4 port Serial ATA Storage Controller 1 - 3A20 (driver 9.0.0.1005)
+  - Вторичный канал IDE
+  - Вторичный канал IDE
+  - Вторичный канал IDE
+  - Первичный канал IDE
+  - Первичный канал IDE
+  - Первичный канал IDE
+  - Стандартный двухканальный контроллер PCI IDE
++ Видеоадаптеры
+  - NVIDIA GeForce 9600 GT (driver 6.14.11.7531)
++ Дисководы гибких дисков
+  - Дисковод гибких дисков
++ Дисковые устройства
+  - WDC WD2500AAKS-22VSA0
+  - WDC WD5000AZLX-75K2TA0
++ Звуковые, видео и игровые устройства
+  - Realtek High Definition Audio (driver 5.10.0.5667)
+  - Аудио кодеки
+  - Видео кодеки
+  - Драйверы аудио (без PnP)
+  - Устройства записи видео (без PnP)
+  - Устройство управления
++ Клавиатуры
+  - Клавиатура HID
++ Компьютер
+  - Многопроцессорный компьютер с ACPI
++ Контроллеры гибких дисков
+  - Стандартный контроллер гибких дисков
++ Контроллеры универсальной последовательной шины USB
+  - Intel(R) ICH10 Family USB Enhanced Host Controller - 3A3A (driver 9.0.0.1005)
+  - Intel(R) ICH10 Family USB Enhanced Host Controller - 3A3C (driver 9.0.0.1005)
+  - Intel(R) ICH10 Family USB Universal Host Controller - 3A34 (driver 9.0.0.1005)
+  - Intel(R) ICH10 Family USB Universal Host Controller - 3A35 (driver 9.0.0.1005)
+  - Intel(R) ICH10 Family USB Universal Host Controller - 3A36 (driver 9.0.0.1005)
+  - Intel(R) ICH10 Family USB Universal Host Controller - 3A37 (driver 9.0.0.1005)
+  - Intel(R) ICH10 Family USB Universal Host Controller - 3A38 (driver 9.0.0.1005)
+  - Intel(R) ICH10 Family USB Universal Host Controller - 3A39 (driver 9.0.0.1005)
+  - Корневой USB концентратор
+  - Корневой USB концентратор
+  - Корневой USB концентратор
+  - Корневой USB концентратор
+  - Корневой USB концентратор
+  - Корневой USB концентратор
+  - Корневой USB концентратор
+  - Корневой USB концентратор
+  - Составное USB устройство
++ Мониторы
+  - Модуль подключения монитора
++ Мыши и иные указывающие устройства
+  - Microsoft PS/2 мышь
++ Порты (COM и LPT)
+  - Последовательный порт (COM1)
++ Процессоры
+  - Intel(R) Core(TM)2 Duo CPU     E8400  @ 3.00GHz
+  - Intel(R) Core(TM)2 Duo CPU     E8400  @ 3.00GHz
++ Сетевые платы
+  - Atheros AR8121/AR8113/AR8114 PCI-E Ethernet Controller (driver 1.0.0.27)
+  - Atheros AR8121/AR8113/AR8114 PCI-E Ethernet Controller - Kaspersky Anti-Virus NDIS Miniport (driver 10.0.0.4)
+  - Atheros AR8121/AR8113/AR8114 PCI-E Ethernet Controller - VirtualBox Bridged Networking Driver Miniport (driver 4.1.18.0)
+  - Atheros AR8121/AR8113/AR8114 PCI-E Ethernet Controller - Минипорт планировщика пакетов
+  - VirtualBox Host-Only Ethernet Adapter (driver 4.1.18.0)
+  - VirtualBox Host-Only Ethernet Adapter - Минипорт планировщика пакетов
+  - Минипорт WAN (IP)
+  - Минипорт WAN (IP) - Kaspersky Anti-Virus NDIS Miniport (driver 10.0.0.4)
+  - Минипорт WAN (IP) - Минипорт планировщика пакетов
+  - Минипорт WAN (L2TP)
+  - Минипорт WAN (PPPoE)
+  - Минипорт WAN (PPTP)
+  - Прямой параллельный порт
++ Системные устройства
+  - ATK0110 ACPI UTILITY (driver 1043.2.15.37)
+  - CMOS и часы
+  - DAEMON Tools Virtual Bus (driver 5.0.1.282)
+  - Intel(R) 4 Series Chipset PCI Express Root Port - 2E21 (driver 9.0.0.1009)
+  - Intel(R) 4 Series Chipset Processor to I/O Controller - 2E20 (driver 9.0.0.1009)
+  - Intel(R) 82801 PCI мост - 244E
+  - Intel(R) 82802 Firmware концентратор
+  - Intel(R) ICH10 Family PCI Express Root Port 1 - 3A40 (driver 9.0.0.1009)
+  - Intel(R) ICH10 Family PCI Express Root Port 5 - 3A48 (driver 9.0.0.1009)
+  - Intel(R) ICH10 Family PCI Express Root Port 6 - 3A4A (driver 9.0.0.1009)
+  - Intel(R) ICH10 Family SMBus Controller - 3A30 (driver 9.0.0.1005)
+  - Intel(R) ICH10 LPC Interface Controller - 3A18 (driver 9.0.0.1009)
+  - Microsoft ACPI-совместимая система
+  - Встроенный динамик
+  - Высокоточный таймер событий
+  - Диспетчер логических дисков
+  - Диспетчер томов
+  - Драйвер Microsoft System Management BIOS
+  - Драйвер клавиатуры сервера терминалов
+  - Драйвер мыши сервера терминалов
+  - Драйвер шины Microsoft UAA для High Definition Audio
+  - Кнопка включения питания ACPI
+  - Кнопка фиксированной возможности ACPI
+  - Контроллер прямого доступа к памяти
+  - Перенаправитель устройства сервера терминалов
+  - Перечислитель программных устройств Plug and Play
+  - Порт чтения данных ISAPNP
+  - Программируемый контроллер прерываний
+  - Процессор числовых данных
+  - Ресурсы системной платы
+  - Ресурсы системной платы
+  - Ресурсы системной платы
+  - Ресурсы системной платы
+  - Ресурсы системной платы
+  - Системная плата
+  - Системная плата
+  - Системный таймер
+  - Устройство обновления микропрограмм
+  - Шина PCI
++ Устройства HID (Human Interface Devices)
+  - HID-совместимое устройство
+  - HID-совместимое устройство управления
+  - HID-совместимое устройство управления
+  - USB HID-совместимое устройство
+  - USB HID-совместимое устройство
+
+cpu registers:
+eax = 0000040d
+ebx = 00000000
+ecx = 00000000
+edx = 00000000
+esi = 00fc1b10
+edi = 030e0e90
+eip = 004b1c42
+esp = 0012fd24
+ebp = 0012fd70
+
+stack dump:
+0012fd24  77 7a 6e 00 70 fd 12 00 - 9c fe 12 00 10 1b fc 00  wzn.p...........
+0012fd34  90 0e 0e 03 6c 76 6e 00 - 90 0e 0e 03 66 80 6e 00  ....lvn.....f.n.
+0012fd44  10 1b fc 00 32 54 51 00 - 30 1b fc 00 5d 6b 48 00  ....2TQ.0...]kH.
+0012fd54  01 00 00 00 90 fd 12 00 - e0 78 37 7e 00 00 00 00  .........x7~....
+0012fd64  00 00 00 00 20 00 00 00 - 30 1b fc 00 78 fd 12 00  .... ...0...x...
+0012fd74  f7 6c 48 00 f4 fd 12 00 - 59 54 51 00 20 54 51 00  .lH.....YTQ. TQ.
+0012fd84  10 1b fc 00 e2 0f 29 01 - 10 1b fc 00 f4 be 66 00  ......).......f.
+0012fd94  10 1b fc 00 0e bf 66 00 - 30 1b fc 00 ec 66 48 00  ......f.0....fH.
+0012fda4  b0 fd 12 00 d4 47 40 00 - f4 fd 12 00 bc fd 12 00  .....G@.........
+0012fdb4  35 67 48 00 f4 fd 12 00 - c8 fd 12 00 92 67 48 00  5gH..........gH.
+0012fdc4  f4 fd 12 00 fc fd 12 00 - b1 67 48 00 f4 fd 12 00  .........gH.....
+0012fdd4  9c fe 12 00 e2 0f 29 01 - 00 00 00 00 00 00 00 00  ......).........
+0012fde4  01 00 00 00 d8 f0 05 01 - 9c fe 88 03 e2 0f 29 01  ..............).
+0012fdf4  1c fe 12 00 8b b5 4c 00 - b8 fe 12 00 9e b5 4c 00  ......L.......L.
+0012fe04  1c fe 12 00 9c fe 12 00 - e2 0f 29 01 00 00 00 00  ..........).....
+0012fe14  24 fe 12 00 10 ce fe 00 - 34 fe 12 00 7e 7e 48 00  $.......4...~~H.
+0012fe24  00 00 00 00 00 00 00 00 - 00 00 00 00 00 00 00 00  ................
+0012fe34  60 fe 12 00 34 87 36 7e - e8 0e 11 00 00 00 00 00  `...4.6~........
+0012fe44  00 00 00 00 00 00 00 00 - e2 0f 29 01 cd ab ba dc  ..........).....
+0012fe54  00 00 00 00 9c fe 12 00 - e2 0f 29 01 c8 fe 12 00  ..........).....
+
+disassembling:
+[...]
+006e7a66       push    edi
+006e7a67       push    ebp
+006e7a68       mov     ebx, edx
+006e7a6a       mov     edi, eax
+006e7a6c 637   mov     eax, [edi+$374]
+006e7a72     > call    -$235e37 ($4b1c40)     ; Controls.TWinControl.GetControlCount
+006e7a77       mov     ebp, eax
+006e7a79       dec     ebp
+006e7a7a       test    ebp, ebp
+006e7a7c       jl      loc_6e7a99
+006e7a7e       inc     ebp
+[...]
+
+date/time          : 2019-07-22, 08:52:29, 127ms
+computer name      : 06-409-5
+user name          : 59968 <admin>
+registered owner   : user
+operating system   : Windows XP Service Pack 3 build 2600
+system language    : Russian
+system up time     : 55 minutes 7 seconds
+program up time    : 7 seconds
+processors         : 2x Intel(R) Core(TM)2 Duo CPU E8400 @ 3.00GHz
+physical memory    : 647/2047 MB (free/total)
+free disk space    : (C:) 1,01 GB
+display mode       : 1280x1024, 32 bit
+process id         : $1388
+allocated memory   : 19,48 MB
+largest free block : 757,75 MB
+executable         : PDFFileViewFormProject.exe
+exec. date/time    : 2019-07-22 08:52
+compiled with      : Delphi 2006/07
+madExcept version  : 5.0.0
+callstack crc      : $d3921eb6, $99a5c9d7, $28d561d2
+exception number   : 2
+exception class    : EAccessViolation
+exception message  : Access violation at address 006E7696 in module 'PDFFileViewFormProject.exe'. Read of address 0000066F.
+
+main thread ($145c):
+006e7696 +006 PDFFileViewFormProject.exe PDFViewFormUnit                308 +0 TPDFViewForm.ClearPDFDocumentPageViewArea
+006e7738 +008 PDFFileViewFormProject.exe PDFViewFormUnit                367 +2 TPDFViewForm.FinishCurrentDocumentRenderingIfItRunningAndQueueNewDocumentShowingRequest
+006e7c9e +00a PDFFileViewFormProject.exe PDFViewFormUnit                758 +2 TPDFViewForm.LoadAndShowDocument
+006e807d +029 PDFFileViewFormProject.exe PDFViewFormUnit                883 +8 TPDFViewForm.OnPDFDocumentRenderingCanceledEventHandle
+0051542f +00f PDFFileViewFormProject.exe CancellationThreadUnit          56 +3 TCancellationThread.RaiseOnCancellationEventHandler
+00486b5a +022 PDFFileViewFormProject.exe Classes                               TThread.Synchronize
+00486cf2 +01e PDFFileViewFormProject.exe Classes                               TThread.Synchronize
+00515454 +020 PDFFileViewFormProject.exe CancellationThreadUnit          66 +5 TCancellationThread.RaiseOnCancellationEventHandlerIf
+0066beef +017 PDFFileViewFormProject.exe PDFDocumentRenderingThreadUnit 409 +5 TPDFDocumentRenderingThread.RaiseOnCancellationEventHandlerIfWasRequested
+0066bf29 +005 PDFFileViewFormProject.exe PDFDocumentRenderingThreadUnit 430 +2 TPDFDocumentRenderingThread.RaiseOnPDFDocumentRenderingFinishedEventHandler
+004866e9 +0fd PDFFileViewFormProject.exe Classes                               CheckSynchronize
+004cc78e +11a PDFFileViewFormProject.exe Forms                                 TApplication.Idle
+004cbc67 +017 PDFFileViewFormProject.exe Forms                                 TApplication.HandleMessage
+004cbe7a +096 PDFFileViewFormProject.exe Forms                                 TApplication.Run
+006eaca7 +03b PDFFileViewFormProject.exe PDFFileViewFormProject          26 +3 initialization
+
+thread $10f8 (TPDFDocumentRenderingThread):
+7c90df58 +00a ntdll.dll                                                         NtWaitForSingleObject
+7c8025d5 +085 kernel32.dll                                                      WaitForSingleObjectEx
+7c80253d +00d kernel32.dll                                                      WaitForSingleObject
+00486c4b +113 PDFFileViewFormProject.exe Classes                                TThread.Synchronize
+00486cf2 +01e PDFFileViewFormProject.exe Classes                                TThread.Synchronize
+0066bf84 +03c PDFFileViewFormProject.exe PDFDocumentRenderingThreadUnit 472 +13 TPDFDocumentRenderingThread.RenderDocument
+0066bddf +02b PDFFileViewFormProject.exe PDFDocumentRenderingThreadUnit 347  +6 TPDFDocumentRenderingThread.Execute
+00461a33 +02b PDFFileViewFormProject.exe madExcept                              HookedTThreadExecute
+004867f8 +034 PDFFileViewFormProject.exe Classes                                ThreadProc
+00405144 +028 PDFFileViewFormProject.exe System                         546  +0 ThreadWrapper
+00461915 +00d PDFFileViewFormProject.exe madExcept                              CallThreadProcSafe
+0046197f +037 PDFFileViewFormProject.exe madExcept                              ThreadExceptFrame
+>> created by main thread ($145c) at:
+005153f6 +016 PDFFileViewFormProject.exe CancellationThreadUnit          41  +2 TCancellationThread.Create
+
+modules:
+00400000 PDFFileViewFormProject.exe                  C:\Documents and Settings\59968\Мои документы\Borland Studio Projects\PDF File View Form
+02cd0000 zlock_kbd.dll              9.0.0.255        C:\Program Files\Zecurion\Endpoint
+10000000 zlock_gdi.dll              9.0.0.255        C:\Program Files\Zecurion\Endpoint
+3f770000 msxml6.dll                 6.20.2502.0      C:\WINDOWS\system32
+4ebe0000 gdiplus.dll                5.2.6002.22791   C:\WINDOWS\WinSxS\x86_Microsoft.Windows.GdiPlus_6595b64144ccf1df_1.0.6002.22791_x-ww_c8dff154
+5b260000 uxtheme.dll                6.0.2900.5512    C:\WINDOWS\system32
+5bd50000 NETAPI32.dll               5.1.2600.6260    C:\WINDOWS\system32
+69890000 FontSub.dll                5.1.2600.5888    C:\WINDOWS\system32
+71a80000 WS2HELP.dll                5.1.2600.5512    C:\WINDOWS\system32
+71a90000 WS2_32.dll                 5.1.2600.5512    C:\WINDOWS\system32
+71ab0000 wsock32.dll                5.1.2600.5512    C:\WINDOWS\system32
+71b00000 MPR.dll                    5.1.2600.5512    C:\WINDOWS\system32
+71bd0000 SAMLIB.dll                 5.1.2600.5512    C:\WINDOWS\system32
+72fc0000 winspool.drv               5.1.2600.5512    C:\WINDOWS\system32
+73af0000 mscms.dll                  5.1.2600.5627    C:\WINDOWS\system32
+746e0000 MSCTF.dll                  5.1.2600.5512    C:\WINDOWS\system32
+76330000 WINSTA.dll                 5.1.2600.5512    C:\WINDOWS\system32
+76350000 msimg32.dll                5.1.2600.5512    C:\WINDOWS\system32
+76380000 comdlg32.dll               6.0.2900.5512    C:\WINDOWS\system32
+769a0000 USERENV.dll                5.1.2600.5512    C:\WINDOWS\system32
+76be0000 psapi.dll                  5.1.2600.5512    C:\WINDOWS\system32
+76c20000 WINTRUST.dll               5.131.2600.6285  C:\WINDOWS\system32
+76c80000 IMAGEHLP.dll               5.1.2600.6198    C:\WINDOWS\system32
+76f40000 WTSAPI32.dll               5.1.2600.5512    C:\WINDOWS\system32
+76f50000 WLDAP32.dll                5.1.2600.5512    C:\WINDOWS\system32
+76fc0000 CLBCATQ.DLL                2001.12.4414.700 C:\WINDOWS\system32
+77040000 COMRes.dll                 2001.12.4414.700 C:\WINDOWS\system32
+77110000 oleaut32.dll               5.1.2600.6341    C:\WINDOWS\system32
+773c0000 comctl32.dll               6.0.2900.6028    C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.6028_x-ww_61e65202
+774d0000 ole32.dll                  5.1.2600.6168    C:\WINDOWS\system32
+77680000 NTMARTA.DLL                5.1.2600.5512    C:\WINDOWS\system32
+77910000 SETUPAPI.dll               5.1.2600.5512    C:\WINDOWS\system32
+77a70000 CRYPT32.dll                5.131.2600.6369  C:\WINDOWS\system32
+77b10000 MSASN1.dll                 5.1.2600.5875    C:\WINDOWS\system32
+77bf0000 version.dll                5.1.2600.5512    C:\WINDOWS\system32
+77c00000 msvcrt.dll                 7.0.2600.5512    C:\WINDOWS\system32
+77dc0000 ADVAPI32.dll               5.1.2600.6382    C:\WINDOWS\system32
+77e70000 RPCRT4.dll                 5.1.2600.6022    C:\WINDOWS\system32
+77f10000 GDI32.dll                  5.1.2600.5698    C:\WINDOWS\system32
+77f60000 SHLWAPI.dll                6.0.2900.5912    C:\WINDOWS\system32
+77fe0000 Secur32.dll                5.1.2600.5834    C:\WINDOWS\system32
+7c800000 kernel32.dll               5.1.2600.6293    C:\WINDOWS\system32
+7c900000 ntdll.dll                  5.1.2600.6055    C:\WINDOWS\system32
+7c9c0000 shell32.dll                6.0.2900.6242    C:\WINDOWS\system32
+7e360000 USER32.dll                 5.1.2600.5512    C:\WINDOWS\system32
+7e690000 SXS.DLL                    5.1.2600.5699    C:\WINDOWS\system32
+
+processes:
+0000 Idle                       0    0
+0004 System                     0    0    normal
+0594 smss.exe                   0    0    normal C:\WINDOWS\system32
+05f8 csrss.exe                  0    0
+0670 winlogon.exe               41   12   high   C:\WINDOWS\system32
+069c services.exe               4    0    normal C:\WINDOWS\system32
+06b0 lsass.exe                  4    0    normal C:\WINDOWS\system32
+0780 svchost.exe                4    0    normal C:\WINDOWS\system32
+07c8 svchost.exe                0    0
+0500 svchost.exe                4    4    normal C:\WINDOWS\System32
+06f8 svchost.exe                0    0
+0120 svchost.exe                0    0
+01b4 spoolsv.exe                4    0    normal C:\WINDOWS\system32
+0404 avpsus.exe                 4    0    normal C:\Program Files\Kaspersky Lab\Kaspersky Endpoint Security 10 for Windows SP1
+0528 BSQLServer.exe             4    1    normal C:\Program Files\Embarcadero\RAD Studio\7.0\bin
+0584 mDNSResponder.exe          4    0    normal C:\Program Files\Bonjour
+0464 DataSnapDemoService.exe    23   15   normal C:\Documents and Settings\59968\Мои документы\RAD Studio\Projects\DataSnapDemoProject
+02d4 Explorer.EXE               555  314  normal C:\WINDOWS
+0380 hasplms.exe                4    0    normal C:\WINDOWS\system32
+03bc jqs.exe                    4    0    idle   C:\Program Files\Java\jre7\bin
+03d4 klnagent.exe               4    0    normal C:\Program Files\Kaspersky Lab\NetworkAgent
+03f8 TSVNCache.exe              8    1    normal C:\Program Files\TortoiseSVN\bin
+048c MDM.EXE                    4    0    normal C:\Program Files\Common Files\Microsoft Shared\VS7DEBUG
+02b4 RTHDCPL.EXE                759  157  normal C:\WINDOWS
+043c RUNDLL32.EXE               16   5    normal C:\WINDOWS\system32
+0444 2GISTrayNotifier.exe       18   9    normal C:\Program Files\2gis\3.0
+0484 avp.exe                    21   10   normal C:\Program Files\Kaspersky Lab\Kaspersky Endpoint Security 10 for Windows SP1
+05e0 Greenshot.exe              31   20   normal C:\Program Files\Greenshot
+05e4 jusched.exe                8    1    normal C:\Program Files\Common Files\Java\Java Update
+07f0 sqlservr.exe               4    0    normal C:\Program Files\Microsoft SQL Server\MSSQL10.MSSQLSERVER\MSSQL\Binn
+0870 nvsvc32.exe                8    1    normal C:\WINDOWS\system32
+0a0c pg_ctl.exe                 0    0
+0ac0 ctfmon.exe                 25   9    normal C:\WINDOWS\system32
+0b28 postgres.exe               0    0
+0b38 sqlbrowser.exe             0    0
+0b50 miranda32.exe              1150 407  normal D:\Program Files\MirandaCorporate
+0b58 postgres.exe               0    0
+0b7c sqlwriter.exe              4    0    normal C:\Program Files\Microsoft SQL Server\90\Shared
+0bf0 svchost.exe                4    0    normal C:\WINDOWS\system32
+0c08 zservice15.exe             4    1    normal C:\Program Files\Common Files\SecurIT
+0ddc avp.exe                    31   10   normal C:\Program Files\Kaspersky Lab\Kaspersky Endpoint Security 10 for Windows SP1
+0914 postgres.exe               0    0
+090c GoldenDict.exe             80   30   normal C:\Program Files\GoldenDict
+0a38 msmsgs.exe                 9    10   normal C:\Program Files\Messenger
+0b94 postgres.exe               0    0
+09bc postgres.exe               0    0
+09ec postgres.exe               0    0
+0e60 postgres.exe               0    0
+0b14 postgres.exe               0    0
+0cbc postgres.exe               0    0
+08a8 ScreenTranslator.exe       13   16   normal C:\Program Files\Screen Translator
+0984 bds.exe                    3333 1143 normal C:\Program Files\Borland\BDS\4.0\Bin
+0fcc pgadmin3.exe               1274 338  normal C:\Program Files\pgAdmin III\1.22
+02d8 wmiapsrv.exe               4    0    normal C:\WINDOWS\system32\wbem
+09e0 zgu_agent.exe              31   3    normal C:\Program Files\Zecurion\Endpoint
+1228 postgres.exe               0    0
+1230 postgres.exe               0    0
+1238 postgres.exe               0    0
+1240 postgres.exe               0    0
+1248 postgres.exe               0    0
+02b8 zlu_agent.exe              36   9    normal C:\PROGRA~1\Zecurion\Endpoint
+0dc0 vapm.exe                   4    0    normal C:\Program Files\Kaspersky Lab\NetworkAgent
+0c84 unsecapp.exe               0    0
+11ac requests7.exe              372  344  normal \\Server-file\Prog_UMZ\Delphi\ZAJAV
+068c bds.exe                    3315 1159 normal C:\Program Files\Borland\BDS\4.0\Bin
+0da8 notepad.exe                26   17   normal C:\WINDOWS\system32
+166c wmiprvse.exe               0    0
+1388 PDFFileViewFormProject.exe 140  68   normal C:\Documents and Settings\59968\Мои документы\Borland Studio Projects\PDF File View Form
+
+hardware:
++ DVD и CD-ROM дисководы
+  - DTSOFT Virtual CdRom Device
+  - Optiarc DVD RW AD-7200S
++ IDE ATA/ATAPI контроллеры
+  - Intel(R) ICH10 Family 2 port Serial ATA Storage Controller 2 - 3A26 (driver 9.0.0.1005)
+  - Intel(R) ICH10 Family 4 port Serial ATA Storage Controller 1 - 3A20 (driver 9.0.0.1005)
+  - Вторичный канал IDE
+  - Вторичный канал IDE
+  - Вторичный канал IDE
+  - Первичный канал IDE
+  - Первичный канал IDE
+  - Первичный канал IDE
+  - Стандартный двухканальный контроллер PCI IDE
++ Видеоадаптеры
+  - NVIDIA GeForce 9600 GT (driver 6.14.11.7531)
++ Дисководы гибких дисков
+  - Дисковод гибких дисков
++ Дисковые устройства
+  - WDC WD2500AAKS-22VSA0
+  - WDC WD5000AZLX-75K2TA0
++ Звуковые, видео и игровые устройства
+  - Realtek High Definition Audio (driver 5.10.0.5667)
+  - Аудио кодеки
+  - Видео кодеки
+  - Драйверы аудио (без PnP)
+  - Устройства записи видео (без PnP)
+  - Устройство управления
++ Клавиатуры
+  - Клавиатура HID
++ Компьютер
+  - Многопроцессорный компьютер с ACPI
++ Контроллеры гибких дисков
+  - Стандартный контроллер гибких дисков
++ Контроллеры универсальной последовательной шины USB
+  - Intel(R) ICH10 Family USB Enhanced Host Controller - 3A3A (driver 9.0.0.1005)
+  - Intel(R) ICH10 Family USB Enhanced Host Controller - 3A3C (driver 9.0.0.1005)
+  - Intel(R) ICH10 Family USB Universal Host Controller - 3A34 (driver 9.0.0.1005)
+  - Intel(R) ICH10 Family USB Universal Host Controller - 3A35 (driver 9.0.0.1005)
+  - Intel(R) ICH10 Family USB Universal Host Controller - 3A36 (driver 9.0.0.1005)
+  - Intel(R) ICH10 Family USB Universal Host Controller - 3A37 (driver 9.0.0.1005)
+  - Intel(R) ICH10 Family USB Universal Host Controller - 3A38 (driver 9.0.0.1005)
+  - Intel(R) ICH10 Family USB Universal Host Controller - 3A39 (driver 9.0.0.1005)
+  - Корневой USB концентратор
+  - Корневой USB концентратор
+  - Корневой USB концентратор
+  - Корневой USB концентратор
+  - Корневой USB концентратор
+  - Корневой USB концентратор
+  - Корневой USB концентратор
+  - Корневой USB концентратор
+  - Составное USB устройство
++ Мониторы
+  - Модуль подключения монитора
++ Мыши и иные указывающие устройства
+  - Microsoft PS/2 мышь
++ Порты (COM и LPT)
+  - Последовательный порт (COM1)
++ Процессоры
+  - Intel(R) Core(TM)2 Duo CPU     E8400  @ 3.00GHz
+  - Intel(R) Core(TM)2 Duo CPU     E8400  @ 3.00GHz
++ Сетевые платы
+  - Atheros AR8121/AR8113/AR8114 PCI-E Ethernet Controller (driver 1.0.0.27)
+  - Atheros AR8121/AR8113/AR8114 PCI-E Ethernet Controller - Kaspersky Anti-Virus NDIS Miniport (driver 10.0.0.4)
+  - Atheros AR8121/AR8113/AR8114 PCI-E Ethernet Controller - VirtualBox Bridged Networking Driver Miniport (driver 4.1.18.0)
+  - Atheros AR8121/AR8113/AR8114 PCI-E Ethernet Controller - Минипорт планировщика пакетов
+  - VirtualBox Host-Only Ethernet Adapter (driver 4.1.18.0)
+  - VirtualBox Host-Only Ethernet Adapter - Минипорт планировщика пакетов
+  - Минипорт WAN (IP)
+  - Минипорт WAN (IP) - Kaspersky Anti-Virus NDIS Miniport (driver 10.0.0.4)
+  - Минипорт WAN (IP) - Минипорт планировщика пакетов
+  - Минипорт WAN (L2TP)
+  - Минипорт WAN (PPPoE)
+  - Минипорт WAN (PPTP)
+  - Прямой параллельный порт
++ Системные устройства
+  - ATK0110 ACPI UTILITY (driver 1043.2.15.37)
+  - CMOS и часы
+  - DAEMON Tools Virtual Bus (driver 5.0.1.282)
+  - Intel(R) 4 Series Chipset PCI Express Root Port - 2E21 (driver 9.0.0.1009)
+  - Intel(R) 4 Series Chipset Processor to I/O Controller - 2E20 (driver 9.0.0.1009)
+  - Intel(R) 82801 PCI мост - 244E
+  - Intel(R) 82802 Firmware концентратор
+  - Intel(R) ICH10 Family PCI Express Root Port 1 - 3A40 (driver 9.0.0.1009)
+  - Intel(R) ICH10 Family PCI Express Root Port 5 - 3A48 (driver 9.0.0.1009)
+  - Intel(R) ICH10 Family PCI Express Root Port 6 - 3A4A (driver 9.0.0.1009)
+  - Intel(R) ICH10 Family SMBus Controller - 3A30 (driver 9.0.0.1005)
+  - Intel(R) ICH10 LPC Interface Controller - 3A18 (driver 9.0.0.1009)
+  - Microsoft ACPI-совместимая система
+  - Встроенный динамик
+  - Высокоточный таймер событий
+  - Диспетчер логических дисков
+  - Диспетчер томов
+  - Драйвер Microsoft System Management BIOS
+  - Драйвер клавиатуры сервера терминалов
+  - Драйвер мыши сервера терминалов
+  - Драйвер шины Microsoft UAA для High Definition Audio
+  - Кнопка включения питания ACPI
+  - Кнопка фиксированной возможности ACPI
+  - Контроллер прямого доступа к памяти
+  - Перенаправитель устройства сервера терминалов
+  - Перечислитель программных устройств Plug and Play
+  - Порт чтения данных ISAPNP
+  - Программируемый контроллер прерываний
+  - Процессор числовых данных
+  - Ресурсы системной платы
+  - Ресурсы системной платы
+  - Ресурсы системной платы
+  - Ресурсы системной платы
+  - Ресурсы системной платы
+  - Системная плата
+  - Системная плата
+  - Системный таймер
+  - Устройство обновления микропрограмм
+  - Шина PCI
++ Устройства HID (Human Interface Devices)
+  - HID-совместимое устройство
+  - HID-совместимое устройство управления
+  - HID-совместимое устройство управления
+  - USB HID-совместимое устройство
+  - USB HID-совместимое устройство
+
+cpu registers:
+eax = 000004d7
+ebx = 030e0e90
+ecx = 00000000
+edx = 464f4525
+esi = 464f4525
+edi = 116fa0c8
+eip = 006e7696
+esp = 0012fe58
+ebp = 0012fea0
+
+stack dump:
+0012fe58  3d 77 6e 00 25 45 4f 46 - 90 0e 0e 03 a3 7c 6e 00  =wn.%EOF.....|n.
+0012fe68  10 1b fc 00 90 0e 0e 03 - 82 80 6e 00 10 1b fc 00  ..........n.....
+0012fe78  32 54 51 00 30 1b fc 00 - 5d 6b 48 00 01 00 00 00  2TQ.0...]kH.....
+0012fe88  14 00 00 00 01 00 00 00 - 00 00 00 00 00 00 00 00  ................
+0012fe98  10 00 00 00 30 1b fc 00 - a8 fe 12 00 f7 6c 48 00  ....0........lH.
+0012fea8  24 ff 12 00 59 54 51 00 - 20 54 51 00 10 1b fc 00  $...YTQ. TQ.....
+0012feb8  2c f2 8d 1b 10 1b fc 00 - f4 be 66 00 10 1b fc 00  ,.........f.....
+0012fec8  2e bf 66 00 30 1b fc 00 - ec 66 48 00 e0 fe 12 00  ..f.0....fH.....
+0012fed8  d4 47 40 00 24 ff 12 00 - ec fe 12 00 35 67 48 00  .G@.$.......5gH.
+0012fee8  24 ff 12 00 f8 fe 12 00 - 92 67 48 00 24 ff 12 00  $........gH.$...
+0012fef8  2c ff 12 00 b1 67 48 00 - 24 ff 12 00 c8 a0 6f 11  ,....gH.$.....o.
+0012ff08  2c f2 8d 1b 00 00 00 00 - c8 a0 6f 11 2c f2 8d 1b  ,.........o.,...
+0012ff18  d8 f0 05 01 a4 fe 88 03 - 2c ff 12 01 54 ff 12 00  ........,...T...
+0012ff28  93 c7 4c 00 80 ff 12 00 - c1 c7 4c 00 54 ff 12 00  ..L.......L.T...
+0012ff38  c8 a0 6f 11 2c f2 8d 1b - 10 ce fe 00 00 00 00 00  ..o.,...........
+0012ff48  00 00 00 00 c8 a0 6f 01 - 10 ce fe 00 a8 ff 12 00  ......o.........
+0012ff58  6c bc 4c 00 e8 0e 11 00 - 00 00 00 00 00 00 00 00  l.L.............
+0012ff68  00 00 00 00 d7 63 32 00 - c1 00 00 00 e4 00 00 00  .....c2.........
+0012ff78  00 40 fd 7f 7f be 4c 00 - 8c ff 12 00 89 be 4c 00  .@....L.......L.
+0012ff88  a8 ff 12 00 b4 ff 12 00 - c2 be 4c 00 a8 ff 12 00  ..........L.....
+
+disassembling:
+006e7690     public PDFViewFormUnit.TPDFViewForm.ClearPDFDocumentPageViewArea:  ; function entry point
+006e7690 308   mov     eax, [eax+$364]
+006e7696     > mov     eax, [eax+$198]
+006e769c       xor     edx, edx
+006e769e       mov     ecx, [eax]
+006e76a0       call    dword ptr [ecx+8]
+006e76a3 310   ret
+

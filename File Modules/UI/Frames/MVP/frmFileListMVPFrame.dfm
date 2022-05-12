@@ -1,0 +1,2 @@
+inherited FileListMVPFrame: TFileListMVPFrame
+end

@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<PersonalityInfo>
+		<Option>
+			<Option Name="Personality">Default.Personality</Option>
+			<Option Name="ProjectType"></Option>
+			<Option Name="Version">1.0</Option>
+			<Option Name="GUID">{43243069-9B83-42A4-B6C9-F25BF5E97DED}</Option>
+		</Option>
+	</PersonalityInfo>
+	<Default.Personality>  
+    
+    
+    
+    <Projects>
+      <Projects Name="UIControlsStylizationTests.exe">UIControlsStylizationTests.bdsproj</Projects>
+      <Projects Name="ObjectRegistriesUnitTests.exe">..\..\..\Registries\Unit Tests\ObjectRegistriesUnitTests.bdsproj</Projects>
+      <Projects Name="UIControlsStylizationUnitTests.exe">Unit Tests\UIControlsStylizationUnitTests.bdsproj</Projects>
+      <Projects Name="Targets">UIControlsStylizationTests.exe ObjectRegistriesUnitTests.exe UIControlsStylizationUnitTests.exe</Projects>
+    </Projects>
+    <Dependencies/>
+  </Default.Personality>
+</BorlandProject>

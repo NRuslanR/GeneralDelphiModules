@@ -1,0 +1,304 @@
+date/time          : 2019-03-21, 13:53:33, 636ms
+computer name      : 06-409-5
+user name          : 59968 <admin>
+registered owner   : user
+operating system   : Windows XP Service Pack 3 build 2600
+system language    : Russian
+system up time     : 6 hours 50 minutes
+program up time    : 13 seconds
+processors         : 2x Intel(R) Core(TM)2 Duo CPU E8400 @ 3.00GHz
+physical memory    : 922/2047 MB (free/total)
+free disk space    : (C:) 752,77 MB
+display mode       : 1280x1024, 32 bit
+process id         : $584
+allocated memory   : 10,69 MB
+largest free block : 1,39 GB
+executable         : FileStorageServiceProject.exe
+exec. date/time    : 2019-03-21 13:53
+compiled with      : Delphi 2006/07
+madExcept version  : 5.0.0
+callstack crc      : $1e3d2b11, $3c601f07, $3c601f07
+exception number   : 1
+exception class    : Exception
+exception message  : Невозможно выполнить операцию, поскольку ранее не было выполнено подключение к службе хранения файлов.
+
+main thread ($fc0):
+004bee46 +01a FileStorageServiceProject.exe LocalNetworkFileStorageServiceClientUnit 272  +1 TLocalNetworkFileStorageServiceClient.RaiseExceptionIfNotConnected
+004bf290 +024 FileStorageServiceProject.exe LocalNetworkFileStorageServiceClientUnit 473  +2 TLocalNetworkFileStorageServiceClient.PutFile
+004bf78b +187 FileStorageServiceProject.exe TestFormUnit1                             91 +40 TForm5.TestFileStorageService
+004bf5fc +000 FileStorageServiceProject.exe TestFormUnit1                             42  +0 TForm5.FormCreate
+004ae495 +031 FileStorageServiceProject.exe Forms                                            TCustomForm.DoCreate
+004ae151 +011 FileStorageServiceProject.exe Forms                                            TCustomForm.AfterConstruction
+004042bd +01d FileStorageServiceProject.exe System                                    43  +0 @AfterConstruction
+004ae128 +174 FileStorageServiceProject.exe Forms                                            TCustomForm.Create
+004b6c65 +031 FileStorageServiceProject.exe Forms                                            TApplication.CreateForm
+004c0b4f +02f FileStorageServiceProject.exe FileStorageServiceProject                 21  +2 initialization
+
+modules:
+00400000 FileStorageServiceProject.exe                C:\Documents and Settings\59968\Мои документы\Borland Studio Projects\File Storage Service Project
+5b260000 uxtheme.dll                   6.0.2900.5512  C:\WINDOWS\system32
+5bd50000 NETAPI32.dll                  5.1.2600.6260  C:\WINDOWS\system32
+5d5b0000 comctl32.dll                  5.82.2900.6028 C:\WINDOWS\system32
+71a80000 WS2HELP.dll                   5.1.2600.5512  C:\WINDOWS\system32
+71a90000 WS2_32.dll                    5.1.2600.5512  C:\WINDOWS\system32
+71ab0000 wsock32.dll                   5.1.2600.5512  C:\WINDOWS\system32
+71b00000 mpr.dll                       5.1.2600.5512  C:\WINDOWS\system32
+71bd0000 SAMLIB.dll                    5.1.2600.5512  C:\WINDOWS\system32
+71bf0000 ntlanman.dll                  5.1.2600.5512  C:\WINDOWS\System32
+71c60000 NETRAP.dll                    5.1.2600.5512  C:\WINDOWS\System32
+71c70000 NETUI1.dll                    5.1.2600.5512  C:\WINDOWS\System32
+71cb0000 NETUI0.dll                    5.1.2600.5512  C:\WINDOWS\System32
+746e0000 MSCTF.dll                     5.1.2600.5512  C:\WINDOWS\system32
+75f30000 drprov.dll                    5.1.2600.5512  C:\WINDOWS\System32
+75f40000 davclnt.dll                   5.1.2600.5512  C:\WINDOWS\System32
+76380000 comdlg32.dll                  6.0.2900.5512  C:\WINDOWS\system32
+76f50000 WLDAP32.dll                   5.1.2600.5512  C:\WINDOWS\system32
+77110000 oleaut32.dll                  5.1.2600.6341  C:\WINDOWS\system32
+773c0000 comctl32.dll                  6.0.2900.6028  C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.6028_x-ww_61e65202
+774d0000 ole32.dll                     5.1.2600.6168  C:\WINDOWS\system32
+77680000 NTMARTA.DLL                   5.1.2600.5512  C:\WINDOWS\system32
+77910000 SETUPAPI.dll                  5.1.2600.5512  C:\WINDOWS\system32
+77bf0000 version.dll                   5.1.2600.5512  C:\WINDOWS\system32
+77c00000 msvcrt.dll                    7.0.2600.5512  C:\WINDOWS\system32
+77dc0000 ADVAPI32.dll                  5.1.2600.6382  C:\WINDOWS\system32
+77e70000 RPCRT4.dll                    5.1.2600.6022  C:\WINDOWS\system32
+77f10000 GDI32.dll                     5.1.2600.5698  C:\WINDOWS\system32
+77f60000 SHLWAPI.dll                   6.0.2900.5912  C:\WINDOWS\system32
+77fe0000 Secur32.dll                   5.1.2600.5834  C:\WINDOWS\system32
+7c800000 kernel32.dll                  5.1.2600.6293  C:\WINDOWS\system32
+7c900000 ntdll.dll                     5.1.2600.6055  C:\WINDOWS\system32
+7c9c0000 shell32.dll                   6.0.2900.6242  C:\WINDOWS\system32
+7e360000 USER32.dll                    5.1.2600.5512  C:\WINDOWS\system32
+
+processes:
+000 Idle                          0    0
+004 System                        0    0    normal
+5a4 smss.exe                      0    0    normal C:\WINDOWS\system32
+5d4 csrss.exe                     0    0
+5ec winlogon.exe                  43   12   high   C:\WINDOWS\system32
+618 services.exe                  4    0    normal C:\WINDOWS\system32
+624 lsass.exe                     4    0    normal C:\WINDOWS\system32
+6ec svchost.exe                   4    0    normal C:\WINDOWS\system32
+740 svchost.exe                   0    0
+460 svchost.exe                   4    4    normal C:\WINDOWS\System32
+590 svchost.exe                   0    0
+78c svchost.exe                   0    0
+0e4 spoolsv.exe                   4    0    normal C:\WINDOWS\system32
+294 avpsus.exe                    4    0    normal C:\Program Files\Kaspersky Lab\Kaspersky Endpoint Security 10 for Windows SP1
+2d0 BSQLServer.exe                4    1    normal C:\Program Files\Embarcadero\RAD Studio\7.0\bin
+430 mDNSResponder.exe             4    0    normal C:\Program Files\Bonjour
+4a0 hasplms.exe                   4    0    normal C:\WINDOWS\system32
+4d4 jqs.exe                       4    0    idle   C:\Program Files\Java\jre7\bin
+4f4 klnagent.exe                  4    0    normal C:\Program Files\Kaspersky Lab\NetworkAgent
+514 MDM.EXE                       4    0    normal C:\Program Files\Common Files\Microsoft Shared\VS7DEBUG
+784 sqlservr.exe                  4    0    normal C:\Program Files\Microsoft SQL Server\MSSQL10.MSSQLSERVER\MSSQL\Binn
+3a4 nvsvc32.exe                   8    1    normal C:\WINDOWS\system32
+3c0 pg_ctl.exe                    0    0
+250 pg_ctl.exe                    0    0
+25c postgres.exe                  0    0
+2a0 postgres.exe                  0    0
+338 sqlbrowser.exe                0    0
+374 sqlwriter.exe                 4    0    normal C:\Program Files\Microsoft SQL Server\90\Shared
+3d4 svchost.exe                   4    0    normal C:\WINDOWS\system32
+43c avp.exe                       7    1    normal C:\Program Files\Kaspersky Lab\Kaspersky Endpoint Security 10 for Windows SP1
+a68 postgres.exe                  0    0
+f40 postgres.exe                  0    0
+f50 postgres.exe                  0    0
+f60 postgres.exe                  0    0
+f68 postgres.exe                  0    0
+f80 postgres.exe                  0    0
+0fc postgres.exe                  0    0
+8b8 postgres.exe                  0    0
+8c0 postgres.exe                  0    0
+8cc postgres.exe                  0    0
+8dc postgres.exe                  0    0
+8e4 postgres.exe                  0    0
+b04 wmiapsrv.exe                  4    0    normal C:\WINDOWS\system32\wbem
+9e0 Explorer.EXE                  461  251  normal C:\WINDOWS
+458 TSVNCache.exe                 8    1    normal C:\Program Files\TortoiseSVN\bin
+398 RTHDCPL.EXE                   759  155  normal C:\WINDOWS
+a9c RUNDLL32.EXE                  16   5    normal C:\WINDOWS\system32
+b88 2GISTrayNotifier.exe          18   9    normal C:\Program Files\2gis\3.0
+ba4 avp.exe                       32   19   normal C:\Program Files\Kaspersky Lab\Kaspersky Endpoint Security 10 for Windows SP1
+c6c Greenshot.exe                 31   20   normal C:\Program Files\Greenshot
+ce0 jusched.exe                   8    1    normal C:\Program Files\Common Files\Java\Java Update
+e5c ctfmon.exe                    25   9    normal C:\WINDOWS\system32
+e80 miranda32.exe                 1180 426  normal D:\Program Files\MirandaCorporate
+e28 GoldenDict.exe                80   42   normal C:\Program Files\GoldenDict
+fd0 msmsgs.exe                    9    10   normal C:\Program Files\Messenger
+cc0 ScreenTranslator.exe          13   16   normal C:\Program Files\Screen Translator
+894 PanelTask2.exe                170  73   normal \\server-file\Prog_UMZ\Delphi\PanelTask
+ff8 pgadmin3.exe                  1661 471  normal C:\Program Files\pgAdmin III\1.22
+7b0 vapm.exe                      4    0    normal C:\Program Files\Kaspersky Lab\NetworkAgent
+85c unsecapp.exe                  0    0
+868 taskmgr.exe                   103  116  high   C:\WINDOWS\system32
+a04 bds.exe                       5548 1243 normal C:\Program Files\Borland\BDS\4.0\Bin
+cdc bds.exe                       3278 1099 normal C:\Program Files\Borland\BDS\4.0\Bin
+6c4 wmiprvse.exe                  0    0
+584 FileStorageServiceProject.exe 64   35   normal C:\Documents and Settings\59968\Мои документы\Borland Studio Projects\File Storage Service Project
+
+hardware:
++ DVD и CD-ROM дисководы
+  - DTSOFT Virtual CdRom Device
+  - Optiarc DVD RW AD-7200S
++ IDE ATA/ATAPI контроллеры
+  - Intel(R) ICH10 Family 2 port Serial ATA Storage Controller 2 - 3A26 (driver 9.0.0.1005)
+  - Intel(R) ICH10 Family 4 port Serial ATA Storage Controller 1 - 3A20 (driver 9.0.0.1005)
+  - Вторичный канал IDE
+  - Вторичный канал IDE
+  - Вторичный канал IDE
+  - Первичный канал IDE
+  - Первичный канал IDE
+  - Первичный канал IDE
+  - Стандартный двухканальный контроллер PCI IDE
++ Видеоадаптеры
+  - NVIDIA GeForce 9600 GT (driver 6.14.11.7531)
++ Дисководы гибких дисков
+  - Дисковод гибких дисков
++ Дисковые устройства
+  - WDC WD2500AAKS-22VSA0
+  - WDC WD5000AZLX-75K2TA0
++ Звуковые, видео и игровые устройства
+  - Realtek High Definition Audio (driver 5.10.0.5667)
+  - Аудио кодеки
+  - Видео кодеки
+  - Драйверы аудио (без PnP)
+  - Устройства записи видео (без PnP)
+  - Устройство управления
++ Клавиатуры
+  - Клавиатура HID
++ Компьютер
+  - Многопроцессорный компьютер с ACPI
++ Контроллеры гибких дисков
+  - Стандартный контроллер гибких дисков
++ Контроллеры универсальной последовательной шины USB
+  - Intel(R) ICH10 Family USB Enhanced Host Controller - 3A3A (driver 9.0.0.1005)
+  - Intel(R) ICH10 Family USB Enhanced Host Controller - 3A3C (driver 9.0.0.1005)
+  - Intel(R) ICH10 Family USB Universal Host Controller - 3A34 (driver 9.0.0.1005)
+  - Intel(R) ICH10 Family USB Universal Host Controller - 3A35 (driver 9.0.0.1005)
+  - Intel(R) ICH10 Family USB Universal Host Controller - 3A36 (driver 9.0.0.1005)
+  - Intel(R) ICH10 Family USB Universal Host Controller - 3A37 (driver 9.0.0.1005)
+  - Intel(R) ICH10 Family USB Universal Host Controller - 3A38 (driver 9.0.0.1005)
+  - Intel(R) ICH10 Family USB Universal Host Controller - 3A39 (driver 9.0.0.1005)
+  - Корневой USB концентратор
+  - Корневой USB концентратор
+  - Корневой USB концентратор
+  - Корневой USB концентратор
+  - Корневой USB концентратор
+  - Корневой USB концентратор
+  - Корневой USB концентратор
+  - Корневой USB концентратор
+  - Составное USB устройство
++ Мониторы
+  - Модуль подключения монитора
++ Мыши и иные указывающие устройства
+  - Microsoft PS/2 мышь
++ Порты (COM и LPT)
+  - Последовательный порт (COM1)
++ Процессоры
+  - Intel(R) Core(TM)2 Duo CPU     E8400  @ 3.00GHz
+  - Intel(R) Core(TM)2 Duo CPU     E8400  @ 3.00GHz
++ Сетевые платы
+  - Atheros AR8121/AR8113/AR8114 PCI-E Ethernet Controller (driver 1.0.0.27)
+  - Atheros AR8121/AR8113/AR8114 PCI-E Ethernet Controller - Kaspersky Anti-Virus NDIS Miniport (driver 10.0.0.4)
+  - Atheros AR8121/AR8113/AR8114 PCI-E Ethernet Controller - VirtualBox Bridged Networking Driver Miniport (driver 4.1.18.0)
+  - Atheros AR8121/AR8113/AR8114 PCI-E Ethernet Controller - Минипорт планировщика пакетов
+  - VirtualBox Host-Only Ethernet Adapter (driver 4.1.18.0)
+  - VirtualBox Host-Only Ethernet Adapter - Минипорт планировщика пакетов
+  - Минипорт WAN (IP)
+  - Минипорт WAN (IP) - Kaspersky Anti-Virus NDIS Miniport (driver 10.0.0.4)
+  - Минипорт WAN (IP) - Минипорт планировщика пакетов
+  - Минипорт WAN (L2TP)
+  - Минипорт WAN (PPPoE)
+  - Минипорт WAN (PPTP)
+  - Прямой параллельный порт
++ Системные устройства
+  - ATK0110 ACPI UTILITY (driver 1043.2.15.37)
+  - CMOS и часы
+  - DAEMON Tools Virtual Bus (driver 5.0.1.282)
+  - Intel(R) 4 Series Chipset PCI Express Root Port - 2E21 (driver 9.0.0.1009)
+  - Intel(R) 4 Series Chipset Processor to I/O Controller - 2E20 (driver 9.0.0.1009)
+  - Intel(R) 82801 PCI мост - 244E
+  - Intel(R) 82802 Firmware концентратор
+  - Intel(R) ICH10 Family PCI Express Root Port 1 - 3A40 (driver 9.0.0.1009)
+  - Intel(R) ICH10 Family PCI Express Root Port 5 - 3A48 (driver 9.0.0.1009)
+  - Intel(R) ICH10 Family PCI Express Root Port 6 - 3A4A (driver 9.0.0.1009)
+  - Intel(R) ICH10 Family SMBus Controller - 3A30 (driver 9.0.0.1005)
+  - Intel(R) ICH10 LPC Interface Controller - 3A18 (driver 9.0.0.1009)
+  - Microsoft ACPI-совместимая система
+  - Встроенный динамик
+  - Высокоточный таймер событий
+  - Диспетчер логических дисков
+  - Диспетчер томов
+  - Драйвер Microsoft System Management BIOS
+  - Драйвер клавиатуры сервера терминалов
+  - Драйвер мыши сервера терминалов
+  - Драйвер шины Microsoft UAA для High Definition Audio
+  - Кнопка включения питания ACPI
+  - Кнопка фиксированной возможности ACPI
+  - Контроллер прямого доступа к памяти
+  - Перенаправитель устройства сервера терминалов
+  - Перечислитель программных устройств Plug and Play
+  - Порт чтения данных ISAPNP
+  - Программируемый контроллер прерываний
+  - Процессор числовых данных
+  - Ресурсы системной платы
+  - Ресурсы системной платы
+  - Ресурсы системной платы
+  - Ресурсы системной платы
+  - Ресурсы системной платы
+  - Системная плата
+  - Системная плата
+  - Системный таймер
+  - Устройство обновления микропрограмм
+  - Шина PCI
++ Устройства HID (Human Interface Devices)
+  - HID-совместимое устройство
+  - HID-совместимое устройство управления
+  - HID-совместимое устройство управления
+  - USB HID-совместимое устройство
+  - USB HID-совместимое устройство
+
+cpu registers:
+eax = 00ac43a0
+ebx = 00b22400
+ecx = 00ac43a0
+edx = 004bee4b
+esi = 004bf86c
+edi = 00aae638
+eip = 004bee4b
+esp = 0012fd34
+ebp = 0012fd94
+
+stack dump:
+0012fd34  4b ee 4b 00 de fa ed 0e - 01 00 00 00 07 00 00 00  K.K.............
+0012fd44  48 fd 12 00 4b ee 4b 00 - a0 43 ac 00 00 24 b2 00  H...K.K..C...$..
+0012fd54  6c f8 4b 00 38 e6 aa 00 - 94 fd 12 00 64 fd 12 00  l.K.8.......d...
+0012fd64  95 f2 4b 00 9c fd 12 00 - 38 47 40 00 94 fd 12 00  ..K.....8G@.....
+0012fd74  b4 f4 4b 00 10 ce ab 00 - 16 ea 4b 00 00 00 00 00  ..K.......K.....
+0012fd84  00 00 00 00 b8 43 ac 00 - 10 ce ab 00 00 00 00 00  .....C..........
+0012fd94  fc fd 12 00 8e f7 4b 00 - 08 fe 12 00 38 47 40 00  ......K.....8G@.
+0012fda4  fc fd 12 00 f0 e6 a8 00 - 00 00 00 00 00 00 00 00  ................
+0012fdb4  00 00 00 00 00 00 00 00 - 00 00 00 00 00 00 00 00  ................
+0012fdc4  00 00 00 00 00 00 00 00 - 1e 82 bd 84 32 43 e5 40  ............2C.@
+0012fdd4  00 00 00 00 00 00 00 00 - 00 00 00 00 00 00 00 00  ................
+0012fde4  00 00 00 00 00 00 00 00 - 00 00 00 00 00 00 00 00  ................
+0012fdf4  00 00 00 00 00 00 00 00 - 24 fe 12 00 01 f6 4b 00  ........$.....K.
+0012fe04  9b e4 4a 00 38 fe 12 00 - 08 45 40 00 24 fe 12 00  ..J.8....E@.$...
+0012fe14  b4 f4 4b 00 10 ce ab 00 - f0 e6 a8 00 f0 e6 a8 00  ..K.............
+0012fe24  54 fe 12 00 57 e1 4a 00 - 10 ce ab 00 b4 f4 4b 00  T...W.J.......K.
+0012fe34  c0 42 40 00 5c fe 12 00 - cf 42 40 00 54 fe 12 00  .B@.\....B@.T...
+0012fe44  b4 f4 4b 00 10 ce ab 00 - b4 f4 4b 00 f0 e6 a8 00  ..K.......K.....
+0012fe54  84 ff 12 00 2d e1 4a 00 - 8c ff 12 00 71 42 40 00  ....-.J.....qB@.
+0012fe64  84 ff 12 00 f0 e6 a8 00 - f0 e6 a8 00 00 00 00 00  ................
+
+disassembling:
+[...]
+004bee33       jnz     loc_4bee4b
+004bee35 272   mov     ecx, $4bee54
+004bee3a       mov     dl, 1
+004bee3c       mov     eax, [$466f54]
+004bee41       call    -$532e2 ($46bb64)      ; SysUtils.Exception.Create
+004bee46     > call    -$ba5ef ($40485c)      ; System.@RaiseExcept
+004bee4b 278   ret
+

@@ -1,0 +1,2 @@
+inherited DBTableFormMVPFrame: TDBTableFormMVPFrame
+end

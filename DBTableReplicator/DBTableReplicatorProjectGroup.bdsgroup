@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+  <PersonalityInfo>
+    <Option>
+      <Option Name="Personality">Default.Personality</Option>
+      <Option Name="ProjectType"></Option>
+      <Option Name="Version">1.0</Option>
+      <Option Name="GUID">{D16E5849-2FCC-4E53-B57E-55CB46F33130}</Option>
+    </Option>
+  </PersonalityInfo>
+  <Default.Personality>
+    
+    <Projects>
+      <Projects Name="DBTableReplicatorProject.exe">DBTableReplicatorProject.bdsproj</Projects>
+      <Projects Name="DBTableReplicatorProjectTests.exe">Test\DBTableReplicatorProjectTests.bdsproj</Projects>
+      <Projects Name="Targets">DBTableReplicatorProject.exe DBTableReplicatorProjectTests.exe</Projects>
+    </Projects>
+    <Dependencies/>
+  </Default.Personality>
+</BorlandProject>

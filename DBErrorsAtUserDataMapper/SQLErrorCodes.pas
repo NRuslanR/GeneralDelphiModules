@@ -1,0 +1,13 @@
+unit SQLErrorCodes;
+
+interface
+
+const
+
+  UNIQUE_VIOLATION_ERROR_CODE = '23505';
+  FOREIGN_KEY_VIOLATION_ERROR_CODE = '23503';
+  NOT_NULL_VIOLATION_ERROR_CODE = '23502';
+
+implementation
+
+end.
