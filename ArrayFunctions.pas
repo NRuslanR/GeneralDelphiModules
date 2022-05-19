@@ -21,6 +21,7 @@ function ArrayLastItem(Arr: array of Variant): Variant;
 function ArrayFirsts(Arr: array of Variant): TVariantArray;
 function ArrayIntersect(First, Second: array of Variant): TVariantArray;
 function StringsToArray(Strings: TStrings): TVariantArray;
+function StringArrayToArray(Strings: array of String): TVariantArray;
 function ArrayDiff(Values: array of Variant; SubValues: array of Variant): TVariantArray;
 function AreValuesIncludedByArray(Values: array of Variant; Strings: TStrings): Boolean; overload;
 function AreValuesIncludedByArray(Values: TStrings; Arr: array of Variant): Boolean; overload;
@@ -322,6 +323,19 @@ var
 begin
 
   SetLength(Result, Strings.Count);
+
+  for I := 0 to High(Result) do
+    Result[I] := Strings[I];
+
+end;
+
+function StringArrayToArray(Strings: array of String): TVariantArray;
+var
+    Str: String;
+    I: Integer;
+begin
+
+  SetLength(Result, Length(Strings));
 
   for I := 0 to High(Result) do
     Result[I] := Strings[I];
