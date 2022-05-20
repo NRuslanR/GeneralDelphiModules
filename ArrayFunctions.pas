@@ -318,7 +318,6 @@ end;
 
 function StringsToArray(Strings: TStrings): TVariantArray;
 var
-    Str: String;
     I: Integer;
 begin
 
@@ -331,7 +330,6 @@ end;
 
 function StringArrayToArray(Strings: array of String): TVariantArray;
 var
-    Str: String;
     I: Integer;
 begin
 
