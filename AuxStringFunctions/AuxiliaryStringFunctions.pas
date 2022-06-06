@@ -15,6 +15,7 @@ function CreateStringFromStringList(const Strings: TStrings; const Separator: st
 function CreateStringFromVariantList(const VariantList: TVariantList; const Separator: string = ', '): string;
 function CreateStringFromVariantListAndFree(const VariantList: TVariantList; const Separator: string = ', '): string;
 function CreateStringFromVariantArray(const Variants: array of Variant; const Separator: string = ', '): string;
+function ReplaceStrings(const Target: String; const ReplacedStrings: array of String; const ReplacingStrings: array of String): String;
 
 function TrimBy(const Str, TrimmedLeft, TrimmedRight: string): string;
 
@@ -197,7 +198,7 @@ begin
 
   finally
 
-    FreeAndNIl(VariantList);
+    FreeAndNil(VariantList);
     
   end;
 
@@ -291,6 +292,22 @@ begin
   Result := String(ErrorMsgBuf);
 
   LocalFree(Cardinal(ErrorMsgBuf));
+
+end;
+
+function ReplaceStrings(
+  const Target: String;
+  const ReplacedStrings: array of String;
+  const ReplacingStrings: array of String
+): String;
+var
+    I: Integer;
+begin
+
+  Result := Target;
+
+  for I := Low(ReplacedStrings) to High(ReplacedStrings) do
+    Result := ReplaceStr(Result, ReplacedStrings[I], ReplacingStrings[I]);
 
 end;
 
