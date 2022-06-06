@@ -4,6 +4,10 @@ interface
 
 uses
 
+  {$IF CompilerVersion >= 21.0}
+    {$LEGACYIFEND ON}
+  {$IFEND}
+
   Windows, Classes, DB, SysUtils, Variants,
   AbstractRepositoryUnit, AbstractDBRepositoryUnit,
   DomainObjectUnit, ZDbcIntfs, ZDataset,
@@ -16,7 +20,11 @@ uses
   UnaryRepositoryCriterionUnit, BinaryRepositoryCriterionUnit,
   UnitingRepositoryCriterionUnit, DomainObjectListUnit,
   DBTableColumnMappingsUnit,
-  TableColumnMappingsUnit;
+  TableColumnMappingsUnit
+  {$IF CompilerVersion >= 21.0}
+    , ZDatasetParam
+  {$IFEND}
+  ;
 
   type
 
@@ -840,7 +848,7 @@ var LoadedDataSet: TDataSet;
     PrimaryKeyField: String;
     LoadedIdForDomainObject: Variant;
     AlreadyLoadedDomainObject: TDomainObject;
-    CurrentRecordBookmark: Pointer;
+    CurrentRecordBookmark: TBookmark{Pointer};
 begin
 
   LoadedDataSet := DataHolder as TDataSet;
@@ -914,7 +922,12 @@ procedure TAbstractZeosDBRepository.SetParamValuesFromDomainObjectAndColumnMappi
   DomainObject: TDomainObject; ColumnMappings: TTableColumnMappings);
 var ColumnMapping: TTableColumnMapping;
     ParameterValue: Variant;
-    Parameter: TParam;
+    {$IF CompilerVersion >= 21.0}
+      Parameter: TZParam;
+    {$ELSE}
+      Parameter: TParam;
+    {$IFEND}
+
 begin
 
   for ColumnMapping in ColumnMappings

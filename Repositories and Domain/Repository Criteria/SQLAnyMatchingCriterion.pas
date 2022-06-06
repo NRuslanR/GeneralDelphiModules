@@ -6,11 +6,12 @@ uses
 
   AbstractRepositoryCriteriaUnit,
   VariantListUnit,
+  ArrayTypes,
   SysUtils;
 
 type
 
-  TFieldValueArray = array of Variant;
+  TFieldValueArray = TVariantArray;
 
   TSQLAnyMatchingCriterion = class (TAbstractRepositoryCriterion)
 
@@ -55,9 +56,11 @@ begin
 
     Create(FieldName, FieldValueList);
     
-  finally
+  except
 
     FreeAndNil(FieldValueList);
+
+    Raise;
     
   end;
 
