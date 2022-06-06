@@ -399,7 +399,7 @@ begin
 
       FIniFile.WriteBool(FNameOfCurrentSection, PropertyName, Value);
       
-    else FIniFile.WriteString(FNameOfCurrentSection, PropertyName, Value);
+  else FIniFile.WriteString(FNameOfCurrentSection, PropertyName, Value);
 
   end;
 

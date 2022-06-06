@@ -104,6 +104,11 @@ type
 
       destructor Destroy; override;
 
+      function GetBaseDomainObjectsByPropertyValue(
+        const PropertyName: String;
+        const Value: Variant
+      ): TDomainObjectBaseList;
+      
       procedure Clear; virtual;
 
       function Exclude(DomainObjectBaseList: TDomainObjectBaseList): TDomainObjectBaseList;
@@ -137,6 +142,7 @@ uses
 
   Variants,
   AuxCollectionFunctionsUnit,
+  ReflectionServicesUnit,
   AuxDebugFunctionsUnit;
 
 { TDomainObjectBaseListEnumerator }
@@ -384,6 +390,36 @@ begin
 
   Result := TDomainObjectBaseEntry(FInternalBaseDomainObjects[Index]);
   
+end;
+
+function TDomainObjectBaseList.GetBaseDomainObjectsByPropertyValue(
+  const PropertyName: String;
+  const Value: Variant
+): TDomainObjectBaseList;
+var
+    BaseDomainObject: TDomainObjectBase;
+begin
+
+  Result := TDomainObjectBaseListClass(ClassType).Create;
+
+  try
+
+    for BaseDomainObject in Self do begin
+      if
+        TReflectionServices
+          .GetObjectPropertyValue(BaseDomainObject, PropertyName) = Value
+      then
+        Result.AddBaseDomainObject(BaseDomainObject);
+    end;
+
+  except
+
+    FreeAndNil(Result);
+
+    Raise;
+
+  end;
+
 end;
 
 function TDomainObjectBaseList.GetEnumerator: TDomainObjectBaseListEnumerator;
