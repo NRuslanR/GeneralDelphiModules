@@ -15,9 +15,10 @@ uses
   ZAbstractRODataset, ZConnection, cxExport, cxExportPivotGridLink,
   cxGridExportLink, Clipbrd, StrUtils, DeletableOnCloseFormUnit, Math,
   StackedControlUnit, VariantListUnit, cxLocalization, dxSkinscxPCPainter,
-  CancellationThreadUnit, cxCheckBox, Hashes;
+  CancellationThreadUnit, cxCheckBox, Hashes, cxNavigator;
 
 const
+
 
   DEFAULT_INDEX_FIELD_NAME = 'id';
   DEFAULT_SELECTED_RECORD_COLOR = $007dc68c;
@@ -2167,14 +2168,12 @@ end;
 procedure TDBDataTableForm.FormActivate(Sender: TObject);
 begin
 
-  {
-    В связи с некорректным отображением
+  { В связи с некорректным отображением
     кнопок тулбара. По всей видимости,
     подобные неурядицы обуславливались
     имманентным свойством дегенератов из Borland
     разрабатывать заведомо некачественное и
-    непредсказуемо работающее ПО
-  }
+    непредсказуемо работающее ПО }
   Width := Width + 1;
   Width := Width - 1;
 

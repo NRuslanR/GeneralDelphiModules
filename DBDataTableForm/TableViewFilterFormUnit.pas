@@ -472,7 +472,10 @@ type
       Value: TCloneable
     );
 
+    procedure InternalSetLastState(ALastState: TTableViewFilterFormState); virtual;
+
     procedure SetLastState(ALastState: TTableViewFilterFormState);
+
     function CreateCurrentFilterPanelDataFor(
       const ColumnField: TcxGridDBColumn;
       FilterFieldControls: TFilterFieldControls
@@ -632,6 +635,7 @@ type
     ////////////////////////////////////////
 
     procedure FilterDataSet(const Filtered: Boolean; const PFilterData: PFilterDataSetData = nil);
+    procedure SetDataSetFiltered(const Filtered: Boolean); virtual;
 
     function GetCurrentFilterConditionIndex(
       FilterConditionsComboBox: TComboBox
@@ -2423,7 +2427,7 @@ begin
   if Assigned(FOnDataSetFiltering) then
     FOnDataSetFiltering(Self, DataSet);
 
-  DataSet.Filtered := Filtered;
+  SetDataSetFiltered(Filtered);
 
   Screen.Cursor := crDefault;
 
@@ -2757,6 +2761,45 @@ begin
 
 end;
 
+procedure TTableViewFilterForm.InternalSetLastState(
+  ALastState: TTableViewFilterFormState);
+var I: Integer;
+    FilterFieldControls: TFilterFieldControls;
+    FilterPanelData: TFilterPanelData;
+begin
+  for I := 0 to FFilterFieldControlsList.Count - 1 do begin
+
+    FilterFieldControls := TFilterFieldControls(
+                              FFilterFieldControlsList[I]
+                           );
+
+    FilterPanelData := ALastState.FindFilterPanelData(
+                          TcxGridDBColumn(
+                            DataSetTableView.Columns[
+                              FilterFieldControls.SelectFieldCheckBox.Tag
+                            ]
+                          ).DataBinding.FieldName
+                       );
+
+    if not Assigned(FilterPanelData) then Continue;
+    
+    AssignFilterPanelData(
+      DataSetTableView.Columns[
+        FilterFieldControls.SelectFieldCheckBox.Tag
+      ],
+      FilterFieldControls,
+      FilterPanelData
+    );
+
+  end;
+
+  SelectAllFieldsCheckBox.Checked := ALastState.FChooseAllFilterFields;
+  UseCaseInSensitiveFilter.Checked := ALastState.FUseInsensitiveTextFilter;
+
+  if {(not DataSet.Filtered) and} (ALastState.FilterActivated) then
+    btnApply.Click;
+end;
+
 function TTableViewFilterForm.IsFilterFieldValueControlKnown(
   FilterFieldValueControl: TControl): Boolean;
 begin
@@ -2935,6 +2978,11 @@ begin
 
 end;
 
+procedure TTableViewFilterForm.SetDataSetFiltered(const Filtered: Boolean);
+begin
+  DataSet.Filtered := Filtered;
+end;
+
 procedure TTableViewFilterForm.SetDataSetTableView(
   DataSetTableView: TcxGridDBTableView);
 begin
@@ -2952,45 +3000,12 @@ end;
 
 procedure TTableViewFilterForm.SetLastState(
   ALastState: TTableViewFilterFormState);
-var I: Integer;
-    FilterFieldControls: TFilterFieldControls;
-    FilterPanelData: TFilterPanelData;
 begin
 
   if (not FMustSaveStateBeforeClosing) or (not Assigned(ALastState))
   then Exit;
 
-  for I := 0 to FFilterFieldControlsList.Count - 1 do begin
-
-    FilterFieldControls := TFilterFieldControls(
-                              FFilterFieldControlsList[I]
-                           );
-
-    FilterPanelData := ALastState.FindFilterPanelData(
-                          TcxGridDBColumn(
-                            DataSetTableView.Columns[
-                              FilterFieldControls.SelectFieldCheckBox.Tag
-                            ]
-                          ).DataBinding.FieldName
-                       );
-
-    if not Assigned(FilterPanelData) then Continue;
-    
-    AssignFilterPanelData(
-      DataSetTableView.Columns[
-        FilterFieldControls.SelectFieldCheckBox.Tag
-      ],
-      FilterFieldControls,
-      FilterPanelData
-    );
-
-  end;
-
-  SelectAllFieldsCheckBox.Checked := ALastState.FChooseAllFilterFields;
-  UseCaseInSensitiveFilter.Checked := ALastState.FUseInsensitiveTextFilter;
-
-  if {(not DataSet.Filtered) and} (ALastState.FilterActivated) then
-    btnApply.Click;
+  InternalSetLastState(ALastState);
   
 end;
 
