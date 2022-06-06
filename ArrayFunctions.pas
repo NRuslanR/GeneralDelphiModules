@@ -7,12 +7,9 @@ uses
   SysUtils,
   Classes,
   Variants,
+  ArrayTypes,
   VariantFunctions;
 
-type
-
-  TVariantArray = array of Variant;
-  
 function AreValuesIncludedByArray(Values: array of Variant; Arr: array of Variant): Boolean; overload;
 function ArraySlice(Arr: array of Variant; StartIndex: Integer; Length: Integer = -1): TVariantArray;
 function ArrayRest(Arr: array of Variant): TVariantArray;
@@ -21,6 +18,7 @@ function ArrayLastItem(Arr: array of Variant): Variant;
 function ArrayFirsts(Arr: array of Variant): TVariantArray;
 function ArrayIntersect(First, Second: array of Variant): TVariantArray;
 function StringsToArray(Strings: TStrings): TVariantArray;
+function StringArrayToStrings(Strings: array of String): TStrings;
 function StringArrayToArray(Strings: array of String): TVariantArray;
 function ArrayDiff(Values: array of Variant; SubValues: array of Variant): TVariantArray;
 function AreValuesIncludedByArray(Values: array of Variant; Strings: TStrings): Boolean; overload;
@@ -338,6 +336,18 @@ begin
   for I := 0 to High(Result) do
     Result[I] := Strings[I];
 
+end;
+
+function StringArrayToStrings(Strings: array of String): TStrings;
+var
+    Str: String;
+begin
+
+  Result := TStringList.Create;
+
+  for Str in Strings do
+    Result.Add(Str);
+  
 end;
 
 end.
