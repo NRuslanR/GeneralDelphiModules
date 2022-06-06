@@ -5,11 +5,16 @@ interface
   uses
 
     Classes,
-    SysUtils;
+    SysUtils,
+    ArrayFunctions,
+    VariantListUnit;
 
-  procedure FreeListItems(source: TList);
-  procedure FreeListWithItems(var source: TList);
-  function IsNotAssignedOrEmpty(List: TList): Boolean;
+procedure FreeListItems(source: TList);
+procedure FreeListWithItems(var source: TList);
+function IsNotAssignedOrEmpty(List: TList): Boolean;
+function IsAssignedAndNotEmpty(List: TList): Boolean;
+function GetDuplicateValues(Strings: TStrings): TStrings;
+function ValuesEquals(Values: TVariantList): Boolean;
 
 implementation
 
@@ -46,6 +51,58 @@ begin
 
   Result := not Assigned(List) or (List.Count = 0);
   
+end;
+
+function GetDuplicateValues(Strings: TStrings): TStrings;
+var
+    I, J: Integer;
+begin
+
+  Result := TStringList.Create;
+
+  try
+
+    for I := 0 to Strings.Count - 2 do
+      for J := I + 1 to Strings.Count - 1 do
+        if Strings[I] = Strings[J] then
+          if Result.IndexOf(Strings[I]) = -1 then
+            Result.Add(Strings[I]);
+
+  except
+
+    FreeAndNil(Result);
+
+    Raise;
+
+  end;
+
+end;
+
+function IsAssignedAndNotEmpty(List: TList): Boolean;
+begin
+
+  Result := not IsNotAssignedOrEmpty(List);
+
+end;
+
+function ValuesEquals(Values: TVariantList): Boolean;
+var
+   I: Integer;
+   Value: Variant;
+begin
+
+  Value := Values.First;
+
+  for I := 1 to Values.Count - 1 do
+    if Value <> Values[I] then begin
+
+      Result := False;
+      Exit;
+
+    end;
+
+  Result := True;
+
 end;
 
 end.
