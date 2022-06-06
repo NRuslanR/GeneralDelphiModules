@@ -7,6 +7,8 @@ uses
   Disposable,
   ClonableUnit,
   VariantFunctions,
+  ArrayFunctions,
+  ArrayTypes,
   SysUtils,
   Classes;
 
@@ -28,8 +30,6 @@ type
       
   end;
 
-  TVariantArray = array of Variant;
-
   TVariantList = class (TList)
 
     strict protected
@@ -43,10 +43,10 @@ type
       destructor Destroy; override;
       
       constructor Create;
-      constructor CreateFrom(
-        Variants: array of Variant
-      ); overload;
-      
+
+      constructor CreateFrom(Variants: array of Variant); overload;
+      constructor CreateForm(Strings: TStrings); overload;
+      constructor CreateForm(Strings: TStringArray); overload;
       constructor CreateFrom(Variants: Variant); overload;
       constructor CreateFrom(Other: TVariantList); overload;
 
@@ -427,6 +427,24 @@ begin
 
   Result := False;
     
+end;
+
+constructor TVariantList.CreateForm(Strings: TStrings);
+begin
+
+  CreateFrom(StringsToArray(Strings));
+
+end;
+
+constructor TVariantList.CreateForm(Strings: TStringArray);
+var
+  a: TStringArray;
+begin
+
+  a := Strings;
+
+  CreateFrom(StringArrayToArray(a));
+  
 end;
 
 constructor TVariantList.CreateFrom(Other: TVariantList);
