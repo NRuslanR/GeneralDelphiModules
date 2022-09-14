@@ -11,9 +11,47 @@ const
 
 type
 
+  TActionListHandler = procedure (Action: TAction) of object;
+  
   TAnchorsArray = array of TAnchors;
   TAncestorSearchOption = (soUseTypeEquality, soUseTypeInheritance);
-  
+
+  TInflationParentDimension = (psParentDimensionAsInflatedControl, psParentOwnDimension);
+  TInflationParentOwning = (poParentAsOwner, poNoChangeOwner);
+
+  TInflationParentSize = record
+
+    ParentWidth: TInflationParentDimension;
+    ParentHeight: TInflationParentDimension;
+
+    constructor Create(
+      const ParentWidth: TInflationParentDimension;
+      const ParentHeight: TInflationParentDimension
+    );
+
+  end;
+
+  TInflationInfo = record
+
+    InflatedControl: TControl;
+    Parent: TWinControl;
+    ParentSize: TInflationParentSize;
+    ParentOwning: TInflationParentOwning;
+
+    constructor Create(
+      InflatedControl: TControl;
+      Parent: TWinControl
+    ); overload;
+
+    constructor Create(
+      InflatedControl: TControl;
+      Parent: TWinControl;
+      const ParentSize: TInflationParentSize;
+      const ParentOwning: TInflationParentOwning = poParentAsOwner
+    ); overload;
+
+  end;
+
 function CreateLabel(
   Parent: TWinControl;
   const Caption: String = '';
@@ -122,7 +160,21 @@ procedure ApplyHorizontalLayoutToControls(
   const StartLeft: Integer = 0
 );
 
-procedure InflateControl(InflatedControl: TControl; Parent: TWinControl; const ParentAsNewOwner: Boolean = True);
+procedure InflateControl(
+  InflatedControl: TControl;
+  Parent: TWinControl
+); overload;
+
+procedure InflateControl(const InflationInfo: TInflationInfo); overload;
+
+procedure InflateControlAndFreePrevious(
+  InflatedControl: TControl;
+  Parent: TWinControl
+); overload;
+
+procedure InflateControlAndFreePrevious(const InflationInfo: TInflationInfo); overload;
+
+procedure InflateControls(InflationInfos: array of TInflationInfo);
 
 function AddTabSheet(PageCtrl: TPageControl; const TabCaption: String = ''): TTabSheet;
 function FindTabSheetByCaption(PageCtrl: TPageControl; const TabCaption: String): TTabSheet;
@@ -868,14 +920,62 @@ begin
 
 end;
 
-procedure InflateControl(InflatedControl: TControl; Parent: TWinControl; const ParentAsNewOwner: Boolean);
+procedure InflateControl(
+  InflatedControl: TControl;
+  Parent: TWinControl
+);
 begin
 
-  InflatedControl.Parent := Parent;
-  InflatedControl.Align := alClient;
+  InflateControl(TInflationInfo.Create(InflatedControl, Parent));
 
-  Parent.InsertComponent(InflatedControl);
-  
+end;
+
+procedure InflateControl(const InflationInfo: TInflationInfo); overload;
+begin
+
+  with InflationInfo do begin
+
+    InflatedControl.Parent := Parent;
+
+    if
+      (ParentSize.ParentWidth = psParentOwnDimension)
+      and (ParentSize.ParentHeight = psParentOwnDimension)
+    then
+      InflatedControl.Align := alClient
+
+    else begin
+
+      InflatedControl.Left := 0; InflatedControl.Top := 0;
+
+      if ParentSize.ParentWidth = psParentDimensionAsInflatedControl then
+        Parent.Width := InflatedControl.Width
+
+      else InflatedControl.Width := Parent.Width;
+
+      if ParentSize.ParentHeight = psParentDimensionAsInflatedControl then
+        Parent.Height := InflatedControl.Height
+
+      else InflatedControl.Height := Parent.Height;
+        
+    end;
+
+    if InflatedControl is TForm then
+      TForm(InflatedControl).BorderStyle := bsNone;
+
+    if ParentOwning = poParentAsOwner then
+      Parent.InsertComponent(InflatedControl);
+
+  end;
+
+end;
+
+procedure InflateControls(InflationInfos: array of TInflationInfo);
+var
+    InflationInfo: TInflationInfo;
+begin
+
+  for InflationInfo in InflationInfos do InflateControl(InflationInfo);
+
 end;
 
 function AddTabSheet(PageCtrl: TPageControl; const TabCaption: String = ''): TTabSheet;
@@ -915,6 +1015,90 @@ begin
 
   Result := nil;
   
+end;
+
+procedure InflateControlAndFreePrevious(
+  InflatedControl: TControl;
+  Parent: TWinControl
+);
+begin
+
+  InflateControlAndFreePrevious(TInflationInfo.Create(InflatedControl, Parent));
+  
+end;
+
+procedure InflateControlAndFreePrevious(const InflationInfo: TInflationInfo); overload;
+var
+    PreviousControl: TControl;
+begin
+
+  with InflationInfo do begin
+
+    if Parent.ControlCount > 1 then begin
+
+      raise Exception.Create(
+        'Current parent''s control count more than one for inflating'
+      );
+
+    end;
+
+    if Parent.ControlCount = 1 then begin
+
+      if Parent.Controls[0] = InflatedControl then Exit;
+
+      PreviousControl := Parent.Controls[0];
+
+    end
+
+    else PreviousControl := nil;
+
+    InflateControl(InflationInfo);
+
+    FreeAndNil(PreviousControl);
+
+  end;
+
+end;
+
+{ TInflatedControl }
+
+constructor TInflationInfo.Create(InflatedControl: TControl;
+  Parent: TWinControl);
+begin
+
+  Create(
+    InflatedControl,
+    Parent,
+    TInflationParentSize.Create(psParentOwnDimension, psParentOwnDimension),
+    poParentAsOwner
+  );
+
+end;
+
+constructor TInflationInfo.Create(
+  InflatedControl: TControl;
+  Parent: TWinControl;
+  const ParentSize: TInflationParentSize;
+  const ParentOwning: TInflationParentOwning
+);
+begin
+
+  Self.InflatedControl := InflatedControl;
+  Self.Parent := Parent;
+  Self.ParentSize := ParentSize;
+  Self.ParentOwning := ParentOwning;
+
+end;
+
+{ TInflationParentSize }
+
+constructor TInflationParentSize.Create(const ParentWidth,
+  ParentHeight: TInflationParentDimension);
+begin
+
+  Self.ParentWidth := ParentWidth;
+  Self.ParentHeight := ParentHeight;
+
 end;
 
 end.
