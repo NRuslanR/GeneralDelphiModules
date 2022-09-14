@@ -20,7 +20,8 @@ implementation
 
 
 procedure FreeListItems(source: TList);
-var item: Pointer;
+var
+    item: Pointer;
 begin
 
   if not Assigned(source) then Exit;
