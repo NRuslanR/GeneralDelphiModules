@@ -10,7 +10,9 @@ uses
 function VarIsNullOrEmpty(Value: Variant): Boolean;
 function AnyVarIsNullOrEmpty(Values: array of Variant): Boolean;
 function VarOrDefault(Value: Variant; Default: Variant): Variant;
-function VarIfThen(const Predicate: Boolean; TrueValue: Variant; FalseValue: Variant): Variant;
+function VarIfThen(const Predicate: Boolean; TrueValue: Variant; FalseValue: Variant): Variant; overload;
+function VarIfThen(const Predicate: Boolean; TrueClass: TClass; FalseClass: TClass): TClass; overload;
+function VarIfThen(const Predicate: Boolean; TrueObject: TObject; FalseObject: TObject): TObject; overload;
 function VarRecToVariant(VarRec: TVarRec): Variant;
 function ObjectToVariant(Value: TObject): Variant;
 function VariantToObject(Value: Variant): TObject;
@@ -196,6 +198,27 @@ begin
   TVarData(Result).VType := varByRef;
   TVarData(Result).VPointer := ClassType;
   
+end;
+
+function VarIfThen(const Predicate: Boolean; TrueClass: TClass; FalseClass: TClass): TClass;
+begin
+
+  Result := TClass(VarIfThen(Predicate, TObject(TrueClass), TObject(FalseClass)));
+
+end;
+
+function VarIfThen(const Predicate: Boolean; TrueObject: TObject; FalseObject: TObject): TObject;
+begin
+
+  Result :=
+    VariantToObject(
+      VarIfThen(
+        Assigned(ExceptionClass),
+        ObjectToVariant(TrueObject),
+        ObjectToVariant(FalseObject)
+      )
+    );
+    
 end;
 
 end.
