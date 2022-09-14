@@ -714,8 +714,8 @@ object DBDataTableForm: TDBDataTableForm
         Name = 'PngImage15'
         Background = clWindow
       end>
-    Left = 304
-    Top = 184
+    Left = 8
+    Top = 304
   end
   object imgLstEnabled: TPngImageList
     DrawingStyle = dsTransparent
@@ -1077,13 +1077,13 @@ object DBDataTableForm: TDBDataTableForm
         Background = clWindow
       end>
     PngOptions = []
-    Left = 336
-    Top = 184
+    Left = 40
+    Top = 304
   end
   object DataOperationActionList: TActionList
     Images = imgLstEnabled
-    Left = 336
-    Top = 64
+    Left = 8
+    Top = 224
     object actAddData: TAction
       Caption = #1044#1086#1073#1072#1074#1080#1090#1100
       Hint = #1044#1086#1073#1072#1074#1080#1090#1100' '#1079#1072#1087#1080#1089#1100
@@ -1200,8 +1200,8 @@ object DBDataTableForm: TDBDataTableForm
     end
   end
   object DataOperationPopupMenu: TPopupMenu
-    Left = 368
-    Top = 64
+    Left = 40
+    Top = 224
     object CopySelectedDataRecordCellMenuItem: TMenuItem
       Action = actCopySelectedDataRecordCell
     end
@@ -1265,12 +1265,12 @@ object DBDataTableForm: TDBDataTableForm
     end
   end
   object TargetDataSource: TDataSource
-    Left = 400
-    Top = 64
+    Left = 8
+    Top = 184
   end
   object ExportDataPopupMenu: TPopupMenu
-    Left = 472
-    Top = 168
+    Left = 32
+    Top = 264
     object ExcelXLSMenuItem: TMenuItem
       Action = actExportDataToXLS
     end
@@ -1280,11 +1280,11 @@ object DBDataTableForm: TDBDataTableForm
   end
   object ExportDataDialog: TSaveDialog
     DefaultExt = 'xls'
-    Left = 448
-    Top = 168
+    Left = 8
+    Top = 264
   end
   object Localizer: TcxLocalizer
-    Left = 600
-    Top = 160
+    Left = 8
+    Top = 344
   end
 end

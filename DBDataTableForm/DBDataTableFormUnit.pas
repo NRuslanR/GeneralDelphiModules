@@ -15,10 +15,9 @@ uses
   ZAbstractRODataset, ZConnection, cxExport, cxExportPivotGridLink,
   cxGridExportLink, Clipbrd, StrUtils, DeletableOnCloseFormUnit, Math,
   StackedControlUnit, VariantListUnit, cxLocalization, dxSkinscxPCPainter,
-  CancellationThreadUnit, cxCheckBox, Hashes, cxNavigator;
+  CancellationThreadUnit, cxCheckBox, Hashes;
 
 const
-
 
   DEFAULT_INDEX_FIELD_NAME = 'id';
   DEFAULT_SELECTED_RECORD_COLOR = $007dc68c;
@@ -219,6 +218,8 @@ type
 
       destructor Destroy; override;
 
+      function First: TDBDataTableRecord;
+      
       function GetEnumerator: TDBDataTableRecordsEnumerator;
 
       function FetchFieldValues(const FieldName: String): TVariantList;
@@ -240,6 +241,14 @@ type
 
   TOnRecordsRefreshedEventHandler =
     procedure (Sender: TObject) of object;
+
+  TOnFocusedRecordChangedEventHandler =
+    procedure (
+      Sender: TObject;
+      PreviousRecord: TDBDataTableRecord;
+      FocusedRecord: TDBDataTableRecord;
+      const ColumnFocusingChanged: Boolean
+    ) of object;
 
   TDataSetOperationCancellationForDestroyingResult =
     (ocNotRequired, ocAlreadyRequested, ocSuccessed);
@@ -396,14 +405,26 @@ type
 
   private
 
-    function GetFont: TFont; virtual;
-    procedure SetFont(const Value: TFont); virtual;
-
     function GetEnableSelectionColumn: Boolean;
     procedure SetEnableSelectionColumn(const Value: Boolean);
     function GetFocusedRecordId: Variant;
     procedure SetFocusedRecordId(const Value: Variant);
-  
+    function GetSelectionOnly: Boolean;
+    procedure SetSelectionOnly(const Value: Boolean);
+    function GetExitActionVisible: Boolean;
+    procedure SetExitActionVisible(const Value: Boolean);
+    function GetDataModificationToolsVisible: Boolean;
+    procedure SetDataModificationToolsVisible(const Value: Boolean);
+
+  private
+
+    procedure RaiseOnFocusedRecordChangedEventHandler(
+      APrevFocusedRecord, AFocusedRecord: TcxCustomGridRecord;
+      const ANewItemRecordFocusingChanged: Boolean
+    );
+    procedure SetOnFocusedRecordChangedEventHandler(
+      const Value: TOnFocusedRecordChangedEventHandler);
+
   protected
 
     FViewOnly: Boolean;
@@ -413,7 +434,8 @@ type
     FFieldNameOfRequestedColumnForFocus: String;
     FRequestedFocusedRecordKeyValue: Variant;
     FSelectedByColumnRecordIndices: TIntegerHash;
-    
+
+    FDataSetManualFiltered: Boolean;
     FMustAddRecordToolEnabled: Boolean;
     // Отображается ли форма в первый раз, чтобы
     // не допускать постоянной загрузки данных во
@@ -438,7 +460,7 @@ type
 
     FLastSelectedRecordIndexFieldNames: TStringList;
     FLastSelectedRecordIndexFieldValues: TVariantList;
-    
+
     FTableViewFilterForm: TTableViewFilterForm;
     FTableViewFilterFormLastState: TTableViewFilterFormState;
     FMustSaveFilterFormStateBeforeClosing: Boolean;
@@ -448,6 +470,7 @@ type
     FFocusedCellTextColor: TColor;
     FSelectedRecordsTextColor: TColor;
 
+    FOnFocusedRecordChangedEventHandler: TOnFocusedRecordChangedEventHandler;
     FOnRecordsChoosedEventHandler: TOnRecordsChoosedEventHandler;
     FOnRecordsRefreshedEventHandler: TOnRecordsRefreshedEventHandler;
 
@@ -463,6 +486,9 @@ type
       const Caption: String = ''; ADataSet:
       TDataSet = nil
     ); virtual;
+
+    function GetFont: TFont; virtual;
+    procedure SetFont(const Value: TFont); virtual;
 
     function GetViewOnly: Boolean;
     procedure SetViewOnly(const Value: Boolean); virtual;
@@ -755,7 +781,6 @@ type
     procedure OnDataSetCancellationForDestroyingEventHandler(Sender: TObject);
 
   public
-    { Public declarations }
 
     destructor Destroy; override;
     procedure SafeDestroy;
@@ -767,6 +792,8 @@ type
     constructor Create(ADataSet: TDataset; const Caption: String; AOwner: TComponent); overload;
     constructor Create(AConnection: TZConnection; AOwner: TComponent); overload;
 
+    procedure CenterColumnHeadersByHorz;
+    
     procedure BeginUpdate;
     procedure EndUpdate;
 
@@ -776,6 +803,8 @@ type
 
     procedure SetFocusedColumnByFieldName(const FieldName: String);
 
+    function IsEmpty: Boolean;
+    
     function LocateRecord(
       const FieldNames: string;
       const FieldValues: Variant;
@@ -795,7 +824,7 @@ type
     
     procedure Refresh;
     procedure UpdateLayout;
-    
+
     property RecordCount: Integer read GetRecordCount;
 
     procedure SelectRecordsByIds(RecordIds: TVariantList);
@@ -841,6 +870,12 @@ type
     property EnableMultiSelectionMode: Boolean
     read GetMultiSelectionModeEnabled write SetMultiSelectionModeEnabled;
 
+    property DataModificationToolsVisible: Boolean
+    read GetDataModificationToolsVisible write SetDataModificationToolsVisible;
+
+    property SelectionOnly: Boolean
+    read GetSelectionOnly write SetSelectionOnly;
+
     property EnableChooseRecordAction: Boolean
     read GetEnabledChooseRecordAction write SetEnabledChooseRecordAction;
 
@@ -856,6 +891,7 @@ type
     property EnableSelectFilteredRecordAction: Boolean
     read GetEnabledSelectFilteredRecordAction
     write SetEnabledSelectFilteredRecordAction;
+
 
     property EnableExportDataAction: Boolean
     read GetEnabledExportDataAction write SetEnabledExportDataAction;
@@ -881,6 +917,9 @@ type
 
     property ExportDataActionVisible: Boolean
     read GetExportDataActionVisible write SetExportDataActionVisible;
+
+    property ExitActionVisible: Boolean
+    read GetExitActionVisible write SetExitActionVisible;
 
     property PrintDataActionVisible: Boolean
     read GetPrintDataActionVisible write SetPrintDataActionVisible;
@@ -917,6 +956,9 @@ type
     property ViewOnly: Boolean read GetViewOnly write SetViewOnly;
 
   published
+
+    property OnFocusedRecordChangedEventHandler: TOnFocusedRecordChangedEventHandler
+    read FOnFocusedRecordChangedEventHandler write SetOnFocusedRecordChangedEventHandler;
 
     property OnRecordsRefreshedEventHandler: TOnRecordsRefreshedEventHandler
     read FOnRecordsRefreshedEventHandler write FOnRecordsRefreshedEventHandler;
@@ -1322,6 +1364,27 @@ begin
 
 end;
 
+procedure TDBDataTableForm.CenterColumnHeadersByHorz;
+var
+    I: Integer;
+begin
+
+  with DataRecordGridTableView do begin
+
+    for I := 0 to ColumnCount - 1 do begin
+
+      with Columns[I] do begin
+
+        HeaderAlignmentHorz := taCenter;
+
+      end;
+
+    end;
+
+  end;
+
+end;
+
 procedure TDBDataTableForm.CopySelectedDataRecordCell;
 var FocusedColumn: TcxGridColumn;
 begin
@@ -1521,7 +1584,13 @@ var
     RowInfo: TcxRowInfo;
 begin
 
-  if DataRecordGridTableView.DataController.RowCount = 0 then begin
+  if
+    (DataRecordGridTableView.DataController.RowCount = 0)
+    or not (
+      (RowIndex >= 0)
+      and (RowIndex < DataRecordGridTableView.DataController.RowCount)
+    )
+  then begin
 
     Result := nil;
     Exit;
@@ -1637,7 +1706,7 @@ end;
 constructor TDBDataTableForm.Create(AOwner: TComponent);
 begin
 
-  inherited;
+  inherited Create(AOwner);
   Init;
 
 end;
@@ -1663,11 +1732,17 @@ var FilterImage: TPNGObject;
     ActiveFilterCaptionWidth, ActiveFilterCaptionHeight: Integer;
     ActiveFilterCaptionX, ActiveFilterCaptionY: Integer;
 begin
-  
+
   if (Button <> SelectFilterDataToolButton) or
-     (not Assigned(DataSet)) or
-     (not DataSet.Active) or
-     (not DataSet.Filtered)
+     not Assigned(DataSet) or
+     not DataSet.Active
+     or not (
+      DataSet.Filtered
+      and (
+        Assigned(FTableViewFilterFormLastState)
+        or FDataSetManualFiltered
+      )
+     )
   then begin
 
     DefaultDraw := True;
@@ -1768,6 +1843,10 @@ begin
   UpdateChooseRecordsAction;
   UpdateModificationDataActions;
   RememberRecordKeyValue(AFocusedRecord);
+
+  RaiseOnFocusedRecordChangedEventHandler(
+    APrevFocusedRecord, AFocusedRecord, ANewItemRecordFocusingChanged
+  );
   
 end;
 
@@ -1863,6 +1942,13 @@ function TDBDataTableForm.IsDestroyingAllowable: Boolean;
 begin
 
   Result := not Assigned(FDataSetOperationThread);
+
+end;
+
+function TDBDataTableForm.IsEmpty: Boolean;
+begin
+
+  Result := RecordCount = 0;
 
 end;
 
@@ -2053,6 +2139,8 @@ end;
 procedure TDBDataTableForm.OpenDataSetInBackground(ADataSet: TDataSet);
 begin
 
+  if not Assigned(DataSet) then Exit;
+  
   if DataSet is TZAbstractRODataSet then begin
 
     FDataSetOperationThread := TDataSetOperationThread.Create(
@@ -2089,6 +2177,54 @@ begin
 
     end;
     
+  end;
+
+end;
+
+procedure TDBDataTableForm.RaiseOnFocusedRecordChangedEventHandler(
+  APrevFocusedRecord, AFocusedRecord: TcxCustomGridRecord;
+  const ANewItemRecordFocusingChanged: Boolean);
+var
+    PrevFocusedRecord, FocusedRecord: TDBDataTableRecord;
+begin
+
+  if not Assigned(FOnFocusedRecordChangedEventHandler) then Exit;
+
+  PrevFocusedRecord := nil; FocusedRecord := nil;
+
+  try
+
+    with DataRecordGridTableView.DataController do begin
+
+      if Assigned(APrevFocusedRecord) then begin
+
+        PrevFocusedRecord :=
+          CreateTableRecordViewModelFor(
+            GetRowIndexByRecordIndex(APrevFocusedRecord.RecordIndex, False)
+          );
+
+      end;
+
+      if Assigned(AFocusedRecord) then begin
+
+        FocusedRecord :=
+          CreateTableRecordViewModelFor(
+            GetRowIndexByRecordIndex(AFocusedRecord.RecordIndex, False)
+          );      
+
+      end;
+
+      FOnFocusedRecordChangedEventHandler(
+        Self, PrevFocusedRecord, FocusedRecord, ANewItemRecordFocusingChanged
+      );
+
+    end;
+
+  finally
+
+    FreeAndNil(PrevFocusedRecord);
+    FreeAndNil(FocusedRecord);
+
   end;
 
 end;
@@ -2327,6 +2463,16 @@ begin
 
 end;
 
+function TDBDataTableForm.GetDataModificationToolsVisible: Boolean;
+begin
+
+  Result :=
+    actAddData.Visible
+    or actChangeData.Visible
+    or actDeleteData.Visible;
+    
+end;
+
 function TDBDataTableForm.GetDataSet: TDataSet;
 begin
 
@@ -2413,6 +2559,13 @@ begin
     and (IsSelectedColumn.DataBinding.FieldName = '')
     and DataRecordGridTableView.DataController.DataModeController.SmartRefresh
     and DataRecordGridTableView.OptionsSelection.MultiSelect;
+
+end;
+
+function TDBDataTableForm.GetExitActionVisible: Boolean;
+begin
+
+  Result := actExit.Visible;
 
 end;
 
@@ -2688,6 +2841,19 @@ function TDBDataTableForm.GetSelectFilteredRecordActionVisible: Boolean;
 begin
 
   Result := actSelectFilteredData.Visible;
+  
+end;
+
+function TDBDataTableForm.GetSelectionOnly: Boolean;
+begin
+
+  Result :=
+    actChooseRecords.Visible
+    and not (
+      actAddData.Visible  
+      or actChangeData.Visible
+      or actDeleteData.Visible
+    );
   
 end;
 
@@ -3177,6 +3343,14 @@ begin
 
 end;
 
+procedure TDBDataTableForm.SetDataModificationToolsVisible(
+  const Value: Boolean);
+begin
+
+  SetVisibleActions(Value, [actAddData, actChangeData, actDeleteData]);
+  
+end;
+
 procedure TDBDataTableForm.SetDataSet(const ADataSet: TDataSet);
 begin
 
@@ -3195,7 +3369,8 @@ begin
 
   end;
 
-  FSelectedByColumnRecordIndices.Clear;
+  if Assigned(FSelectedByColumnRecordIndices) then
+    FSelectedByColumnRecordIndices.Clear;
 
 end;
 
@@ -3427,6 +3602,14 @@ begin
 
 end;
 
+procedure TDBDataTableForm.SetExitActionVisible(const Value: Boolean);
+begin
+
+  actExit.Visible := Value;
+  ExportDataSeparator.Visible := Value;
+
+end;
+
 procedure TDBDataTableForm.SetExportDataActionVisible(const Enabled: Boolean);
 begin
 
@@ -3514,6 +3697,12 @@ begin
 
   DataRecordGridTableView.OptionsSelection.MultiSelect := Enabled;
   
+end;
+
+procedure TDBDataTableForm.SetOnFocusedRecordChangedEventHandler(
+  const Value: TOnFocusedRecordChangedEventHandler);
+begin
+  FOnFocusedRecordChangedEventHandler := Value;
 end;
 
 procedure TDBDataTableForm.SetPrintDataActionVisible(const Enabled: Boolean);
@@ -3692,6 +3881,14 @@ begin
 
   actSelectFilteredData.Visible := Enabled;
   
+end;
+
+procedure TDBDataTableForm.SetSelectionOnly(const Value: Boolean);
+begin
+
+  SetVisibleActions(Value, [actChooseRecords]);
+  SetVisibleActions(not Value, [actAddData, actChangeData, actDeleteData]);
+
 end;
 
 procedure TDBDataTableForm.SetTotalRecordCountPanelVisible(
@@ -4188,6 +4385,7 @@ begin
       FOnRecordsChoosedEventHandler(Self, FSelectedRecords);
 
     ModalResult := mrOk;
+
     CloseModal;
 
   except
@@ -4362,6 +4560,8 @@ procedure TDBDataTableForm.OnDataSetFilteredHandle(
 );
 begin
 
+  FDataSetManualFiltered := Filtered;
+  
   UpdateTotalRecordCountPanel;
   DataOperationToolBar.Repaint;
 
@@ -5134,6 +5334,13 @@ begin
     Raise;
     
   end;
+  
+end;
+
+function TDBDataTableRecords.First: TDBDataTableRecord;
+begin
+
+  Result := TDBDataTableRecord(inherited First);
   
 end;
 
