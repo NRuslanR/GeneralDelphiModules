@@ -9,8 +9,9 @@ uses
   SysUtils,
   Classes;
 
-
 function AsSQLString(Value: Variant): String;
+function AsSQLDateTime(const DateTime: TDateTime): String;
+function AsSQLFloat(const Float: Single): String;
 
 function CreateSQLValueListString(const Values: TStringArray; const Delimiter: String = ','): String; overload;
 function CreateSQLValueListString(const Values: TStrings; const Delimiter: String = ','): String; overload;
@@ -22,20 +23,55 @@ implementation
 uses
 
   StrUtils,
+  Windows,
+  DateUtils,
+  AuxDebugFunctionsUnit,
   ArrayFunctions,
   Variants;
   
 function AsSQLString(Value: Variant): String;
 begin
-
-  Result := VarToStr(Value);
-
+                                  
   case VarType(Value) of
 
-    varString, varOleStr, varDate: Result := QuotedStr(Result);
-    
+    varString, varOleStr: Result := QuotedStr(VarToStr(Value));
+    varDate: Result := AsSQLDateTime(Value);
+    varSingle, varDouble, varCurrency: Result := AsSQLFloat(Value)
+
+    else Result := VarToStr(Value);
+
   end;
 
+end;
+
+function AsSQLDateTime(const DateTime: TDateTime): String;
+begin
+
+  Result :=
+    QuotedStr(
+      FormatDateTime(
+        IfThen(
+          TimeOf(DateTime) <> 0,
+          'yyyy-MM-dd hh:mm:ss',
+          'yyyy-MM-dd'
+        ),
+        DateTime
+      )
+    );
+
+end;
+
+function AsSQLFloat(const Float: Single): String;
+var
+    FormatSettings: TFormatSettings;
+begin
+
+  GetLocaleFormatSettings(GetThreadLocale, FormatSettings);
+
+  FormatSettings.DecimalSeparator := '.';
+
+  Result := Format('%g', [Float], FormatSettings);
+  
 end;
 
 function CreateSQLValueListString(
