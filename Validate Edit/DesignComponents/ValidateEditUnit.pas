@@ -22,7 +22,6 @@ type
       procedure(var Text: string; var IsValid: Boolean) of object;
 
     strict protected
-    { Private declarations }
 
       FOnValidate: TOnValidateEvent;
       FOnAfterValidate: TOnAfterValidateEvent;
@@ -39,7 +38,6 @@ type
 
       procedure OnChangeHandle(Sender: TObject);
       procedure SetOnValidate(AOnValidate: TOnValidateEvent);
-      procedure UpdateValidationProperties;
 
       function GetIsValid: Boolean;
 
@@ -52,6 +50,8 @@ type
 
     property IsValid: Boolean read GetIsValid;
 
+    procedure UpdateValidationProperties;
+    
   published
 
     property InvalidHint: String read FInvalidHint write FInvalidHint;
@@ -132,7 +132,6 @@ begin
   FInvalidHint := AInvalidHint;
   FOnValidate := AOnValidate;
   Self.ShowHint := False;
-
 
 end;
 

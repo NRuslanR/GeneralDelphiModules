@@ -15,7 +15,7 @@ interface
 
         procedure CreateRegExprObject(const RegularExpression: String);
         procedure OnValidateHandle(var Text: String; var IsValid: Boolean);
-
+        
         function GetRegularExpression: String;
         procedure SetRegularExpression(const RegularExpression: String);
 
@@ -28,8 +28,8 @@ interface
 
       published
       
-        property RegularExpression: String read GetRegularExpression
-        write SetRegularExpression;
+        property RegularExpression: String
+        read GetRegularExpression write SetRegularExpression;
 
     end;
 
@@ -97,10 +97,18 @@ end;
 
 procedure TRegExprValidateRichEdit.SetRegularExpression(
   const RegularExpression: String);
+var
+    InputText: String;
 begin
 
   FRegExpr.Expression := RegularExpression;
-  
+
+  InputText := Text;
+
+  OnValidateHandle(InputText, FIsValid);
+
+  Text := InputText;
+
 end;
 
 procedure TRegExprValidateRichEdit.OnValidateHandle(var Text: String;

@@ -34,7 +34,6 @@ type
 
       procedure OnChangeHandle(Sender: TObject);
       procedure SetOnValidate(AOnValidate: TOnValidateEvent);
-      procedure UpdateValidationProperties;
 
       function GetIsValid: Boolean;
 
@@ -48,6 +47,8 @@ type
     constructor Create(const AInvalidColor: TColor; AOnValidate: TOnValidateEvent; AOwner: TComponent); overload;
 
     property IsValid: Boolean read GetIsValid;
+
+    procedure UpdateValidationProperties;
 
   published
 
@@ -125,7 +126,6 @@ begin
   FInvalidHint := AInvalidHint;
   FOnValidate := AOnValidate;
   Self.ShowHint := False;
-
 
 end;
 

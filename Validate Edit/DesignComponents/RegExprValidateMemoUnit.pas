@@ -28,8 +28,8 @@ interface
 
       published
       
-        property RegularExpression: String read GetRegularExpression
-        write SetRegularExpression;
+        property RegularExpression: String
+        read GetRegularExpression write SetRegularExpression;
 
     end;
 
@@ -97,10 +97,18 @@ end;
 
 procedure TRegExprValidateMemo.SetRegularExpression(
   const RegularExpression: String);
+var
+    InputText: String;
 begin
 
   FRegExpr.Expression := RegularExpression;
-  
+
+  InputText := Text;
+
+  OnValidateHandle(InputText, FIsValid);
+
+  Text := InputText;
+
 end;
 
 procedure TRegExprValidateMemo.OnValidateHandle(var Text: String;

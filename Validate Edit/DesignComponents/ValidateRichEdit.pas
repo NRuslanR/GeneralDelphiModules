@@ -34,8 +34,7 @@ type
 
       procedure OnChangeHandle(Sender: TObject);
       procedure SetOnValidate(AOnValidate: TOnValidateEvent);
-      procedure UpdateValidationProperties;
-      
+
       function GetIsValid: Boolean;
 
       procedure SetLines(Value: TStrings);
@@ -50,6 +49,8 @@ type
     procedure CheckValidAndUpdateView;
     
     property IsValid: Boolean read GetIsValid;
+
+    procedure UpdateValidationProperties;
 
   published
 
