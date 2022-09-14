@@ -2,8 +2,8 @@ object SectionStackedForm: TSectionStackedForm
   Left = 0
   Top = 0
   Caption = 'SectionStackedForm'
-  ClientHeight = 411
-  ClientWidth = 664
+  ClientHeight = 739
+  ClientWidth = 1030
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -17,27 +17,29 @@ object SectionStackedForm: TSectionStackedForm
     Left = 233
     Top = 0
     Width = 4
-    Height = 411
+    Height = 739
     Color = clBtnFace
     ParentColor = False
+    ExplicitHeight = 411
   end
   object SectionListPanel: TPanel
     Left = 0
     Top = 0
     Width = 233
-    Height = 411
+    Height = 739
     Align = alLeft
     BevelOuter = bvNone
     ParentColor = True
     TabOrder = 0
+    ExplicitHeight = 411
     DesignSize = (
       233
-      411)
+      739)
     object SectionsTreeList: TcxDBTreeList
       Left = 8
       Top = 8
       Width = 223
-      Height = 395
+      Height = 723
       Anchors = [akLeft, akTop, akRight, akBottom]
       Bands = <
         item
@@ -55,6 +57,7 @@ object SectionStackedForm: TSectionStackedForm
       TabOrder = 0
       OnCustomDrawDataCell = SectionsTreeListCustomDrawDataCell
       OnFocusedNodeChanged = SectionsTreeListFocusedNodeChanged
+      ExplicitHeight = 395
       object SectionIdColumn: TcxDBTreeListColumn
         Visible = False
         Options.Customizing = False
@@ -89,13 +92,15 @@ object SectionStackedForm: TSectionStackedForm
   object SectionContentPanel: TScrollBox
     Left = 237
     Top = 0
-    Width = 427
-    Height = 411
+    Width = 793
+    Height = 739
     Align = alClient
     BevelInner = bvNone
     BevelOuter = bvNone
     BorderStyle = bsNone
     TabOrder = 1
+    ExplicitWidth = 427
+    ExplicitHeight = 411
   end
   object SectionsDataSource: TDataSource
     Left = 16
