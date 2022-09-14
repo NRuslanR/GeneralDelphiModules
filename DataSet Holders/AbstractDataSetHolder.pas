@@ -685,9 +685,9 @@ end;
 procedure TAbstractDataSetHolder.DisableControls;
 begin
 
-  if not FDataSet.ControlsDisabled then
+  //if not FDataSet.ControlsDisabled then { it's not correctly working for nested DisableControls/EnableControls cases }
     FDataSet.DisableControls;
-  
+
 end;
 
 procedure TAbstractDataSetHolder.Edit;
@@ -700,7 +700,7 @@ end;
 procedure TAbstractDataSetHolder.EnableControls;
 begin
 
-  if FDataSet.ControlsDisabled then
+  //if FDataSet.ControlsDisabled then { it's not correctly working for nested DisableControls/EnableControls cases }
     FDataSet.EnableControls;
   
 end;
