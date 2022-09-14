@@ -235,7 +235,7 @@ begin
   inherited;
 
   FNestedObjectsAutoDestroyingEnabled := True;
-  InvariantsComplianceRequested := TInvariantsCompilanceAssistant.Create;
+  FInvariantsCompilanceAssistant := TInvariantsCompilanceAssistant.Create;
 
 end;
 

@@ -33,7 +33,7 @@ begin
 
   DecodeDateTime(Value, Year, Month, Day, Hour, Minute, Sec, MilliSec);
 
-  Result := IsValidDateTime(Year, Month, Day, Hour, Minute, Sec, MilliSec);
+  Result := DateUtils.IsValidDateTime(Year, Month, Day, Hour, Minute, Sec, MilliSec);
 
 end;
 
