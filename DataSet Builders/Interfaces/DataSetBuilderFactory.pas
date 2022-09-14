@@ -14,7 +14,15 @@ type
     function CreateDataSetBuilder: IDataSetBuilder;
 
   end;
-  
+
+  TAbstractDataSetBuilderFactory = class (TInterfacedObject, IDataSetBuilderFactory)
+
+    public
+
+      function CreateDataSetBuilder: IDataSetBuilder; virtual; abstract;
+      
+  end;
+
 implementation
 
 end.

@@ -23,9 +23,15 @@ type
 
       function CreateDataSet: TDataSet; virtual; abstract;
       procedure InitializeDataSet(DataSet: TDataSet); virtual;
-      
+
+    protected
+
+      procedure CopyDataSetData(Target, Source: TDataSet); virtual;
+
     public
 
+      function GetSelf: TObject;
+      
       function AddField(
         const FieldName: String
       ): IDataSetBuilder; overload; virtual;
@@ -42,6 +48,11 @@ type
       ): IDataSetBuilder; overload; virtual;
 
       function Build: TDataSet; virtual;
+
+      function BuildCopy(
+        Original: TDataSet;
+        const Option: TDataSetCopyBuildingOption = cbCopyWithData
+      ): TDataSet; virtual;
 
   end;
 
@@ -94,6 +105,31 @@ begin
   
 end;
 
+function TAbstractDataSetBuilder.BuildCopy(
+  Original: TDataSet;
+  const Option: TDataSetCopyBuildingOption
+): TDataSet;
+var
+    Field: TField;
+begin
+
+  for Field in Original.Fields do
+    AddField(Field.FieldName, Field.DataType, Field.Size);
+
+  Result := Build;
+
+  if Option = cbCopyWithData then
+    CopyDataSetData(Result, Original);
+
+end;
+
+procedure TAbstractDataSetBuilder.CopyDataSetData(Target, Source: TDataSet);
+begin
+
+  Target.Assign(Source);
+
+end;
+
 function TAbstractDataSetBuilder.DataSet: TDataSet;
 begin
 
@@ -107,6 +143,11 @@ begin
 
   Result := FDataSet;
   
+end;
+
+function TAbstractDataSetBuilder.GetSelf: TObject;
+begin
+
 end;
 
 procedure TAbstractDataSetBuilder.InitializeDataSet(DataSet: TDataSet);

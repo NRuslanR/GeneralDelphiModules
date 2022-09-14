@@ -19,6 +19,10 @@ type
       function CreateDataSet: TDataSet; override;
       procedure InitializeDataSet(DataSet: TDataSet); override;
 
+    protected
+
+      procedure CopyDataSetData(Target, Source: TDataSet); override;
+
     public
 
       function Build: TDataSet; override;
@@ -36,6 +40,13 @@ begin
 
   TClientDataSet(Result).CreateDataSet;
   
+end;
+
+procedure TClientDataSetBuilder.CopyDataSetData(Target, Source: TDataSet);
+begin
+
+  TClientDataSet(Target).Data := TClientDataSet(Source).Data;
+
 end;
 
 function TClientDataSetBuilder.CreateDataSet: TDataSet;

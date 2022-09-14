@@ -9,11 +9,11 @@ uses
 
 type
 
-  TClientDataSetBuilderFactory = class (TInterfacedObject, IDataSetBuilderFactory)
+  TClientDataSetBuilderFactory = class (TAbstractDataSetBuilderFactory)
 
     public
 
-      function CreateDataSetBuilder: IDataSetBuilder; 
+      function CreateDataSetBuilder: IDataSetBuilder; override;
       
   end;
 
