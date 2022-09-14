@@ -7,26 +7,24 @@ uses
   Dialogs;
 
 type
+
   TMinMaxForm = class(TForm)
-  private
-    { Private declarations }
 
-  protected
+    private
 
-    FMinWidth, FMinHeight: Integer;
-    FMaxWidth, FMaxHeight: Integer;
+    protected
 
-    procedure WMGetMinMaxInfo(var Msg: TWMGetMinMaxInfo); message WM_GETMINMAXINFO;
+      FMinWidth, FMinHeight: Integer;
+      FMaxWidth, FMaxHeight: Integer;
 
-  public
-    { Public declarations }
+      procedure WMGetMinMaxInfo(var Msg: TWMGetMinMaxInfo); message WM_GETMINMAXINFO;
 
-  published
+    published
 
-    property MinWidth: Integer read FMinWidth write FMinWidth;
-    property MaxWidth: Integer read FMaxWidth write FMaxWidth;
-    property MinHeight: Integer read FMinHeight write FMinHeight;
-    property MaxHeight: Integer read FMaxHeight write FMaxHeight;
+      property MinWidth: Integer read FMinWidth write FMinWidth;
+      property MaxWidth: Integer read FMaxWidth write FMaxWidth;
+      property MinHeight: Integer read FMinHeight write FMinHeight;
+      property MaxHeight: Integer read FMaxHeight write FMaxHeight;
 
   end;
 

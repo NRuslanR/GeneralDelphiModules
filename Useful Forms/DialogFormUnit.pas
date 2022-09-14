@@ -4,9 +4,9 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, MinMaxFormUnit, StdCtrls, ComCtrls, ExtCtrls, CheckLst, cxGraphics,
+  Dialogs, StdCtrls, ComCtrls, ExtCtrls, CheckLst, cxGraphics,
   cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons, dxSkinsCore,
-  dxSkinsDefaultPainters;
+  dxSkinsDefaultPainters, dxLayoutControl;
 
 type
 
@@ -20,7 +20,8 @@ type
 
   end;
 
-  TDialogForm = class(TMinMaxForm)
+  TDialogForm = class(TForm)
+    ButtonsFooterPanel: TPanel;
     btnOK: TcxButton;
     btnCancel: TcxButton;
     procedure btnOKClick(Sender: TObject);
@@ -52,8 +53,6 @@ type
     procedure SetEnabledChildEditControlsByInteractMode; overload; virtual;
     procedure SetEnabledChildEditControlByInteractMode(
       Control: TControl); virtual;
-
-    procedure InitMinMaxSize; virtual;
 
     procedure SetInteractMode(const AInteractMode: TInteractMode);
 
@@ -168,17 +167,7 @@ begin
   FHorzDistanceBetweenOKAndCancelButton :=
     btnCancel.Left - btnOK.Left - btnOK.Width;
 
-  InitMinMaxSize;
-  
   InteractMode := AInteractMode;
-
-end;
-
-procedure TDialogForm.InitMinMaxSize;
-begin
-
-  FMinWidth := Width;
-  FMinHeight := Height;
 
 end;
 
@@ -220,7 +209,7 @@ begin
     FreeAndNil(BlockingPanel);
 
     Exit;
-    
+
   end;
 
   with TControl(Control) do begin
@@ -228,7 +217,12 @@ begin
     if FInteractMode = imView then begin
 
       BlockingPanel := TBlockingPanel.Create(Control.Parent);
-      BlockingPanel.Parent := Control.Parent;
+//      BlockingPanel.Parent := Control.Parent;
+
+      if Control.Parent is TdxLayoutControl then
+        TdxLayoutControl(Control.Parent).FindItem(Control).Control := BlockingPanel
+      else
+        BlockingPanel.Parent := Control.Parent;
 
       BlockingPanel.SetBounds(Left, Top, Width, Height);
       BlockingPanel.BevelOuter := bvNone;
@@ -325,7 +319,8 @@ begin
 
     if (ParentControl.Controls[I] is TGroupBox) or
         (ParentControl.Controls[I] is TPanel) or
-          (ParentControl.Controls[I] is TScrollBox) then begin
+          (ParentControl.Controls[I] is TScrollBox) or
+            (ParentControl.Controls[I] is TdxLayoutControl) then begin
 
           SetEnabledChildEditControlsByInteractMode(
             ParentControl.Controls[I] as TWinControl
