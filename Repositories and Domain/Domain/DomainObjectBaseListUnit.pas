@@ -7,8 +7,10 @@ uses
   SysUtils,
   Classes,
   IDomainObjectBaseUnit,
+  DomainException,
   DomainObjectBaseUnit,
   IDomainObjectBaseListUnit,
+  InvariantsCompilanceAssistant,
   ClonableUnit,
   EquatableUnit;
 
@@ -67,6 +69,13 @@ type
 
     protected
 
+      FInvariantsComplianceAssistant: IInvariantsCompilanceAssistant;
+
+      function GetInvariantsComplianceRequested: Boolean;
+      procedure SetInvariantsComplianceRequested(const Value: Boolean);
+
+    protected
+
       function GetBaseDomainObjectEntryByIndex(Index: Integer): TDomainObjectBaseEntry; virtual;
       
       function GetBaseDomainObjectByIndex(Index: Integer): TDomainObjectBase; virtual;
@@ -87,7 +96,55 @@ type
       procedure OrderByListComparator(
         ListComparator: TListSortCompare
       ); virtual;
-      
+
+    protected
+
+      procedure RaiseExceptionIfInvariantsComplianceRequested(
+        const Msg: String
+      ); overload;
+
+      procedure RaiseExceptionIfInvariantsComplianceRequested(
+        ExceptionType: TDomainExceptionClass;
+        const Msg: String
+      ); overload;
+
+      procedure RaiseExceptionIfInvariantsComplianceRequested(
+        const Msg: String;
+        const Args: array of const
+      ); overload;
+
+      procedure RaiseExceptionIfInvariantsComplianceRequested(
+        ExceptionType: TDomainExceptionClass;
+        const Msg: String;
+        const Args: array of const
+      ); overload;
+
+    protected
+
+      procedure RaiseConditionalExceptionIfInvariantsComplianceRequested(
+        const Condition: Boolean;
+        const Msg: String
+      ); overload;
+
+      procedure RaiseConditionalExceptionIfInvariantsComplianceRequested(
+        const Condition: Boolean;
+        ExceptionType: TDomainExceptionClass;
+        const Msg: String
+      ); overload;
+
+      procedure RaiseConditionalExceptionIfInvariantsComplianceRequested(
+        const Condition: Boolean;
+        const Msg: String;
+        const Args: array of const
+      ); overload;
+
+      procedure RaiseConditionalExceptionIfInvariantsComplianceRequested(
+        const Condition: Boolean;
+        ExceptionType: TDomainExceptionClass;
+        const Msg: String;
+        const Args: array of const
+      ); overload;
+
     public
 
       constructor Create; virtual;
@@ -101,13 +158,15 @@ type
       function Last: TDomainObjectBase; virtual;
       
       procedure AddBaseDomainObject(BaseDomainObject: TDomainObjectBase); virtual;
-
+ 
       destructor Destroy; override;
 
       function GetBaseDomainObjectsByPropertyValue(
         const PropertyName: String;
         const Value: Variant
       ): TDomainObjectBaseList;
+
+      function ContainsByProperty(const PropertyName: String; const PropertyValue: Variant): Boolean;
       
       procedure Clear; virtual;
 
@@ -131,6 +190,12 @@ type
 
       function Clone: TObject;
       function Equals(Equatable: TObject): Boolean; virtual;
+
+    public
+
+      property InvariantsComplianceRequested: Boolean
+      read GetInvariantsComplianceRequested
+      write SetInvariantsComplianceRequested;
 
   end;
 
@@ -207,6 +272,18 @@ begin
 
   Result := Assigned(FindEntryByBaseDomainObject(BaseDomainObject));
   
+end;
+
+function TDomainObjectBaseList.ContainsByProperty(const PropertyName: String;
+  const PropertyValue: Variant): Boolean;
+var
+    BaseDomainObjects: IDomainObjectBaseList;
+begin
+
+  BaseDomainObjects := GetBaseDomainObjectsByPropertyValue(PropertyName, PropertyValue);
+
+  Result := Assigned(BaseDomainObjects) and not TDomainObjectBaseList(BaseDomainObjects).IsEmpty;
+
 end;
 
 constructor TDomainObjectBaseList.Create;
@@ -429,6 +506,13 @@ begin
   
 end;
 
+function TDomainObjectBaseList.GetInvariantsComplianceRequested: Boolean;
+begin
+
+  Result := FInvariantsComplianceAssistant.InvariantsComplianceRequested;
+
+end;
+
 function TDomainObjectBaseList.GetSelf: TObject;
 begin
 
@@ -528,6 +612,94 @@ begin
   
 end;
 
+procedure TDomainObjectBaseList.RaiseConditionalExceptionIfInvariantsComplianceRequested(
+  const Condition: Boolean; ExceptionType: TDomainExceptionClass;
+  const Msg: String);
+begin
+
+  FInvariantsComplianceAssistant
+    .RaiseConditionalExceptionIfInvariantsComplianceRequested(
+      Condition, ExceptionType, Msg
+    );
+
+end;
+
+procedure TDomainObjectBaseList.RaiseConditionalExceptionIfInvariantsComplianceRequested(
+  const Condition: Boolean; const Msg: String);
+begin
+
+  FInvariantsComplianceAssistant
+    .RaiseConditionalExceptionIfInvariantsComplianceRequested(
+      Condition, Msg
+    );
+
+end;
+
+procedure TDomainObjectBaseList.RaiseConditionalExceptionIfInvariantsComplianceRequested(
+  const Condition: Boolean; ExceptionType: TDomainExceptionClass;
+  const Msg: String; const Args: array of const);
+begin
+
+  FInvariantsComplianceAssistant
+    .RaiseConditionalExceptionIfInvariantsComplianceRequested(
+      Condition, ExceptionType, Msg, Args
+    );
+    
+end;
+
+procedure TDomainObjectBaseList.RaiseConditionalExceptionIfInvariantsComplianceRequested(
+  const Condition: Boolean; const Msg: String; const Args: array of const);
+begin
+
+  FInvariantsComplianceAssistant
+    .RaiseConditionalExceptionIfInvariantsComplianceRequested(
+      Condition, Msg, Args
+    );
+
+end;
+
+procedure TDomainObjectBaseList.RaiseExceptionIfInvariantsComplianceRequested(
+  ExceptionType: TDomainExceptionClass; const Msg: String);
+begin
+
+  FInvariantsComplianceAssistant.RaiseExceptionIfInvariantsComplianceRequested(
+    ExceptionType, Msg
+  );
+  
+end;
+
+procedure TDomainObjectBaseList.RaiseExceptionIfInvariantsComplianceRequested(
+  const Msg: String);
+begin
+
+  FInvariantsComplianceAssistant
+    .RaiseExceptionIfInvariantsComplianceRequested(Msg);
+
+end;
+
+procedure TDomainObjectBaseList.RaiseExceptionIfInvariantsComplianceRequested(
+  ExceptionType: TDomainExceptionClass; const Msg: String;
+  const Args: array of const);
+begin
+
+  FInvariantsComplianceAssistant
+    .RaiseExceptionIfInvariantsComplianceRequested(
+      ExceptionType, Msg, Args
+    );
+
+end;
+
+procedure TDomainObjectBaseList.RaiseExceptionIfInvariantsComplianceRequested(
+  const Msg: String; const Args: array of const);
+begin
+
+  FInvariantsComplianceAssistant
+    .RaiseExceptionIfInvariantsComplianceRequested(
+      Msg, Args
+    );
+
+end;
+
 procedure TDomainObjectBaseList.SetBaseDomainObjectByIndex(
   Index: Integer;
   const Value: TDomainObjectBase
@@ -540,6 +712,14 @@ begin
   if Assigned(Entry) then
     Entry.BaseDomainObject := Value;
 
+end;
+
+procedure TDomainObjectBaseList.SetInvariantsComplianceRequested(
+  const Value: Boolean);
+begin
+
+  FInvariantsComplianceAssistant.InvariantsComplianceRequested := Value;
+  
 end;
 
 { TDomainObjectBaseList.TDomainObjectBaseEntry }

@@ -10,6 +10,7 @@ uses
      DomainException,
      IDomainObjectBaseUnit,
      IDomainObjectBaseListUnit,
+     InvariantsCompilanceAssistant,
      TypInfo,
      Classes;
 
@@ -24,6 +25,8 @@ type
                           IEquatable,
                           ICopyable
                          )
+
+    private
 
     protected
 
@@ -42,7 +45,7 @@ type
     protected
 
       FNestedObjectsAutoDestroyingEnabled: Boolean;
-      FInvariantsComplianceRequested: Boolean;
+      FInvariantsCompilanceAssistant: IInvariantsCompilanceAssistant;
 
       function GetSelf: TObject;
 
@@ -89,10 +92,19 @@ type
       function CreateNewInstance: TDomainObjectBase;
 
       function InternalClone: TObject; virtual;
-      procedure InternalCopyFrom(Copyable: TObject); virtual;
       function InternalEquals(Equatable: TObject): Boolean; virtual;
-      procedure InternalDeepCopyFrom(Copyable: TObject); virtual;
 
+      procedure InternalCopyFrom(
+        Copyable: TObject;
+        const InvariantsEnsuringType: TInvariantsEnsuringType
+      ); virtual;
+
+      procedure InternalDeepCopyFrom(
+        Copyable: TObject;
+        const InvariantsEnsuringType: TInvariantsEnsuringType
+      ); virtual;
+
+      function GetInvariantsComplianceRequested: Boolean;
       procedure SetInvariantsComplianceRequested(const Value: Boolean); virtual;
 
     protected
@@ -148,8 +160,16 @@ type
       destructor Destroy; override;
       constructor Create; virtual;
 
-      procedure CopyFrom(Copyable: TObject); virtual;
-      procedure DeepCopyFrom(Copyable: TObject); virtual;
+      procedure CopyFrom(
+        Copyable: TObject;
+        const InvariantsEnsuringType: TInvariantsEnsuringType = ieNotInvariantsEnsuring
+      ); virtual;
+
+      procedure DeepCopyFrom(
+        Copyable: TObject;
+        const InvariantsEnsuringType: TInvariantsEnsuringType = ieNotInvariantsEnsuring
+      ); virtual;
+      
       function Equals(Equatable: TObject): Boolean; virtual;
       function Clone: TObject; virtual;
 
@@ -164,7 +184,7 @@ type
       function GetPropertyNamesExcept(ExceptionalFieldNames: TStrings): TStrings;
 
       property InvariantsComplianceRequested: Boolean
-      read FInvariantsComplianceRequested
+      read GetInvariantsComplianceRequested
       write SetInvariantsComplianceRequested;
 
   end;
@@ -199,10 +219,13 @@ begin
 
 end;
 
-procedure TDomainObjectBase.CopyFrom(Copyable: TObject);
+procedure TDomainObjectBase.CopyFrom(
+  Copyable: TObject;
+  const InvariantsEnsuringType: TInvariantsEnsuringType
+);
 begin
 
-  InternalCopyFrom(Copyable);
+  InternalCopyFrom(Copyable, InvariantsEnsuringType);
 
 end;
 
@@ -212,7 +235,7 @@ begin
   inherited;
 
   FNestedObjectsAutoDestroyingEnabled := True;
-  InvariantsComplianceRequested := True;
+  InvariantsComplianceRequested := TInvariantsCompilanceAssistant.Create;
 
 end;
 
@@ -223,10 +246,12 @@ begin
 
 end;
 
-procedure TDomainObjectBase.DeepCopyFrom(Copyable: TObject);
+procedure TDomainObjectBase.DeepCopyFrom(
+  Copyable: TObject;
+  const InvariantsEnsuringType: TInvariantsEnsuringType);
 begin
 
-  InternalDeepCopyFrom(Copyable);
+  InternalDeepCopyFrom(Copyable, InvariantsEnsuringType);
 
 end;
 
@@ -276,6 +301,13 @@ begin
     NotResult,
     NotResult
   );
+
+end;
+
+function TDomainObjectBase.GetInvariantsComplianceRequested: Boolean;
+begin
+
+  Result := FInvariantsCompilanceAssistant.InvariantsComplianceRequested;
 
 end;
 
@@ -335,13 +367,16 @@ begin
   
 end;
 
-procedure TDomainObjectBase.InternalCopyFrom(Copyable: TObject);
+procedure TDomainObjectBase.InternalCopyFrom(
+  Copyable: TObject;
+  const InvariantsEnsuringType: TInvariantsEnsuringType
+);
 var CopyMode: Variant;
 begin
 
   CopyMode := cmShallow;
 
-  InvariantsComplianceRequested := False;
+  InvariantsComplianceRequested := InvariantsEnsuringType = ieInvariantsEnsuringRequested;
   
   RunPropertyHandlingLoopFor(
     Self as TDomainObjectBase,
@@ -355,13 +390,16 @@ begin
   
 end;
 
-procedure TDomainObjectBase.InternalDeepCopyFrom(Copyable: TObject);
+procedure TDomainObjectBase.InternalDeepCopyFrom(
+  Copyable: TObject;
+  const InvariantsEnsuringType: TInvariantsEnsuringType
+);
 var CopyMode: Variant;
 begin
 
   CopyMode := cmDeep;
 
-  InvariantsComplianceRequested := False;
+  InvariantsComplianceRequested := InvariantsEnsuringType = ieInvariantsEnsuringRequested;
   
   RunPropertyHandlingLoopFor(
     Self as TDomainObjectBase,
@@ -782,7 +820,8 @@ procedure TDomainObjectBase.RaiseExceptionIfInvariantsComplianceRequested(
   const Msg: String);
 begin
 
-  RaiseExceptionIfInvariantsComplianceRequested(TDomainException, Msg);
+  FInvariantsCompilanceAssistant
+    .RaiseExceptionIfInvariantsComplianceRequested(Msg);
   
 end;
 
@@ -792,8 +831,8 @@ procedure TDomainObjectBase.RaiseExceptionIfInvariantsComplianceRequested(
 );
 begin
 
-  if InvariantsComplianceRequested then
-    Raise ExceptionType.Create(Msg);
+  FInvariantsCompilanceAssistant
+    .RaiseExceptionIfInvariantsComplianceRequested(ExceptionType, Msg);
   
 end;
 
@@ -803,7 +842,8 @@ procedure TDomainObjectBase.RaiseExceptionIfInvariantsComplianceRequested(
 );
 begin
 
-  RaiseExceptionIfInvariantsComplianceRequested(TDomainException, Msg, Args);
+  FInvariantsCompilanceAssistant
+    .RaiseExceptionIfInvariantsComplianceRequested(Msg, Args);
 
 end;
 
@@ -814,8 +854,9 @@ procedure TDomainObjectBase.RaiseExceptionIfInvariantsComplianceRequested(
 );
 begin
 
-  Raise ExceptionType.CreateFmt(Msg, Args);
-  
+  FInvariantsCompilanceAssistant
+    .RaiseExceptionIfInvariantsComplianceRequested(ExceptionType, Msg, Args);
+
 end;
 
 procedure TDomainObjectBase.RunPropertyHandlingLoopFor(
@@ -879,7 +920,7 @@ procedure TDomainObjectBase.SetInvariantsComplianceRequested(
   const Value: Boolean);
 begin
 
-  FInvariantsComplianceRequested := Value;
+  FInvariantsCompilanceAssistant.InvariantsComplianceRequested := Value;
 
 end;
 
@@ -889,8 +930,8 @@ procedure TDomainObjectBase.RaiseConditionalExceptionIfInvariantsComplianceReque
   );
 begin
 
-  if Condition then
-    RaiseExceptionIfInvariantsComplianceRequested(Msg);
+  FInvariantsCompilanceAssistant
+    .RaiseConditionalExceptionIfInvariantsComplianceRequested(Condition, Msg);
 
 end;
 
@@ -901,8 +942,10 @@ procedure TDomainObjectBase.RaiseConditionalExceptionIfInvariantsComplianceReque
 );
 begin
 
-  if Condition then
-    RaiseExceptionIfInvariantsComplianceRequested(ExceptionType, Msg);
+  FInvariantsCompilanceAssistant
+    .RaiseConditionalExceptionIfInvariantsComplianceRequested(
+      Condition, ExceptionType, Msg
+    );
 
 end;
 
@@ -913,8 +956,10 @@ procedure TDomainObjectBase.RaiseConditionalExceptionIfInvariantsComplianceReque
 );
 begin
 
-  if Condition then
-    RaiseExceptionIfInvariantsComplianceRequested(Msg, Args);
+  FInvariantsCompilanceAssistant
+    .RaiseConditionalExceptionIfInvariantsComplianceRequested(
+      Condition, Msg, Args
+    );
 
 end;
 
@@ -926,8 +971,10 @@ procedure TDomainObjectBase.RaiseConditionalExceptionIfInvariantsComplianceReque
 );
 begin
 
-  if Condition then
-    RaiseExceptionIfInvariantsComplianceRequested(ExceptionType, Msg, Args);
+  FInvariantsCompilanceAssistant
+    .RaiseConditionalExceptionIfInvariantsComplianceRequested(
+      Condition, ExceptionType, Msg, Args
+    );
 
 end;
 

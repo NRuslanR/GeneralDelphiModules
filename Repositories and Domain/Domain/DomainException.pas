@@ -19,6 +19,10 @@ type
   end;
   {$M-}
 
+  TDomainObjectNotFoundException = class (TDomainException)
+  
+  end;
+
 implementation
 
 

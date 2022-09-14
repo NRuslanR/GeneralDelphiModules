@@ -40,6 +40,7 @@ implementation
 
 uses
 
+  ArrayFunctions,
   SQLCastingFunctions;
 
 { TSQLAnyMatchingCriterion }

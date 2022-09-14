@@ -7,6 +7,7 @@ uses
   SysUtils,
   Classes,
   DomainObjectUnit,
+  DomainException,
   IDomainObjectUnit,
   DomainObjectBaseListUnit,
   IDomainObjectListUnit,
@@ -77,12 +78,19 @@ type
 
       procedure AddDomainObject(DomainObject: TDomainObject); virtual;
       procedure AddDomainObjectList(DomainObjectList: TDomainObjectList); virtual;
+      procedure ChangeDomainObject(SourceDomainObject: TDomainObject);
       
       function Contains(DomainObject: TDomainObject): Boolean; virtual;
       function ContainsByIdentity(const Identity: Variant): Boolean; virtual;
-      
+
       procedure DeleteDomainObject(DomainObject: TDomainObject); virtual;
       procedure DeleteDomainObjectByIdentity(const Identity: Variant); virtual;
+
+      function GetByIdentityOrRaise(
+        const Identity: Variant;
+        const ErrorMessage: String = '';
+        const DomainExceptionClass: TDomainExceptionClass = nil
+      ): TDomainObject; virtual;
 
       function FindByIdentity(const Identity: Variant): TDomainObject; virtual;
       function FindByIdentities(const Identities: TVariantList): TDomainObjectList; virtual;
@@ -100,6 +108,9 @@ implementation
 
 uses
 
+  CopyableUnit,
+  IDomainObjectBaseListUnit,
+  VariantFunctions,
   Variants,
   AuxDebugFunctionsUnit;
 
@@ -139,6 +150,18 @@ begin
   for DomainObject in DomainObjectList do
     AddDomainObject(DomainObject);
     
+end;
+
+procedure TDomainObjectList.ChangeDomainObject(
+  SourceDomainObject: TDomainObject);
+var
+    TargetDomainObject: TDomainObject;
+begin
+
+  TargetDomainObject := GetByIdentityOrRaise(SourceDomainObject.Identity);
+
+  TargetDomainObject.CopyFrom(SourceDomainObject, ieInvariantsEnsuringRequested);
+   
 end;
 
 function TDomainObjectList.Contains(DomainObject: TDomainObject): Boolean;
@@ -300,6 +323,37 @@ begin
 
   Result := TDomainObject(inherited First);
   
+end;
+
+function TDomainObjectList.GetByIdentityOrRaise(
+  const Identity: Variant;
+  const ErrorMessage: String;
+  const DomainExceptionClass: TDomainExceptionClass
+): TDomainObject;
+var
+    ExceptionClass: TDomainExceptionClass;
+begin
+
+  Result := FindByIdentity(Identity);
+
+  if Assigned(Result) then Exit;
+  
+  Raise
+    TDomainExceptionClass(
+      VarIfThen(
+        Assigned(DomainExceptionClass),
+        DomainExceptionClass,
+        TDomainObjectNotFoundException
+      )
+    )
+    .Create(
+      VarIfThen(
+        Trim(ErrorMessage) <> '',
+        ErrorMessage,
+        'Объект предметной области не найден'
+      )
+    );
+
 end;
 
 function TDomainObjectList.GetDomainObjectByIndex(

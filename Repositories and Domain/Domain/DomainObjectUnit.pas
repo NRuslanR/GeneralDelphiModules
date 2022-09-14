@@ -31,8 +31,17 @@ uses
         constructor Create; overload; override;
         constructor Create(AIdentity: Variant); overload; virtual;
 
-        procedure CopyFrom(Copyable: TObject); override;
-        procedure DeepCopyFrom(Copyable: TObject); override;
+        procedure CopyFrom(
+          Copyable: TObject;
+          const InvariantsEnsuringType: TInvariantsEnsuringType = ieNotInvariantsEnsuring
+        ); override;
+
+        procedure DeepCopyFrom(
+          Copyable: TObject;
+          const InvariantsEnsuringType: TInvariantsEnsuringType = ieNotInvariantsEnsuring
+        ); override;
+
+
         function Equals(Equatable: TObject): Boolean; override;
         function Clone: TObject; override;
 
@@ -74,7 +83,7 @@ begin
 
 end;
 
-procedure TDomainObject.CopyFrom(Copyable: TObject);
+procedure TDomainObject.CopyFrom(Copyable: TObject; const InvariantsEnsuringType: TInvariantsEnsuringType);
 begin
 
   inherited CopyFrom(Copyable);
@@ -90,7 +99,7 @@ begin
   
 end;
 
-procedure TDomainObject.DeepCopyFrom(Copyable: TObject);
+procedure TDomainObject.DeepCopyFrom(Copyable: TObject; const InvariantsEnsuringType: TInvariantsEnsuringType);
 begin
 
   inherited;

@@ -286,9 +286,6 @@ interface
         function CreateDomainObject(DataReader: IDataReader): TDomainObject; override;
         function CreateDomainObjectList(DataReader: IDataReader): TDomainObjectList; override;
         
-        function AsSQLDateTime(const DateTime: TDateTime): String;
-        function AsSQLFloat(const Float: Single): String;
-        
         function SafeQueryExecutor: IQueryExecutor;
 
         procedure SetQueryExecutor(const Value: IQueryExecutor); virtual;
@@ -417,6 +414,7 @@ implementation
 uses
      AuxZeosFunctions,
      StrUtils,
+     SQLCastingFunctions,
      AuxDebugFunctionsUnit,
      AuxiliaryStringFunctions,
      BinaryDBRepositoryCriterionUnit,
@@ -515,31 +513,6 @@ begin
 end;
 
 { TAbstractDBRepository }
-
-function TAbstractDBRepository.AsSQLDateTime(const DateTime: TDateTime): String;
-begin
-
-  Result :=
-    QuotedStr(
-      FormatDateTime(
-        'yyyy-MM-dd hh:mm:ss',
-        DateTime
-      )
-    );
-    
-end;
-
-function TAbstractDBRepository.AsSQLFloat(const Float: Single): String;
-var FormatSettings: TFormatSettings;
-begin
-
-  GetLocaleFormatSettings(GetThreadLocale, FormatSettings);
-
-  FormatSettings.DecimalSeparator := '.';
-
-  Result := Format('%g', [Float], FormatSettings);
-  
-end;
 
 function TAbstractDBRepository.CheckAffectedRecordCount(
   const AffectedRecordCount: Integer): Boolean;
@@ -731,8 +704,8 @@ begin
 
     Result := nil;
     Exit;
-    
-  end;
+
+  end;                                    
 
   Result := TQueryParams.Create;
 

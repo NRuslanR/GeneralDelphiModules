@@ -1,4 +1,4 @@
-unit SQLMultiFieldsEqualityCriterion;
+unit SQLAllMultiFieldsEqualityCriterion;
 
 interface
 
@@ -14,7 +14,7 @@ type
   TFieldNames = TStrings;
   TFieldValues = TVariantList;
 
-  TSQLMultiFieldsEqualityCriterion = class (TAbstractRepositoryCriterion)
+  TSQLAllMultiFieldsEqualityCriterion = class (TAbstractRepositoryCriterion)
 
     protected
 
@@ -47,9 +47,9 @@ uses
   AuxiliaryStringFunctions,
   SQLCastingFunctions;
 
-{ TSQLMultiFieldsEqualityCriterion }
+{ TSQLAllMultiFieldsEqualityCriterion }
 
-constructor TSQLMultiFieldsEqualityCriterion.Create(
+constructor TSQLAllMultiFieldsEqualityCriterion.Create(
   FieldNames: TFieldNames;
   FieldValues: TFieldValues
 );
@@ -62,7 +62,7 @@ begin
   
 end;
 
-constructor TSQLMultiFieldsEqualityCriterion.Create(
+constructor TSQLAllMultiFieldsEqualityCriterion.Create(
   FieldNames: array of String;
   FieldValues: array of Variant
 );
@@ -90,7 +90,7 @@ begin
 
 end;
 
-destructor TSQLMultiFieldsEqualityCriterion.Destroy;
+destructor TSQLAllMultiFieldsEqualityCriterion.Destroy;
 begin
 
   FreeAndNil(FFieldNames);
@@ -100,7 +100,7 @@ begin
 
 end;
 
-function TSQLMultiFieldsEqualityCriterion.GetExpression: String;
+function TSQLAllMultiFieldsEqualityCriterion.GetExpression: String;
 var
     I: Integer;
     FieldExpression: String;
