@@ -6,9 +6,14 @@ uses
 
   DomainObjectUnit,
   DomainObjectListUnit,
-  VariantListUnit;
+  VariantListUnit,
+  SysUtils;
 
 type
+
+  TDomainObjectRepositoryException = class (Exception)
+  
+  end;
 
   IDomainObjectRepository = interface
     ['{7CE44677-0B89-45C1-9168-21D7B07371DE}']
