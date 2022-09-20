@@ -7,6 +7,7 @@ uses
   PathBuilder,
   IFileStorageServiceClientUnit,
   AbstractFileStorageServiceClient,
+  FileStorageServiceErrors,
   SysUtils,
   Classes,
   Windows;
@@ -80,7 +81,7 @@ type
       ): String; override;
 
       function InternalGetFile(const RemoteFilePath: String): String; override;
-      
+
     public
 
       destructor Destroy; override;
@@ -121,6 +122,8 @@ implementation
 uses
 
   StrUtils,
+  FileStorageServiceErrorProcessor,
+  WindowsFileStorageServiceErrorProcessor,
   AuxiliaryStringFunctions,
   AuxDebugFunctionsUnit,
   AuxSystemFunctionsUnit,
@@ -158,13 +161,16 @@ begin
       0
     );
 
-  if AuthorizationResult <> NO_ERROR then
-    raise Exception.CreateFmt(
+  if AuthorizationResult <> NO_ERROR then begin
+
+    Raise Exception.CreateFmt(
             'Во время подключения к ' +
             'удалённому хранилищу возникла ' +
             'ошибка %d',
             [AuthorizationResult]
           );
+
+  end;
 
   FCurrentConnectedLocalNetworkDeviceData.IsConnected := True;
   
@@ -173,7 +179,7 @@ end;
 constructor TLocalNetworkFileStorageServiceClient.Create;
 begin
 
-  inherited;
+  inherited Create(TWindowsFileStorageServiceErrorProcessor.Create);
 
   CreateLocalNetworkDeviceConnectionDataIfNecessary;
   
@@ -183,7 +189,7 @@ constructor TLocalNetworkFileStorageServiceClient.Create(
   const LocalNetworkDevicePath, User, Password: String);
 begin
 
-  inherited Create;
+  inherited Create(TWindowsFileStorageServiceErrorProcessor.Create);
 
   Self.LocalNetworkDevicePath := LocalNetworkDevicePath;
   Self.User := User;
@@ -199,12 +205,15 @@ var FilePathParts: TStrings;
 begin
 
   FileFolderPath := ExtractFileDir(FilePath);
-  
-  if not ForceDirectories(FileFolderPath) then
-    raise Exception.Create(
-            'Не удалось создать дополнительные ' +
-            'каталоги для размещения файла'
-          );
+
+  if not ForceDirectories(FileFolderPath) then begin
+
+    Raise Exception.Create(
+      'Не удалось создать дополнительные ' +
+      'каталоги для размещения файла'
+    );
+
+  end;
 
 end;
 
@@ -241,10 +250,13 @@ end;
 procedure TLocalNetworkFileStorageServiceClient.CreateLocalNetworkDeviceConnectionDataIfNecessary;
 begin
 
-  if not Assigned(FCurrentConnectedLocalNetworkDeviceData) then
+  if not Assigned(FCurrentConnectedLocalNetworkDeviceData) then begin
+
     FCurrentConnectedLocalNetworkDeviceData :=
       TLocalNetworkDeviceConnectionData.Create;
-  
+
+  end;
+
 end;
 
 function TLocalNetworkFileStorageServiceClient.
@@ -275,20 +287,24 @@ end;
 procedure TLocalNetworkFileStorageServiceClient.RaiseExceptionIfNotConnected;
 begin
 
-  if not FCurrentConnectedLocalNetworkDeviceData.IsConnected then
-    raise TFileStorageServiceException.Create(
+  if not FCurrentConnectedLocalNetworkDeviceData.IsConnected then begin
+
+    Raise TFileStorageServiceException.Create(
             GetLastError,
             'Невозможно выполнить операцию, ' +
             'поскольку ранее не было выполнено ' +
             'подключение к службе хранения файлов'
           );
-  
+
+  end;
+
 end;
 
 procedure TLocalNetworkFileStorageServiceClient.RemoveFile(
   const RemoteFilePath: String
 );
-var FileDeleted: Boolean;
+var
+    FileDeleted: Boolean;
     LastError: Cardinal;
 begin
 
@@ -304,28 +320,20 @@ begin
   if not FileDeleted then  begin
 
     LastError := GetLastError;
-    
-    case LastError of
 
-      ERROR_FILE_NOT_FOUND, ERROR_FILE_INVALID:
-
-        raise TFileNotFoundException.Create(
-                LastError,
-                ExtractFileName(RemoteFilePath),
-                RemoteFilePath
-              );
-
-      else
-        raise TFileStorageServiceException.Create(
-                LastError,
-                Format(
-                  'Не удалось удалить файл. '+
-                  'Возникла ошибка %d',
-                  [LastError]
-                )
-              );
-
-    end;
+    FErrorProcessor.RaiseExceptionByErrorData(
+      TFileStorageServiceErrorData
+        .Create(
+          LastError,
+          PathBuilder.GetFileName(RemoteFilePath),
+          RemoteFilePath,
+          Format(
+            'Не удалось удалить файл из хранилища. ' +
+            'Ошибка %d',
+            [LastError]
+          )
+        )
+    );
 
   end;
 
@@ -399,8 +407,9 @@ begin
       True
     );
 
-  if DisconnectionResult <> NO_ERROR then
-    raise TFileStorageServiceException.Create(
+  if DisconnectionResult <> NO_ERROR then begin
+
+    Raise TFileStorageServiceException.Create(
             DisconnectionResult,
             Format(
               'Во время попытки отсоединения от ' +
@@ -412,6 +421,8 @@ begin
               ]
             )
           );
+
+  end;
 
   FCurrentConnectedLocalNetworkDeviceData.IsConnected := False;
           
@@ -484,15 +495,19 @@ begin
 
       LastError := GetLastError;
 
-      raise TFileStorageServiceException.Create(
-              LastError,
-              Format(
-                'Не удалось получить файл ' +
-                'из удалённого хранилиша. ' +
-                'Возникла ошибка %d',
-                [LastError]
-              )
-            );
+      FErrorProcessor.RaiseExceptionByErrorData(
+        TFileStorageServiceErrorData.Create(
+          LastError,
+          ExtractFileName(TempLocalFilePath),
+          TempLocalFilePath,
+          Format(
+            'Не удалось получить файл ' +
+            'из удалённого хранилиша. ' +
+            'Ошибка %d',
+            [LastError]
+          )
+        )
+      );
 
     end;
 
@@ -527,8 +542,9 @@ begin
       OverwriteFileIfItExisting
     );
 
-  if not PutFileSuccessed then
-    raise TFileStorageServiceException.Create(
+  if not PutFileSuccessed then begin
+
+    Raise TFileStorageServiceException.Create(
             GetLastError,
             Format(
               'Не удалось разместить файл "%s" ' +
@@ -540,7 +556,9 @@ begin
               ]
             )
           );
-                  
+
+  end;
+
 end;
 
 { TLocalNetworkFileSystemPathBuilder }

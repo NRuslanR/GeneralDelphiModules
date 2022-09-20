@@ -5,6 +5,7 @@ interface
 uses
 
   PathBuilder,
+  FileStorageServiceErrorProcessor,
   IFileStorageServiceClientUnit,
   SysUtils,
   Windows;
@@ -16,12 +17,22 @@ type
 
       protected
 
+        FErrorProcessor: IFileStorageServiceErrorProcessor;
+
+      protected
+
         function CreateFullPathFromPathIfNecessary(const Path: String): String; virtual; abstract;
         function InternalGetFile(const RemoteFilePath: String): String; virtual; abstract;
-        function ChangeFileName(const CurrentFilePath: String; const NewFileName: String): String; virtual;
+        function ChangeLocalFileName(const CurrentFilePath: String; const NewFileName: String): String; virtual;
+        
+        function InternalChangeLocalFileName(
+          const CurrentFilePath, NewFileNamePath, NewFileName: String
+        ): String; virtual;
         
       public
 
+        constructor Create(FileStorageServiceErrorProcessor: IFileStorageServiceErrorProcessor);
+        
         function GetBaseFileStorePath: String; virtual; abstract;
 
         function GetPathBuilder: IPathBuilder; virtual; abstract;
@@ -52,7 +63,8 @@ implementation
 
 uses
 
-  StrUtils;
+  StrUtils,
+  WindowsFileStorageServiceErrorProcessor;
   
 { TAbstractFileStorageServiceClient }
 
@@ -75,17 +87,15 @@ begin
 
   Result := GetFile(RemoteFilePath);
 
-  Result := ChangeFileName(Result, NewName);
+  Result := ChangeLocalFileName(Result, NewName);
 
 end;
 
-function TAbstractFileStorageServiceClient.ChangeFileName(
+function TAbstractFileStorageServiceClient.ChangeLocalFileName(
   const CurrentFilePath, NewFileName: String
 ): String;
 var
     TargetFileName: String;
-    FileCopySuccess: Boolean;
-    LastError: Cardinal;
 begin
 
   TargetFileName :=
@@ -97,44 +107,64 @@ begin
 
   Result := ExtractFileDir(CurrentFilePath) + PathDelim + TargetFileName;
 
+  Result := InternalChangeLocalFileName(CurrentFilePath, Result, NewFileName);
+
+end;
+
+function TAbstractFileStorageServiceClient.InternalChangeLocalFileName(
+  const CurrentFilePath, NewFileNamePath, NewFileName: String): String;
+var
+    FileCopySuccess: Boolean;
+begin
+
   FileCopySuccess :=
-      CopyFile(PChar(CurrentFilePath), PChar(Result), False);
+      CopyFile(PChar(CurrentFilePath), PChar(NewFileNamePath), False);
 
   if not FileCopySuccess then begin
 
-    LastError := GetLastError;
+    FErrorProcessor.RaiseExceptionByErrorData(
+      TFileStorageServiceErrorData.Create(
+        GetLastError,
+        NewFileName,
+        NewFileNamePath
+      )
+    );
 
-    raise TFileStorageServiceException.Create(
-            LastError,
-            Format(
-              'Не удалось переименовать файл. ' +
-              'Возникла ошибка %d',
-              [LastError]
-            )
-          );
-
-  end;                                  
+  end;
 
   if not DeleteFile(PChar(CurrentFilePath)) then begin
-  
-    LastError := GetLastError;
 
-    raise TFileStorageServiceException.Create(
-            LastError,
-            Format(
-              'Не удалось переименовать файл. ' +
-              'Возникла ошибка %d',
-              [LastError]
-            )
-          );
-  end; 
-  
+    FErrorProcessor.RaiseExceptionByErrorData(
+      TFileStorageServiceErrorData.Create(
+        GetLastError,
+        ExtractFileName(CurrentFilePath),
+        CurrentFilePath
+      )
+    );
+
+  end;
+
+  Result := NewFileNamePath;
+
 end;
 
 procedure TAbstractFileStorageServiceClient.Cleanup;
 begin
 
 
+end;
+
+constructor TAbstractFileStorageServiceClient.Create(
+  FileStorageServiceErrorProcessor: IFileStorageServiceErrorProcessor);
+begin
+
+  inherited Create;
+
+  if Assigned(FileStorageServiceErrorProcessor) then
+    FErrorProcessor := FileStorageServiceErrorProcessor
+
+  else FErrorProcessor := TWindowsFileStorageServiceErrorProcessor.Create;
+  
 end;
 
 end.

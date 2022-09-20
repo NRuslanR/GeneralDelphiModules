@@ -87,7 +87,7 @@ constructor TLegacyHttpFileStorageServiceClient.Create(
 );
 begin
 
-  inherited Create;
+  inherited Create(nil);
 
   FZConnection := ZConnection;
   FPathBuilder := PathBuilder;
