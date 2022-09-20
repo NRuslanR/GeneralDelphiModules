@@ -4,11 +4,12 @@ interface
 
 uses
 
+  Disposable,
   IGetSelfUnit;
   
 type
 
-  TTableDef = class (TInterfacedObject, IGetSelf)
+  TTableDef = class (TInterfacedObject, IGetSelf, IDisposable)
 
     public
 
