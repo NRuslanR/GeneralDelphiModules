@@ -78,7 +78,7 @@ type
 
       procedure AddDomainObject(DomainObject: TDomainObject); virtual;
       procedure AddDomainObjectList(DomainObjectList: TDomainObjectList); virtual;
-      procedure ChangeDomainObject(SourceDomainObject: TDomainObject);
+      function ChangeDomainObject(SourceDomainObject: TDomainObject): TDomainObject;
       
       function Contains(DomainObject: TDomainObject): Boolean; virtual;
       function ContainsByIdentity(const Identity: Variant): Boolean; virtual;
@@ -152,16 +152,14 @@ begin
     
 end;
 
-procedure TDomainObjectList.ChangeDomainObject(
-  SourceDomainObject: TDomainObject);
-var
-    TargetDomainObject: TDomainObject;
+function TDomainObjectList.ChangeDomainObject(
+  SourceDomainObject: TDomainObject): TDomainObject;
 begin
 
-  TargetDomainObject := GetByIdentityOrRaise(SourceDomainObject.Identity);
+  Result := GetByIdentityOrRaise(SourceDomainObject.Identity);
 
-  TargetDomainObject.CopyFrom(SourceDomainObject, ieInvariantsEnsuringRequested);
-   
+  Result.CopyFrom(SourceDomainObject, ieInvariantsEnsuringRequested);
+
 end;
 
 function TDomainObjectList.Contains(DomainObject: TDomainObject): Boolean;
