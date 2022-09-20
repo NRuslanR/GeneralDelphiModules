@@ -2,7 +2,9 @@ unit AbstractDBRepository;
 
 interface
 
-  uses Windows, Classes, DB, SysUtils, Variants,
+uses
+
+  Windows, Classes, DB, SysUtils, Variants,
   AbstractRepository, DomainObjectUnit, ZDbcIntfs, ZDataset,
   ZAbstractRODataset, ZConnection, RegExpr,
   AbstractRepositoryCriteriaUnit, ConstRepositoryCriterionUnit,
@@ -20,6 +22,8 @@ interface
   QueryExecutor,
   DataReader,
   ReflectionServicesUnit,
+  TableDef,
+  IGetSelfUnit,
   VariantListUnit;
 
   type
@@ -64,6 +68,9 @@ interface
 
         FQueryExecutor: IQueryExecutor;
         
+        function GetTableDef: TTableDef;
+        procedure SetTableDef(const Value: TTableDef);
+        
       protected
 
         type
@@ -80,6 +87,9 @@ interface
           
       protected
 
+        FTableDef: TTableDef;
+        FFreeTableDef: IGetSelf;
+        
         FIsAddingTransactional: Boolean;
         FIsUpdatingTransactional: Boolean;
         FIsRemovingTransactional: Boolean;
@@ -91,7 +101,8 @@ interface
         FDomainObjectCompiler: TDomainObjectCompiler;
         
         procedure Initialize; override;
-
+        procedure InitializeTableMappings(TableDef: TTableDef); virtual;
+        
         function CreateDBTableMapping: TDBTableMapping; virtual;
         function CreateDomainObjectCompiler(
           ColumnMappings: TTableColumnMappings
@@ -309,13 +320,22 @@ interface
 
         destructor Destroy; override;
 
-        constructor Create; overload;
-        constructor Create(RepositoryErrorCreator: TRepositoryErrorCreator); overload;
-        constructor Create(QueryExecutor: IQueryExecutor); overload;
+        constructor Create(TableDef: TTableDef = nil); overload;
+
+        constructor Create(
+          RepositoryErrorCreator: TRepositoryErrorCreator;
+          TableDef: TTableDef = nil
+        ); overload;
 
         constructor Create(
           QueryExecutor: IQueryExecutor;
-          RepositoryErrorCreator: TRepositoryErrorCreator
+          TableDef: TTableDef = nil
+        ); overload;
+
+        constructor Create(
+          QueryExecutor: IQueryExecutor;
+          RepositoryErrorCreator: TRepositoryErrorCreator;
+          TableDef: TTableDef = nil
         ); overload;
         
         function GetContainsRepositoryCriterionOperationClass:
@@ -373,6 +393,9 @@ interface
 
         property TableMapping: TDBTableMapping read FDBTableMapping;
 
+        property TableDef: TTableDef
+        read GetTableDef write SetTableDef;
+        
         property QueryExecutor: IQueryExecutor
         read FQueryExecutor write SetQueryExecutor;
         
@@ -422,7 +445,6 @@ uses
      BoolLogicalNegativeDBRepositoryCriterionUnit,
      UnaryDBRepositoryCriterionUnit,
      ContainsDBRepositoryCriterionOperationUnit;
-
 
 type
 
@@ -564,28 +586,53 @@ begin
 
 end;
 
-constructor TAbstractDBRepository.Create;
+constructor TAbstractDBRepository.Create(TableDef: TTableDef);
 begin
 
   inherited Create;
-  
+
+  InitializeTableMappings(TableDef);
+
 end;
 
 constructor TAbstractDBRepository.Create(
-  RepositoryErrorCreator: TRepositoryErrorCreator
+  RepositoryErrorCreator: TRepositoryErrorCreator;
+  TableDef: TTableDef
 );
 begin
 
   inherited Create(RepositoryErrorCreator);
+
+  InitializeTableMappings(TableDef);
   
 end;
 
-constructor TAbstractDBRepository.Create(QueryExecutor: IQueryExecutor);
+constructor TAbstractDBRepository.Create(
+  QueryExecutor: IQueryExecutor;
+  TableDef: TTableDef
+);
 begin
   
   inherited Create;
   
   Self.QueryExecutor := QueryExecutor;
+
+  InitializeTableMappings(TableDef);
+  
+end;
+
+constructor TAbstractDBRepository.Create(
+  QueryExecutor: IQueryExecutor;
+  RepositoryErrorCreator: TRepositoryErrorCreator;
+  TableDef: TTableDef
+);
+begin
+
+  inherited Create(RepositoryErrorCreator);
+
+  Self.QueryExecutor := QueryExecutor;
+
+  InitializeTableMappings(TableDef);
   
 end;
 
@@ -1232,6 +1279,13 @@ begin
     SelectList, WhereClauseForSelectIdentity
   );
 
+end;
+
+function TAbstractDBRepository.GetTableDef: TTableDef;
+begin
+
+  Result := FTableDef;
+  
 end;
 
 function TAbstractDBRepository.GetTableNameFromTableMappingForSelect: String;
@@ -1921,6 +1975,15 @@ end;
 procedure TAbstractDBRepository.Initialize;
 begin
 
+  MarkAllModificationOperationsAsNonTransactional;
+
+  FReturnIdOfDomainObjectAfterAdding := True;
+  
+end;
+
+procedure TAbstractDBRepository.InitializeTableMappings(TableDef: TTableDef);
+begin
+
   FDBTableMapping := CreateDBTableMapping;
 
   FDomainObjectCompiler :=
@@ -1928,12 +1991,10 @@ begin
       FDBTableMapping.ColumnMappingsForSelect
     );
 
+  FTableDef := TableDef;
+  
   CustomizeTableMapping(FDBTableMapping);
 
-  MarkAllModificationOperationsAsNonTransactional;
-
-  FReturnIdOfDomainObjectAfterAdding := True;
-  
 end;
 
 function TAbstractDBRepository.InternalAdd(DomainObject: TDomainObject): Boolean;
@@ -2058,6 +2119,14 @@ begin
 
 end;
 
+procedure TAbstractDBRepository.SetTableDef(const Value: TTableDef);
+begin
+
+  FTableDef := Value;
+  FFreeTableDef := Value;
+  
+end;
+
 procedure TAbstractDBRepository.SetIdForDomainObject(
   DomainObject: TDomainObject;
   DataReader: IDataReader
@@ -2108,18 +2177,6 @@ end;
 
 procedure TAbstractDBRepository.RollbackTransaction;
 begin
-
-end;
-
-constructor TAbstractDBRepository.Create(
-  QueryExecutor: IQueryExecutor;
-  RepositoryErrorCreator: TRepositoryErrorCreator
-);
-begin
-
-  inherited Create(RepositoryErrorCreator);
-
-  FQueryExecutor := QueryExecutor;
 
 end;
 

@@ -4,7 +4,7 @@ interface
 
 uses
 
-  SysUtils, Classes;
+  SysUtils, Classes, Disposable;
 
 const
 
@@ -13,7 +13,7 @@ const
   
 type
 
-  TAbstractRepositoryCriteriaBinding = class abstract
+  TAbstractRepositoryCriteriaBinding = class abstract (TInterfacedObject, IDisposable)
 
     protected
 
@@ -31,7 +31,7 @@ type
 
   TAbstractRepositoryCriteriaBindingClass = class of TAbstractRepositoryCriteriaBinding;
 
-  TAbstractRepositoryCriterionOperation = class abstract
+  TAbstractRepositoryCriterionOperation = class abstract (TInterfacedObject, IDisposable)
 
     protected
 
@@ -50,7 +50,7 @@ type
   TAbstractRepositoryCriterionOperationClass =
     class of TAbstractRepositoryCriterionOperation;
 
-  TAbstractRepositoryCriterion = class abstract
+  TAbstractRepositoryCriterion = class abstract (TInterfacedObject, IDisposable)
 
     protected
 

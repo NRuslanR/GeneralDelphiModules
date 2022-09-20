@@ -18,6 +18,12 @@ type
 
     protected
 
+      procedure CustomizeTableMapping(
+        TableMapping: TDBTableMapping
+      ); override;
+
+    protected
+
       function CreateDBTableMapping: TDBTableMapping; override;
 
       procedure PrepareUpdateDomainObjectListQuery(
@@ -116,6 +122,14 @@ begin
 
   Result := TPostgresTableMapping.Create;
   
+end;
+
+procedure TAbstractPostgresRepository.CustomizeTableMapping(
+  TableMapping: TDBTableMapping);
+begin
+
+  inherited CustomizeTableMapping(TableMapping);
+
 end;
 
 function TAbstractPostgresRepository.GetCustomTrailingInsertQueryTextPart: String;
