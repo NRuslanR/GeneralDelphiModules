@@ -4,25 +4,38 @@ interface
 
 uses
 
-  Windows, Classes, DB, SysUtils, Variants,
-  AbstractRepository, DomainObjectUnit, ZDbcIntfs, ZDataset,
-  ZAbstractRODataset, ZConnection, RegExpr,
-  AbstractRepositoryCriteriaUnit, ConstRepositoryCriterionUnit,
+  Windows,
+  Classes,
+  DB,
+  SysUtils,
+  Variants,
+  AbstractRepository,
+  DomainObjectUnit,
+  ZDbcIntfs,
+  ZDataset,
+  ZAbstractRODataset,
+  ZConnection,
+  RegExpr,
+  AbstractRepositoryCriteriaUnit,
+  ConstRepositoryCriterionUnit,
   AbstractNegativeRepositoryCriterionUnit,
   ArithmeticRepositoryCriterionOperationsUnit,
   BoolLogicalNegativeRepositoryCriterionUnit,
   TableColumnMappings,
-  BoolLogicalRepositoryCriterionBindingsUnit,
-  UnaryRepositoryCriterionUnit, BinaryRepositoryCriterionUnit,
-  UnitingRepositoryCriterionUnit, DomainObjectListUnit,
+  UnaryRepositoryCriterionUnit,
+  BinaryRepositoryCriterionUnit,
+  UnitingRepositoryCriterionUnit,
+  DomainObjectListUnit,
   DBTableMapping,
   DomainObjectCompiler,
   DBTableColumnMappings,
   ContainsRepositoryCriterionOperationUnit,
+  BoolLogicalRepositoryCriterionBindingsUnit,
   QueryExecutor,
   DataReader,
   ReflectionServicesUnit,
   TableDef,
+  NameValue,
   IGetSelfUnit,
   VariantListUnit;
 
@@ -206,6 +219,12 @@ uses
           var QueryPattern: String;
           var QueryParams: TQueryParams
         ); virtual;
+
+        procedure PrepareRemoveDomainObjectListByCriteriaQuery(
+          Criteria: TAbstractRepositoryCriterion;
+          var QueryPattern: String;
+          var QueryParams: TQueryParams
+        );
         
         procedure PrepareFindDomainObjectByIdentityQuery(
           Identity: Variant;
@@ -259,6 +278,7 @@ uses
         procedure PrepareAndExecuteUpdateDomainObjectListQuery(DomainObjectList: TDomainObjectList); virtual;
         procedure PrepareAndExecuteRemoveDomainObjectQuery(DomainObject: TDomainObject); virtual;
         procedure PrepareAndExecuteRemoveDomainObjectListQuery(DomainObjectList: TDomainObjectList); virtual;
+        procedure PrepareAndExecuteRemoveDomainObjectListByCriteriaQuery(Criteria: TAbstractRepositoryCriterion); virtual;
         function PrepareAndExecuteFindDomainObjectByIdentityQuery(Identity: Variant): IDataReader; virtual;
         function PrepareAndExecuteFindDomainObjectsByIdentitiesQuery(const Identities: TVariantList): IDataReader; virtual;
         function PrepareAndExecuteFindDomainObjectsByCriteria(
@@ -272,9 +292,13 @@ uses
         function InternalUpdateDomainObjectList(DomainObjectList: TDomainObjectList): Boolean; override;
         function InternalRemove(DomainObject: TDomainObject): Boolean; override;
         function InternalRemoveDomainObjectList(DomainObjectList: TDomainObjectList): Boolean; override;
+        function InternalRemoveDomainObjectsForAggregateExcept(DomainObjects: TDomainObjectList; AggregateIdentityInfo: TNameValue): Boolean; override;
+        function InternalRemoveDomainObjectListByCriteria(Criteria: TAbstractRepositoryCriterion): Boolean; override;
+        function InternalRemoveDomainObjectsByAllMatchingProperties(PropertyInfos: array of TNameValue): Boolean; override;
         function InternalFindDomainObjectsByIdentities(const Identities: TVariantList): TDomainObjectList; override;
         function InternalFindDomainObjectByIdentity(Identity: Variant): TDomainObject; override;
         function InternalFindDomainObjectsByCriteria(Criteria: TAbstractRepositoryCriterion): TDomainObjectList; override;
+        function InternalFindDomainObjectsByAllMatchingProperties(PropertyInfos: array of TNameValue): TDomainObjectList; override;
         function InternalLoadAll: TDomainObjectList; override;
 
       protected
@@ -377,6 +401,7 @@ uses
         function GetUnitingRepositoryCriterionClass:
           TUnitingRepositoryCriterionClass; override;
 
+        procedure ThrowExceptionIfHasDataManipulationError; override;
         procedure ThrowExceptionIfErrorIsNotUnknown;
 
         property ReturnIdOfDomainObjectAfterAdding: Boolean
@@ -435,16 +460,20 @@ uses
 implementation
 
 uses
-     AuxZeosFunctions,
-     StrUtils,
-     SQLCastingFunctions,
-     AuxDebugFunctionsUnit,
-     AuxiliaryStringFunctions,
-     BinaryDBRepositoryCriterionUnit,
-     ConstDBRepositoryCriterionUnit,
-     BoolLogicalNegativeDBRepositoryCriterionUnit,
-     UnaryDBRepositoryCriterionUnit,
-     ContainsDBRepositoryCriterionOperationUnit;
+
+  Disposable,
+  SQLAnyMatchingCriterion,
+  SQLAllMultiFieldsEqualityCriterion,
+  AuxZeosFunctions,
+  StrUtils,
+  SQLCastingFunctions,
+  AuxDebugFunctionsUnit,
+  AuxiliaryStringFunctions,
+  BinaryDBRepositoryCriterionUnit,
+  ConstDBRepositoryCriterionUnit,
+  BoolLogicalNegativeDBRepositoryCriterionUnit,
+  UnaryDBRepositoryCriterionUnit,
+  ContainsDBRepositoryCriterionOperationUnit;
 
 type
 
@@ -1645,6 +1674,29 @@ begin
 
 end;
 
+procedure TAbstractDBRepository.PrepareAndExecuteRemoveDomainObjectListByCriteriaQuery(
+  Criteria: TAbstractRepositoryCriterion
+);
+var
+    QueryPattern: String;
+    QueryParams: TQueryParams;
+begin
+
+  QueryParams := nil;
+
+  try
+
+    PrepareRemoveDomainObjectListByCriteriaQuery(Criteria, QueryPattern, QueryParams);
+    ExecuteModificationQueryAndCheckResults(QueryPattern, QueryParams);
+
+  finally
+
+    FreeAndNil(QueryParams);
+
+  end;
+
+end;
+
 procedure TAbstractDBRepository.PrepareAndExecuteRemoveDomainObjectListQuery(
   DomainObjectList: TDomainObjectList);
 var QueryPattern: String;
@@ -1837,6 +1889,29 @@ begin
   
 end;
 
+procedure TAbstractDBRepository
+  .PrepareRemoveDomainObjectListByCriteriaQuery(
+    Criteria: TAbstractRepositoryCriterion;
+    var QueryPattern: String;
+    var QueryParams: TQueryParams
+  );
+begin
+
+  QueryPattern :=
+    Format(
+      'DELETE FROM %s WHERE %s',
+      [
+        FDBTableMapping.TableNameWithAlias,
+        IfThen(
+          Trim(Criteria.Expression) <> '',
+          Criteria.Expression + ' AND ' + GetCustomWhereClauseForDelete,
+          GetCustomWhereClauseForDelete
+        )
+      ]
+    ) + ' ' + GetCustomTrailingDeleteQueryTextPart;
+
+end;
+
 procedure TAbstractDBRepository.PrepareRemoveDomainObjectQuery(
   DomainObject: TDomainObject;
   var QueryPattern: String;
@@ -1936,6 +2011,41 @@ begin
   DataReader := PrepareAndExecuteFindDomainObjectByIdentityQuery(Identity);
 
   Result := CreateAndFillDomainObjectFromDataReader(DataReader);
+
+end;
+
+function TAbstractDBRepository.InternalFindDomainObjectsByAllMatchingProperties(
+  PropertyInfos: array of TNameValue): TDomainObjectList;
+var
+    FieldNames: TStrings;
+    FieldValues: TVariantList;
+    Criteria: TSQLAllMultiFieldsEqualityCriterion;
+    FreeCriteria: IDisposable;
+begin
+
+  if Length(PropertyInfos) = 0 then begin
+
+    Result := InternalLoadAll;
+    Exit;
+
+  end;
+
+  TNameValue.Deconstruct(PropertyInfos, FieldNames, FieldValues);
+
+  try
+
+    Criteria := TSQLAllMultiFieldsEqualityCriterion.Create(FieldNames, FieldValues);
+
+    FreeCriteria := Criteria;
+
+    Result := InternalFindDomainObjectsByCriteria(Criteria);
+
+  finally
+
+    FreeAndNil(FieldNames);
+    FreeAndNil(FieldValues);
+
+  end;
 
 end;
 
@@ -2049,6 +2159,102 @@ begin
 
   Result := True;
   
+end;
+
+function TAbstractDBRepository.InternalRemoveDomainObjectListByCriteria(
+  Criteria: TAbstractRepositoryCriterion): Boolean;
+begin
+
+  Result := False;
+
+  PrepareAndExecuteRemoveDomainObjectListByCriteriaQuery(Criteria);
+
+  Result := True;
+
+end;
+
+function TAbstractDBRepository.InternalRemoveDomainObjectsByAllMatchingProperties(
+  PropertyInfos: array of TNameValue): Boolean;
+var
+    FieldNames: TStrings;
+    FieldValues: TVariantList;
+    Criteria: TSQLAllMultiFieldsEqualityCriterion;
+    FreeCriteria: IDisposable;
+begin
+
+  if Length(PropertyInfos) = 0 then begin
+
+    Result := False;
+    Exit;
+
+  end;
+
+  TNameValue.Deconstruct(PropertyInfos, FieldNames, FieldValues);
+
+  try
+
+    Criteria := TSQLAllMultiFieldsEqualityCriterion.Create(FieldNames, FieldValues);
+
+    FreeCriteria := Criteria;
+
+    Result := InternalRemoveDomainObjectListByCriteria(Criteria);
+    
+  finally
+
+    FreeAndNil(FieldNames);
+    FreeAndNil(FieldValues);
+
+  end;
+
+end;
+
+function TAbstractDBRepository.InternalRemoveDomainObjectsForAggregateExcept(
+  DomainObjects: TDomainObjectList;
+  AggregateIdentityInfo: TNameValue
+): Boolean;
+var
+    Criteria: TAbstractRepositoryCriterion;
+    DomainObjectsIdentities: TVariantList;
+begin
+
+  if DomainObjects.IsEmpty then begin
+
+    Result := InternalRemoveDomainObjectsByAllMatchingProperties(AggregateIdentityInfo);
+    Exit;
+    
+  end;
+
+  DomainObjectsIdentities := DomainObjects.CreateDomainObjectIdentityList;
+
+  Criteria :=
+    TBinaryDBRepositoryCriterion.Create(
+      TSQLAllMultiFieldsEqualityCriterion.Create(
+        [AggregateIdentityInfo.Name],
+        [AggregateIdentityInfo.Value]
+      ),
+      TBoolNegativeDBRepositoryCriterion.Create(
+        TSQLAnyMatchingCriterion.Create(
+          FDBTableMapping
+            .FindSelectColumnMappingByObjectPropertyName(
+              TDomainObject.IdentityPropName
+            ).ColumnName,
+          DomainObjectsIdentities
+        )
+      ),
+      TBoolAndBinding.Create
+    );
+
+  try
+
+    Result := InternalRemoveDomainObjectListByCriteria(Criteria);
+
+  finally
+
+    FreeAndNil(DomainObjectsIdentities);
+    FreeAndNil(Criteria);
+    
+  end;
+
 end;
 
 function TAbstractDBRepository.InternalUpdate(DomainObject: TDomainObject): Boolean;
@@ -2168,6 +2374,13 @@ begin
   if HasError and not (LastError is TUnknownDBRepositoryError) then
     raise Exception.Create(LastError.InformativeErrorMessage);
   
+end;
+
+procedure TAbstractDBRepository.ThrowExceptionIfHasDataManipulationError;
+begin
+
+  ThrowExceptionIfErrorIsNotUnknown;
+
 end;
 
 procedure TAbstractDBRepository.CommitTransaction;

@@ -4,7 +4,7 @@ interface
 
 uses
 
-  ISessionUnit,
+  Session,
   DomainObjectUnit,
   DomainObjectRepository;
 

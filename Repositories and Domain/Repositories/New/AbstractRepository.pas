@@ -2,19 +2,29 @@ unit AbstractRepository;
 
 interface
 
-  uses Windows, Classes, DB, SysUtils, Variants, DomainObjectUnit,
-       AbstractRepositoryCriteriaUnit, ConstRepositoryCriterionUnit,
-       AbstractNegativeRepositoryCriterionUnit,
-       ArithmeticRepositoryCriterionOperationsUnit,
-       BoolLogicalNegativeRepositoryCriterionUnit,
-       BoolLogicalRepositoryCriterionBindingsUnit,
-       UnaryRepositoryCriterionUnit,
-       BinaryRepositoryCriterionUnit,
-       ContainsRepositoryCriterionOperationUnit,
-       VariantListUnit,
-       DataReader,
-       DomainObjectRepository,
-       UnitingRepositoryCriterionUnit, DomainObjectListUnit;
+uses
+
+  Windows,
+  Classes,
+  DB,
+  SysUtils,
+  Variants,
+  DomainObjectUnit,
+  AbstractRepositoryCriteriaUnit,
+  ConstRepositoryCriterionUnit,
+  AbstractNegativeRepositoryCriterionUnit,
+  ArithmeticRepositoryCriterionOperationsUnit,
+  BoolLogicalNegativeRepositoryCriterionUnit,
+  BoolLogicalRepositoryCriterionBindingsUnit,
+  UnaryRepositoryCriterionUnit,
+  BinaryRepositoryCriterionUnit,
+  ContainsRepositoryCriterionOperationUnit,
+  VariantListUnit,
+  DataReader,
+  DomainObjectRepository,
+  UnitingRepositoryCriterionUnit,
+  DomainObjectListUnit,
+  NameValue;
   
   type
 
@@ -109,6 +119,10 @@ interface
 
     TAbstractRepository = class abstract (TInterfacedObject, IDomainObjectRepository)
 
+      private
+
+        FEnableThrowingExceptionsForDataManipulationErrors: Boolean;
+
       strict protected
 
         FLastOperation: TRepositoryOperation;
@@ -195,7 +209,11 @@ interface
         function InternalUpdateDomainObjectList(DomainObjectList: TDomainObjectList): Boolean; virtual; abstract;
         function InternalRemove(DomainObject: TDomainObject): Boolean; virtual; abstract;
         function InternalRemoveDomainObjectList(DomainObjectList: TDomainObjectList): Boolean; virtual; abstract;
+        function InternalRemoveDomainObjectsForAggregateExcept(DomainObjects: TDomainObjectList; AggregateIdentityInfo: TNameValue): Boolean; virtual; abstract;
+        function InternalRemoveDomainObjectListByCriteria(Criteria: TAbstractRepositoryCriterion): Boolean; virtual; abstract;
+        function InternalRemoveDomainObjectsByAllMatchingProperties(PropertyInfos: array of TNameValue): Boolean; virtual; abstract;
         function InternalFindDomainObjectsByCriteria(Criteria: TAbstractRepositoryCriterion): TDomainObjectList; virtual; abstract;
+        function InternalFindDomainObjectsByAllMatchingProperties(PropertyInfos: array of TNameValue): TDomainObjectList; virtual; abstract;
         function InternalLoadAll: TDomainObjectList; virtual; abstract;
 
         function Add(DomainObject: TDomainObject): Boolean; virtual;
@@ -203,10 +221,16 @@ interface
         function Update(DomainObject: TDomainObject): Boolean; virtual;
         function UpdateDomainObjectList(DomainObjectList: TDomainObjectList): Boolean; virtual;
         function Save(DomainObject: TDomainObject): Boolean; virtual;
+        function SaveDomainObjectList(DomainObjectList: TDomainObjectList): Boolean; virtual;
+        function SaveDomainObjectsForAggregate(DomainObjects: TDomainObjectList; AggregateIdentityInfo: TNameValue): Boolean; virtual;
         function Remove(DomainObject: TDomainObject): Boolean; virtual;
         function RemoveDomainObjectList(DomainObjectList: TDomainObjectList): Boolean; virtual;
+        function RemoveDomainObjectsForAggregateExcept(DomainObjects: TDomainObjectList; AggregateIdentityInfo: TNameValue): Boolean; virtual;
+        function RemoveDomainObjectsByAllMatchingProperties(PropertyInfos: array of TNameValue): Boolean; virtual;
+        function RemoveDomainObjectListByCriteria(Criteria: TAbstractRepositoryCriterion): Boolean; virtual;
         function FindDomainObjectByIdentity(Identity: Variant): TDomainObject; virtual;
         function FindDomainObjectsByIdentities(const Identities: TVariantList): TDomainObjectList; virtual;
+        function FindDomainObjectsByAllMatchingProperties(PropertyInfos: array of TNameValue): TDomainObjectList; virtual;
         function FindDomainObjectsByCriteria(Criteria: TAbstractRepositoryCriterion): TDomainObjectList; virtual;
         function LoadAll: TDomainObjectList; virtual;
 
@@ -222,6 +246,11 @@ interface
         write FDomainObjectInvariantsComplianceEnabled;
 
         procedure ThrowExceptionWithInformativeMessageIfHasError;
+        procedure ThrowExceptionIfHasDataManipulationError; virtual;
+
+        property EnableThrowingExceptionsForDataManipulationErrors: Boolean
+        read FEnableThrowingExceptionsForDataManipulationErrors
+        write FEnableThrowingExceptionsForDataManipulationErrors;
 
     end;
 
@@ -248,7 +277,12 @@ interface
 
 implementation
 
+uses
+
+  IDomainObjectBaseUnit,
+  IDomainObjectBaseListUnit;
 { TRepositoryErrorCreator }
+
 constructor TRepositoryErrorCreator.Create(AbstractRepository: TAbstractRepository);
 begin
 
@@ -402,6 +436,9 @@ begin
       SetLastErrorFromException(e);
 
       Result := False;
+
+      if EnableThrowingExceptionsForDataManipulationErrors then
+        ThrowExceptionIfHasDataManipulationError;
       
     end;
 
@@ -494,6 +531,40 @@ begin
       
       SetLastErrorFromException(e);
 
+      if EnableThrowingExceptionsForDataManipulationErrors then
+        ThrowExceptionIfHasDataManipulationError;
+
+    end;
+
+  end;
+
+end;
+
+function TAbstractRepository.FindDomainObjectsByAllMatchingProperties(
+  PropertyInfos: array of TNameValue
+): TDomainObjectList;
+begin
+
+  Result := nil;
+  FLastOperation := roSelectGroup;
+
+  try
+
+    Result := InternalFindDomainObjectsByAllMatchingProperties(PropertyInfos);
+
+    ResetLastError;
+
+  except
+
+    on E: Exception do begin
+
+      FreeAndNil(Result);
+
+      SetLastErrorFromException(E);
+
+      if EnableThrowingExceptionsForDataManipulationErrors then
+        ThrowExceptionIfHasDataManipulationError;
+      
     end;
 
   end;
@@ -523,6 +594,9 @@ begin
 
       SetLastErrorFromException(e);
 
+      if EnableThrowingExceptionsForDataManipulationErrors then
+        ThrowExceptionIfHasDataManipulationError;
+        
     end;
 
   end;
@@ -551,7 +625,10 @@ begin
       FreeAndNil(Result);
 
       SetLastErrorFromException(e);
-      
+
+      if EnableThrowingExceptionsForDataManipulationErrors then
+        ThrowExceptionIfHasDataManipulationError;
+
     end;
 
   end;
@@ -581,6 +658,9 @@ begin
       
       SetLastErrorFromException(e);
 
+      if EnableThrowingExceptionsForDataManipulationErrors then
+        ThrowExceptionIfHasDataManipulationError;
+
     end;
 
   end;
@@ -607,6 +687,9 @@ begin
       SetLastErrorFromExceptionalDomainObject(e, DomainObject);
 
       Result := False;
+
+      if EnableThrowingExceptionsForDataManipulationErrors then
+        ThrowExceptionIfHasDataManipulationError;
 
     end;
 
@@ -635,6 +718,9 @@ begin
 
       Result := False;
 
+      if EnableThrowingExceptionsForDataManipulationErrors then
+        ThrowExceptionIfHasDataManipulationError;
+        
     end;
 
   end;
@@ -663,7 +749,10 @@ begin
       SetLastErrorFromException(e);
 
       Result := False;
-      
+
+      if EnableThrowingExceptionsForDataManipulationErrors then
+        ThrowExceptionIfHasDataManipulationError;
+
     end;
 
   end;
@@ -680,6 +769,53 @@ begin
 
 end;
 
+function TAbstractRepository.SaveDomainObjectList(
+  DomainObjectList: TDomainObjectList): Boolean;
+var
+    IdentityAssignedDomainObjectList, IdentityNotAssignedDomainObjectList: TDomainObjectList;
+    FreeIdentityAssignedDomainObjectList, FreeIdentityNotAssignedDomainObjectList: IDomainObjectBaseList;
+begin
+
+  if DomainObjectList.IsEmpty then begin
+
+    Result := False;
+    Exit;
+
+  end;
+
+  DomainObjectList.PartitionByIdentityAssigning(
+    IdentityAssignedDomainObjectList, IdentityNotAssignedDomainObjectList
+  );
+
+  FreeIdentityAssignedDomainObjectList := IdentityAssignedDomainObjectList;
+  FreeIdentityNotAssignedDomainObjectList := IdentityNotAssignedDomainObjectList;
+
+  if not IdentityNotAssignedDomainObjectList.IsEmpty then
+    Result := AddDomainObjectList(IdentityNotAssignedDomainObjectList);
+
+  if not IdentityAssignedDomainObjectList.IsEmpty then
+    Result := UpdateDomainObjectList(IdentityAssignedDomainObjectList);
+
+end;
+
+function TAbstractRepository.SaveDomainObjectsForAggregate(
+  DomainObjects: TDomainObjectList;
+  AggregateIdentityInfo: TNameValue
+): Boolean;
+begin
+
+  Result := SaveDomainObjectList(DomainObjects);
+
+  if Result then begin
+
+    Result :=
+      RemoveDomainObjectsForAggregateExcept(
+        DomainObjects, AggregateIdentityInfo
+      );
+
+  end;
+
+end;
 
 function TAbstractRepository.Remove(DomainObject: TDomainObject): Boolean;
 begin
@@ -701,6 +837,9 @@ begin
       SetLastErrorFromExceptionalDomainObject(e, DomainObject);
 
       Result := False;
+
+      if EnableThrowingExceptionsForDataManipulationErrors then
+        ThrowExceptionIfHasDataManipulationError;
       
     end;
 
@@ -729,6 +868,96 @@ begin
       SetLastErrorFromException(e);
 
       Result := False;
+
+      if EnableThrowingExceptionsForDataManipulationErrors then
+        ThrowExceptionIfHasDataManipulationError;
+
+    end;
+
+  end;
+  
+end;
+
+function TAbstractRepository.RemoveDomainObjectListByCriteria(
+  Criteria: TAbstractRepositoryCriterion): Boolean;
+begin
+
+  FLastOperation := roRemoving;
+
+  try
+
+    Result := InternalRemoveDomainObjectListByCriteria(Criteria);
+
+    ResetLastError;
+
+  except
+
+    on E: Exception do begin
+
+      SetLastErrorFromException(E);
+
+      Result := False;
+
+      if EnableThrowingExceptionsForDataManipulationErrors then
+        ThrowExceptionIfHasDataManipulationError;
+
+    end;
+
+  end;
+
+end;
+
+function TAbstractRepository.RemoveDomainObjectsByAllMatchingProperties(
+  PropertyInfos: array of TNameValue): Boolean;
+begin
+
+  FLastOperation := roRemoving;
+
+  try
+
+    Result := InternalRemoveDomainObjectsByAllMatchingProperties(PropertyInfos);
+
+    ResetLastError;
+
+  except
+
+    on E: Exception do begin
+
+      SetLastErrorFromException(E);
+
+      Result := False;
+
+      if EnableThrowingExceptionsForDataManipulationErrors then
+        ThrowExceptionIfHasDataManipulationError;
+
+    end;
+
+  end;
+
+end;
+
+function TAbstractRepository.RemoveDomainObjectsForAggregateExcept(
+  DomainObjects: TDomainObjectList; AggregateIdentityInfo: TNameValue): Boolean;
+begin
+
+  FLastOperation := roRemoving;
+
+  try
+
+    Result := InternalRemoveDomainObjectsForAggregateExcept(DomainObjects, AggregateIdentityInfo);
+
+    ResetLastError;
+
+  except
+
+    on E: Exception do begin
+
+      SetLastErrorFromException(E);
+
+      Result := False;
+
+      if EnableThrowingExceptionsForDataManipulationErrors then
+        ThrowExceptionIfHasDataManipulationError;
 
     end;
 
@@ -852,6 +1081,7 @@ procedure TAbstractRepository.Initialize;
 begin
 
   DomainObjectInvariantsComplianceEnabled := True;
+  EnableThrowingExceptionsForDataManipulationErrors := True;
   
 end;
 
@@ -952,6 +1182,13 @@ begin
     )
   );
 
+end;
+
+procedure TAbstractRepository.ThrowExceptionIfHasDataManipulationError;
+begin
+
+  ThrowExceptionWithInformativeMessageIfHasError;
+  
 end;
 
 procedure TAbstractRepository.ThrowExceptionWithInformativeMessageIfHasError;
