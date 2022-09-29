@@ -53,6 +53,10 @@ uses
 
         property Identity: Variant read GetIdentity write SetIdentity;
 
+      public
+
+        class function IdentityPropName: String; static;
+
     end;
 
     TDomainObjectClass = class of TDomainObject;
@@ -133,6 +137,13 @@ begin
 
   Result := FIdentity;
 
+end;
+
+class function TDomainObject.IdentityPropName: String;
+begin
+
+  Result := 'Identity';
+  
 end;
 
 function TDomainObject.IsIdentityAssigned: Boolean;
