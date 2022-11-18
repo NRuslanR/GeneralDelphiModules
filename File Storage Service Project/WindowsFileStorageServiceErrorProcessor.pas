@@ -36,7 +36,7 @@ begin
 
     case ErrorCode of
 
-      ERROR_FILE_NOT_FOUND, ERROR_FILE_INVALID:
+      ERROR_FILE_NOT_FOUND, ERROR_PATH_NOT_FOUND, ERROR_FILE_INVALID:
       begin
 
         Raise TFileNotFoundException.Create(
