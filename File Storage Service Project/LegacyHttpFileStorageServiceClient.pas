@@ -9,7 +9,9 @@ uses
   ZConnection,
   AbstractFileStorageServiceClient,
   LocalNetworkFileStorageServiceClientUnit,
-  IFileStorageServiceClientUnit;
+  IFileStorageServiceClientUnit,
+  SysUtils,
+  Classes;
 
 type
 
@@ -27,7 +29,7 @@ type
       ): String; override;
 
       function InternalGetFile(const RemoteFilePath: String): String; override;
-      
+
     public
 
       destructor Destroy; override;
@@ -136,11 +138,12 @@ begin
 end;
 
 function TLegacyHttpFileStorageServiceClient.InternalGetFile(
-  const RemoteFilePath: String): String;
+  const RemoteFilePath: String
+): String;
 begin
 
-  Result := get_sz_doc_by_http(FZConnection, RemoteFilePath, 'doc'); 
-
+  Result := get_sz_doc_by_http(FZConnection, RemoteFilePath, 'doc');
+  
 end;
 
 procedure TLegacyHttpFileStorageServiceClient.PutFile(const LocalFilePath,

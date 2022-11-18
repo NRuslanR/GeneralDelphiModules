@@ -72,12 +72,13 @@ function TAbstractFileStorageServiceClient.GetFile(
   const RemoteFilePath: String): String;
 var
     FullRemoteFilePath: String;
+    Success: Boolean;
 begin
 
   FullRemoteFilePath := CreateFullPathFromPathIfNecessary(RemoteFilePath);
 
   Result := InternalGetFile(FullRemoteFilePath);
-  
+
 end;
 
 function TAbstractFileStorageServiceClient.GetFile(
@@ -87,7 +88,8 @@ begin
 
   Result := GetFile(RemoteFilePath);
 
-  Result := ChangeLocalFileName(Result, NewName);
+  if Result <> '' then
+    Result := ChangeLocalFileName(Result, NewName);
 
 end;
 
