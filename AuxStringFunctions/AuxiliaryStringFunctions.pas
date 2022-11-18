@@ -7,7 +7,6 @@ uses
   Classes,
   SysUtils,
   StrUtils,
-  RegExpr,
   Windows,
   VariantListUnit;
 
@@ -17,6 +16,7 @@ function CreateStringFromVariantListAndFree(const VariantList: TVariantList; con
 function CreateStringFromVariantArray(const Variants: array of Variant; const Separator: string = ', '): string;
 function ReplaceStrings(const Target: String; const ReplacedStrings: array of String; const ReplacingStrings: array of String): String;
 
+// unfinished
 function TrimBy(const Str, TrimmedLeft, TrimmedRight: string): string;
 
 // Извлекает подстроку, заключенную между двумя
