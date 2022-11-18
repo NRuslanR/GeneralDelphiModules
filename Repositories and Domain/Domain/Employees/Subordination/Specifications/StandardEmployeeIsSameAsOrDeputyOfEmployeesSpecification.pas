@@ -7,7 +7,6 @@ uses
   AbstractEmployeeIsSameAsOrReplacingForOthersSpecification,
   EmployeeIsSameAsOrReplacingForOthersSpecification,
   EmployeeIsSameAsOrDeputySpecification,
-  Document,
   Employee,
   SysUtils,
   Classes;

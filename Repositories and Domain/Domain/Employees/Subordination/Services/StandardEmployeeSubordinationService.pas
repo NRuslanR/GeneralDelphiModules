@@ -7,11 +7,11 @@ uses
   EmployeeSubordinationService,
   WorkGroupEmployeeDistributionService,
   EmployeeFinder,
-  RoleUnit,
+  Role,
   DepartmentFinder,
   Employee,
   DomainException,
-  DepartmentUnit,
+  Department,
   EmployeeStaff,
   SysUtils,
   Classes;

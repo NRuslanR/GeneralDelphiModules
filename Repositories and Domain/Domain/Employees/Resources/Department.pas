@@ -1,4 +1,4 @@
-unit DepartmentUnit;
+unit Department;
 
 interface
 
@@ -14,6 +14,7 @@ type
 
     private
 
+      FTopLevelDepartmentId: Variant;
       FCode: String;
       FShortName: String;
       FFullName: String;
@@ -22,8 +23,18 @@ type
 
       constructor Create; overload;
 
+    public
+
+      class function TopLevelDepartmentIdPropName: String; static;
+      class function CodePropName: String; static;
+      class function ShortNamePropName: String; static;
+      class function FullNamePropName: String; static;
+
     published
 
+      property TopLevelDepartmentId: Variant
+      read FTopLevelDepartmentId write FTopLevelDepartmentId;
+      
       property Code: String read FCode write FCode;
       property ShortName: String read FShortName write FShortName;
       property FullName: String read FFullName write FFullName;
@@ -72,6 +83,34 @@ constructor TDepartment.Create;
 begin
 
   inherited;
+  
+end;
+
+class function TDepartment.CodePropName: String;
+begin
+
+  Result := 'Code';
+
+end;
+
+class function TDepartment.FullNamePropName: String;
+begin
+
+  Result := 'FullName';
+
+end;
+
+class function TDepartment.ShortNamePropName: String;
+begin
+
+  Result := 'ShortName';
+
+end;
+
+class function TDepartment.TopLevelDepartmentIdPropName: String;
+begin
+
+  Result := 'TopLevelDepartmentId';
   
 end;
 

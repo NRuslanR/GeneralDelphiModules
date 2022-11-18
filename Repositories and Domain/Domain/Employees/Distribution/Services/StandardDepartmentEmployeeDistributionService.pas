@@ -4,7 +4,7 @@ interface
 uses
 
   Employee,
-  DepartmentUnit,
+  Department,
   DepartmentEmployeeDistributionService,
   DepartmentFinder,
   AbstractDomainService,

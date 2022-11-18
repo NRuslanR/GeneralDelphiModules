@@ -7,7 +7,7 @@ uses
   DepartmentEmployeeDistributionSpecification,
   DepartmentFinder,
   Employee,
-  DepartmentUnit,
+  Department,
   SysUtils,
   Classes;
 

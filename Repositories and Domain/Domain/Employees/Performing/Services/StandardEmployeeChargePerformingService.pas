@@ -41,7 +41,7 @@ implementation
 
 uses
 
-  RoleUnit,
+  Role,
   VariantListUnit,
   IDomainObjectBaseUnit,
   IDomainObjectBaseListUnit;

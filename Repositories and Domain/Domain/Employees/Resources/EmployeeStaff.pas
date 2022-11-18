@@ -4,12 +4,12 @@ interface
 
 uses
 
-  RoleUnit,
+  Role,
   DomainObjectValueUnit,
   IDomainObjectListUnit,
   DomainObjectValueListUnit,
   VariantListUnit,
-  DepartmentUnit,
+  Department,
   SysUtils,
   Classes;
 

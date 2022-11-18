@@ -9,7 +9,7 @@ uses
   DomainObjectValueUnit,
   DomainObjectListUnit,
   IDomainObjectBaseUnit,
-  RoleUnit,
+  Role,
   TimeFrame,
   SysUtils,
   Classes,
@@ -191,6 +191,11 @@ type
       constructor Create; overload;
       constructor Create(const Email: String); overload;
 
+    public
+
+      class function EmailPropName: String; static;
+      class function TelephoneNumberPropName: String; static;
+
     published
 
       property Email: String read FEmail write FEmail;
@@ -318,12 +323,27 @@ type
 
       property WorkGroupIds: TVariantList
       read FWorkGroupIds write SetWorkGroupIds;
-      
+
+    public
+
+      class function LegacyIdentityPropName: String; static;
+      class function NamePropName: String; static;
+      class function SurnamePropName: String; static;
+      class function PatronymicPropName: String; static;
+      class function SpecialityPropName: String; static;
+      class function IsForeignPropName: String; static;
+      class function IsDismissedPropName: String; static;
+      class function PersonnelNumberPropName: String; static;
+      class function TelephoneNumberPropName: String; static;
+      class function EmailPropName: String; static;
+      class function DepartmentIdentityPropName: String; static;
+      class function TopLevelEmployeeIdentityPropName: String; static;
+
     published
 
       property LegacyIdentity: Variant
       read GetLegacyIdentity write SetLegacyIdentity;
-      
+
       property Name: String
       read GetName write SetName;
 
@@ -421,9 +441,9 @@ implementation
 uses
 
  AuxDebugFunctionsUnit;
+
 { TEmployee }
 
-  
 constructor TEmployee.Create;
 begin
 
@@ -994,6 +1014,90 @@ begin
 
 end;
 
+
+class function TEmployee.DepartmentIdentityPropName: String;
+begin
+
+  Result := 'DepartmentIdentity';
+
+end;
+
+class function TEmployee.EmailPropName: String;
+begin
+
+  Result := 'Email';
+
+end;
+
+class function TEmployee.IsDismissedPropName: String;
+begin
+
+  Result := 'IsDismissed';
+
+end;
+
+class function TEmployee.IsForeignPropName: String;
+begin
+
+  Result := 'IsForeign';
+
+end;
+
+class function TEmployee.LegacyIdentityPropName: String;
+begin
+
+  Result := 'LegacyIdentity';
+end;
+
+class function TEmployee.NamePropName: String;
+begin
+
+  Result := 'Name';
+
+end;
+
+class function TEmployee.PatronymicPropName: String;
+begin
+
+  Result := 'Patronymic';
+
+end;
+
+class function TEmployee.PersonnelNumberPropName: String;
+begin
+
+  Result := 'PersonnelNumber';
+
+end;
+
+class function TEmployee.SpecialityPropName: String;
+begin
+
+  Result := 'Speciality';
+
+end;
+
+class function TEmployee.SurnamePropName: String;
+begin
+
+  Result := 'Surname';
+
+end;
+
+class function TEmployee.TelephoneNumberPropName: String;
+begin
+
+  Result := 'TelephoneNumber';
+
+end;
+
+class function TEmployee.TopLevelEmployeeIdentityPropName: String;
+begin
+
+  Result := 'TopLevelEmployee.Identity';
+
+end;
+
 { TEmployees }
 
 procedure TEmployees.Add(Employee: TEmployee);
@@ -1190,6 +1294,20 @@ begin
 
   inherited;
 
+end;
+
+class function TEmployeeContactInfo.EmailPropName: String;
+begin
+
+  Result := 'Email';
+
+end;
+
+class function TEmployeeContactInfo.TelephoneNumberPropName: String;
+begin
+
+  Result := 'TelephoneNumber';
+  
 end;
 
 { TEmployeeReplacement }

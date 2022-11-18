@@ -7,7 +7,9 @@
   на исполнение своему руководителю
 }
 
-unit RoleUnit;
+{ refactor: change this object after employee domain's repositories refactor }
+
+unit Role;
 
 interface
 
@@ -84,6 +86,11 @@ type
       function IsLeader: Boolean;
       function IsSubLeader: Boolean;
       function IsEmployee: Boolean;
+
+    public
+
+      class function NamePropName: String; static;
+      class function DescriptionPropName: String; static;
 
     published
 
@@ -198,6 +205,13 @@ begin
   
 end;
 
+class function TRole.DescriptionPropName: String;
+begin
+
+  Result := 'Description';
+  
+end;
+
 destructor TRole.Destroy;
 begin
 
@@ -261,6 +275,13 @@ function TRole.IsSubLeader: Boolean;
 begin
 
   Result := FName = SUBLEADER_ROLE_NAME;
+  
+end;
+
+class function TRole.NamePropName: String;
+begin
+
+  Result := 'Name';
   
 end;
 
