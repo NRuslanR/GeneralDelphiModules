@@ -10,6 +10,7 @@ uses
   DBTableMapping,
   QueryExecutor,
   DomainObjectUnit,
+  AbstractRepositoryCriteriaUnit,
   DomainObjectListUnit;
 
 type
@@ -20,6 +21,14 @@ type
 
       procedure CustomizeTableMapping(
         TableMapping: TDBTableMapping
+      ); override;
+
+    protected
+
+      procedure PrepareFindDomainObjectsByCriteria(
+        Criteria: TAbstractRepositoryCriterion;
+        var QueryPattern: String;
+        var QueryParams: TQueryParams
       ); override;
 
     protected
@@ -47,6 +56,15 @@ uses
   PostgresTableMapping;
 
 { TAbstractPostgresRepository }
+
+procedure TAbstractPostgresRepository.PrepareFindDomainObjectsByCriteria(
+  Criteria: TAbstractRepositoryCriterion; var QueryPattern: String;
+  var QueryParams: TQueryParams);
+begin
+
+  inherited PrepareFindDomainObjectsByCriteria(Criteria, QueryPattern, QueryParams);
+
+end;
 
 procedure TAbstractPostgresRepository.PrepareUpdateDomainObjectListQuery(
   DomainObjectList: TDomainObjectList;

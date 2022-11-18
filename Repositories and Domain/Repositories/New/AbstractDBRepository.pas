@@ -224,7 +224,7 @@ uses
           Criteria: TAbstractRepositoryCriterion;
           var QueryPattern: String;
           var QueryParams: TQueryParams
-        );
+        ); virtual;
         
         procedure PrepareFindDomainObjectByIdentityQuery(
           Identity: Variant;
@@ -753,13 +753,9 @@ begin
 
   except
 
-    on e: Exception do begin
+    FreeAndNil(Result);
 
-      FreeAndNil(Result);
-
-      raise;
-      
-    end;
+    Raise;
 
   end;
   
@@ -803,13 +799,9 @@ begin
 
   except
 
-    on e: Exception do begin
+    FreeAndNil(Result);
 
-      FreeAndNil(Result);
-
-      raise;
-
-    end;
+    Raise;
 
   end;
 
@@ -819,7 +811,9 @@ function TAbstractDBRepository.CreateVALUESRowsLayoutStringFromDomainObjectList(
   DomainObjectList: TDomainObjectList;
   const Mode: TVAlUESRowsLayoutCreatingMode
 ): String;
-var DomainObject: TDomainObject;
+
+var
+    DomainObject: TDomainObject;
     DomainObjectIdentityPropertyValueStringList,
     DomainObjectRestPropertyValueStringList: String;
     DomainObjectPropertyValueStringList: String;
@@ -828,7 +822,8 @@ var DomainObject: TDomainObject;
       DomainObject: TDomainObject;
       const PropertyName: String
     ): String;
-    var DomainObjectPropertyValue: Variant;
+    var
+        DomainObjectPropertyValue: Variant;
     begin
 
       DomainObjectPropertyValue :=
