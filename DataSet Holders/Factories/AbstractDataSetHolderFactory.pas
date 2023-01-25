@@ -7,6 +7,7 @@ uses
   AbstractDataSetHolder,
   DataSetBuilder,
   DB,
+  IGetSelfUnit,
   SysUtils,
   Classes;
 
@@ -34,7 +35,9 @@ type
 
     function IdSize(const Value: Integer): IDataSetHolderFactoryOptions; overload;
     function IdSize: Integer; overload;
-    
+
+    function Clone: IDataSetHolderFactoryOptions;
+
   end;
 
   TDataSetHolderFactoryOptions = class (TInterfacedObject, IDataSetHolderFactoryOptions)
@@ -78,16 +81,26 @@ type
       function IdSize(const Value: Integer): IDataSetHolderFactoryOptions; overload;
       function IdSize: Integer; overload;
 
+      function Clone: IDataSetHolderFactoryOptions;
+
       class property Default: IDataSetHolderFactoryOptions read GetDefaultOptions;
 
   end;
 
-  IDataSetHolderFactory = interface
-
+  IDataSetHolderFactory = interface (IGetSelf)
+    ['{3206D913-FD7F-4893-AAC0-2C2A626DD765}']
+    
     function GetOptions: IDataSetHolderFactoryOptions;
     procedure SetOptions(Value: IDataSetHolderFactoryOptions);
     
     function CreateDataSetHolder: TAbstractDataSetHolder;
+
+    function CreateDataSetHolderWithoutDataSet: TAbstractDataSetHolder;
+
+    procedure CustomizeExternalDataSetBuilder(
+      DataSetBuilder: IDataSetBuilder;
+      DataSetHolder: TAbstractDataSetHolder
+    );
 
     property Options: IDataSetHolderFactoryOptions
     read GetOptions write SetOptions;
@@ -118,11 +131,20 @@ type
         DataSetBuilder: IDataSetBuilder;
         Options: IDataSetHolderFactoryOptions = nil
       );
+
+      function GetSelf: TObject;
       
       function GetOptions: IDataSetHolderFactoryOptions;
       procedure SetOptions(Value: IDataSetHolderFactoryOptions);
 
       function CreateDataSetHolder: TAbstractDataSetHolder;
+
+      function CreateDataSetHolderWithoutDataSet: TAbstractDataSetHolder;
+
+      procedure CustomizeExternalDataSetBuilder(
+        DataSetBuilder: IDataSetBuilder;
+        DataSetHolder: TAbstractDataSetHolder
+      );
 
       property Options: IDataSetHolderFactoryOptions
       read GetOptions write SetOptions;
@@ -154,28 +176,10 @@ function TAbstractDataSetHolderFactory.CreateDataSetHolder: TAbstractDataSetHold
 begin
 
   Result := CreateDataSetHolderInstance;
-
-  if Assigned(Options.RecordIdGeneratorFactory) then begin
-
-    Result.RecordIdGenerator :=
-      Options.RecordIdGeneratorFactory.CreateRecordIdGenerator;
-
-  end;
   
   CustomizeDataSetBuilder(FDataSetBuilder, Result);
 
   Result.DataSet := FDataSetBuilder.Build;
-
-  if Options.EnableRecordStatus then begin
-
-    Result.RecordNonChangedStatusValue := 0;
-    Result.RecordAddedStatusValue := 1;
-    Result.RecordChangedStatusValue := 2;
-    Result.RecordRemovedStatusValue := 3;
-
-  end;
-
-  Result.GenerateRecordIdOnAdding := Options.EnableRecordIdGeneratingOnAdding;
 
   Result.DataSet.Active := Options.OpenAfterCreate;
   
@@ -187,6 +191,31 @@ begin
   Result := InternalCreateDataSetHolderInstance;
 
   FillDataSetFieldDefs(Result.FieldDefs);
+
+  if Assigned(Options.RecordIdGeneratorFactory) then begin
+
+    Result.RecordIdGenerator :=
+      Options.RecordIdGeneratorFactory.CreateRecordIdGenerator;
+
+  end;
+
+  if Options.EnableRecordStatus then begin
+
+    Result.RecordNonChangedStatusValue := 0;
+    Result.RecordAddedStatusValue := 1;
+    Result.RecordChangedStatusValue := 2;
+    Result.RecordRemovedStatusValue := 3;
+
+  end;
+
+  Result.GenerateRecordIdOnAdding := Options.EnableRecordIdGeneratingOnAdding;
+  
+end;
+
+function TAbstractDataSetHolderFactory.CreateDataSetHolderWithoutDataSet: TAbstractDataSetHolder;
+begin
+
+  Result := CreateDataSetHolderInstance;
   
 end;
 
@@ -221,6 +250,17 @@ begin
 
   end;
 
+end;
+
+procedure TAbstractDataSetHolderFactory.CustomizeExternalDataSetBuilder(
+  DataSetBuilder: IDataSetBuilder; DataSetHolder: TAbstractDataSetHolder);
+begin
+
+  CustomizeDataSetBuilder(
+    DataSetBuilder,
+    DataSetHolder
+  );
+  
 end;
 
 procedure TAbstractDataSetHolderFactory.FillDataSetFieldDefs(
@@ -261,6 +301,13 @@ begin
 
 end;
 
+function TAbstractDataSetHolderFactory.GetSelf: TObject;
+begin
+
+  Result := Self;
+  
+end;
+
 procedure TAbstractDataSetHolderFactory.SetOptions(
   Value: IDataSetHolderFactoryOptions);
 begin
@@ -279,6 +326,21 @@ begin
 
   Result := Self;
 
+end;
+
+function TDataSetHolderFactoryOptions.Clone: IDataSetHolderFactoryOptions;
+begin
+
+  Result := TDataSetHolderFactoryOptions.Create;
+
+  Result.EnableRecordAccessRights(EnableRecordAccessRights);
+  Result.EnableRecordStatus(EnableRecordStatus);
+  Result.RecordIdGeneratorFactory(RecordIdGeneratorFactory);
+  Result.EnableRecordIdGeneratingOnAdding(EnableRecordIdGeneratingOnAdding);
+  Result.OpenAfterCreate(OpenAfterCreate);
+  Result.IdType(IdType);
+  Result.IdSize(IdSize);
+  
 end;
 
 function TDataSetHolderFactoryOptions.EnableRecordAccessRights: Boolean;

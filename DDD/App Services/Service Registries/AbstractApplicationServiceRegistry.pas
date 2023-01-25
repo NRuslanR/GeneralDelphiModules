@@ -49,7 +49,7 @@ uses
 function TAbstractApplicationServiceRegistry.GetServiceTypeName(
   ServiceTypeInfo: Pointer): String;
 begin
-
+                              
   Result := PTypeInfo(ServiceTypeInfo)^.Name;
 
 end;

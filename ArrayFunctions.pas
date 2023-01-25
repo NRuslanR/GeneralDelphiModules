@@ -32,10 +32,6 @@ function NextArrayItem(Items: array of Variant; var Iterator: Integer; var Item:
 
 implementation                                                    
 
-uses
-
-  AuxDebugFunctionsUnit;
-
 function AreValuesIncludedByArray(Values: array of Variant; Arr: array of Variant): Boolean;
 var
     Value: Variant;

@@ -21,13 +21,9 @@ function VariantToClass(Value: Variant): TClass;
 function ClassToVariant(ClassType: TClass): Variant;
 function InterfaceToVariant(Value: IInterface): Variant;
 function VariantToInterface(Value: Variant; const InterfaceGUID: TGUID; out Intf): Boolean;
+function IsVariantContainsValue(Arr: Variant; Value: Variant): Boolean;
 
 implementation
-
-uses
-
-  AuxDebugFunctionsUnit,
-  TypInfo;
   
 function VarOrDefault(Value: Variant; Default: Variant): Variant;
 begin
@@ -219,6 +215,34 @@ begin
       )
     );
     
+end;
+
+function IsVariantContainsValue(Arr: Variant; Value: Variant): Boolean;
+var
+    I: Integer;
+begin
+
+  if not VarIsArray(Arr) then begin
+
+    Result := Arr = Value;
+    Exit;
+
+  end;
+
+  for I := VarArrayLowBound(Arr, 1) to VarArrayHighBound(Arr, 1) do
+  begin
+
+    if Arr[I] = Value then begin
+
+      Result := True;
+      Exit;
+
+    end;
+
+  end;
+
+  Result := False;
+  
 end;
 
 end.

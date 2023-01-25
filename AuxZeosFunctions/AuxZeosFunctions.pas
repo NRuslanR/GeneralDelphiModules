@@ -236,7 +236,7 @@ procedure ArrayOfQueryParamsDataToList(
 
 implementation
 
-uses ZDbcIntfs, AuxDataSetFunctionsUnit, StrUtils, AuxDebugFunctionsUnit;
+uses ZDbcIntfs, AuxDataSetFunctionsUnit, StrUtils;
 
 procedure ArrayOfQueryParamsDataToList(
   ParamNames: array of String;

@@ -8,6 +8,7 @@ uses
   AbstractApplicationServiceRegistry,
   ApplicationServiceRegistry,
   SysUtils,
+  TypeObjectRegistry,
   Classes;
 
 type

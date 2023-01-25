@@ -56,7 +56,7 @@ type
 
     protected
 
-      FIntegerDataSetRecordIdGenerator: TIntegerDataSetRecordIdGenerator;
+      FIntegerDataSetRecordIdGenerator: IDataSetRecordIdGenerator;
 
     public
 
@@ -111,6 +111,15 @@ type
 
   TAbstractDataSetFieldDefs = class (TInterfacedObject, IDisposable)
 
+    private
+
+      FRecordStatusFieldName: String;
+
+    protected
+
+      function GetRecordStatusFieldName: String; virtual;
+      procedure SetRecordStatusFieldName(const Value: String); virtual;
+
     public
 
       constructor Create; virtual;
@@ -121,8 +130,10 @@ type
       IsRecordIdGeneratedFieldName: String;
       CanBeChangedFieldName: String;
       CanBeRemovedFieldName: String;
-      RecordStatusFieldName: String;
       IsSelectedFieldName: String;
+
+      property RecordStatusFieldName: String
+      read GetRecordStatusFieldName write SetRecordStatusFieldName;
       
   end;
 
@@ -219,6 +230,20 @@ type
       procedure SetSelectedRecordIds(const Value: TVariantList);
 
     protected
+
+      function GetRecordAddedStatusValue: Variant; virtual;
+      procedure SetRecordAddedStatusValue(const Value: Variant); virtual;
+
+      function GetRecordChangedStatusValue: Variant; virtual;
+      procedure SetRecordChangedStatusValue(const Value: Variant); virtual;
+
+      function GetRecordNonChangedStatusValue: Variant; virtual;
+      procedure SetRecordNonChangedStatusValue(const Value: Variant); virtual;
+
+      function GetRecordRemovedStatusValue: Variant; virtual;
+      procedure SetRecordRemovedStatusValue(const Value: Variant); virtual;
+
+    protected
 	
 	    function GetIsRecordIdGeneratedFieldName: String;
       function GetRecordIdFieldName: String;
@@ -232,8 +257,8 @@ type
       procedure SetCanBeChangedFieldName(const Value: String);
       procedure SetCanBeRemovedFieldName(const Value: String);
 
-      function GetRecordStatusFieldName: String;
-      procedure SetRecordStatusFieldName(const Value: String);
+      function GetRecordStatusFieldName: String; virtual;
+      procedure SetRecordStatusFieldName(const Value: String); virtual;
 
     protected
 
@@ -292,6 +317,7 @@ type
       function RecordCount: Integer; virtual; 
     
       procedure Append; virtual;
+      procedure AppendWithoutRecordIdGeneration; virtual;
       procedure AppendRecord(const Values: array of TVarRec); virtual;
       procedure Edit; virtual;
       procedure Post; virtual;
@@ -332,8 +358,8 @@ type
       function LocateByRecordId(const IdFieldValues: Variant; const Options: TLocateOptions = []): Boolean;
 	    function Locate(const FieldNames: String; const FieldValues: Variant; const Options: TLocateOptions = []): Boolean;
 
-      function LookupByRecordId(const IdFieldValues: Variant; const ResultFieldNames: String): Boolean;
-      function Lookup(const KeyFieldNames: String; const KeyFieldValues: Variant; const ResultFieldNames: String): Boolean;
+      function LookupByRecordId(const IdFieldValues: Variant; const ResultFieldNames: String): Variant;
+      function Lookup(const KeyFieldNames: String; const KeyFieldValues: Variant; const ResultFieldNames: String): Variant;
 
       function IsInEdit: Boolean;
       function IsInAppend: Boolean;
@@ -342,6 +368,10 @@ type
       function ExtractDataSet: TDataSet;
       function ExtractRecordIdGenerator: IDataSetRecordIdGenerator;
 
+      function HasRecordGeneratedId(const RecordId: Variant): Boolean;
+
+      procedure SetFieldValueForEach(const FieldName: String; const FieldValue: Variant);
+      
     public
 
       procedure FilterByRecordStatus(
@@ -359,10 +389,12 @@ type
       procedure MarkRemovedRecordsAsNonChanged;
       procedure MarkCurrentRecordAsAdded;
       procedure MarkCurrentRecordAsChanged;
+      procedure MarkCurrentRecordAsChangedIfIdIsNotGenerated;
       procedure MarkCurrentRecordAsRemoved;
+      procedure MarkCurrentRecordAsRemovedOrDeleteIfIdIsGenerated;
       procedure MarkCurrentRecordAsNonChanged;
 
-      function AreRecordChangesExisting: Boolean;
+      function AreChangedRecordsExists: Boolean;
 
       procedure RejectLocalChanges;
 
@@ -374,7 +406,7 @@ type
       procedure ForEach(TraverseProcedure: TDataSetTraverseProcedure; Context: TObject = nil); overload;
 
       class function GetDataSetFieldDefsClass: TAbstractDataSetFieldDefsClass; virtual; abstract;
-      
+
     published
 
       property DataSet: TDataSet
@@ -434,20 +466,20 @@ type
     published
 
       property RecordAddedStatusValue: Variant
-      read FRecordAddedStatusValue
-      write FRecordAddedStatusValue;
+      read GetRecordAddedStatusValue
+      write SetRecordAddedStatusValue;
 
       property RecordChangedStatusValue: Variant
-      read FRecordChangedStatusValue
-      write FRecordChangedStatusValue;
+      read GetRecordChangedStatusValue
+      write SetRecordChangedStatusValue;
 
       property RecordRemovedStatusValue: Variant
-      read FRecordRemovedStatusValue
-      write FRecordRemovedStatusValue;
+      read GetRecordRemovedStatusValue
+      write SetRecordRemovedStatusValue;
 
       property RecordNonChangedStatusValue: Variant
-      read FRecordNonChangedStatusValue
-      write FRecordNonChangedStatusValue;
+      read GetRecordNonChangedStatusValue
+      write SetRecordNonChangedStatusValue;
 
       property RecordStatusFieldValue: Variant
       read GetRecordStatusFieldValue;
@@ -501,6 +533,8 @@ implementation
 
 uses
 
+  NameValue,
+  VariantFunctions,
   AuxDataSetFunctionsUnit,
   AuxDebugFunctionsUnit;
 
@@ -544,6 +578,13 @@ begin
   
 end;
 
+procedure TAbstractDataSetHolder.AppendWithoutRecordIdGeneration;
+begin
+
+  FDataSet.Append;
+  
+end;
+
 procedure TAbstractDataSetHolder.ApplyFilter(const Expression: String;
     const FilterMode: TDataSetHolderFilterApplyingMode = famNotDisableControls
 );
@@ -566,7 +607,7 @@ begin
 
 end;
 
-function TAbstractDataSetHolder.AreRecordChangesExisting: Boolean;
+function TAbstractDataSetHolder.AreChangedRecordsExists: Boolean;
 var PreviousFilter: String;
 begin
 
@@ -779,6 +820,8 @@ begin
 
     CurrentRecordPointer := GetBookmark;
 
+    First;
+
     while not Eof do begin
 
       TDataSetTraverseCallWrapper(CallWrapper.Self).Call(Self, Context);
@@ -984,6 +1027,20 @@ begin
 
 end;
 
+function TAbstractDataSetHolder.GetRecordAddedStatusValue: Variant;
+begin
+
+  Result := FRecordAddedStatusValue;
+
+end;
+
+function TAbstractDataSetHolder.GetRecordChangedStatusValue: Variant;
+begin
+
+  Result := FRecordChangedStatusValue;
+  
+end;
+
 function TAbstractDataSetHolder.GetRecordIdFieldName: String;
 begin
 
@@ -1007,6 +1064,20 @@ begin
 
   Result := FRecordIdGenerator;
   
+end;
+
+function TAbstractDataSetHolder.GetRecordNonChangedStatusValue: Variant;
+begin
+
+  Result := FRecordNonChangedStatusValue;
+
+end;
+
+function TAbstractDataSetHolder.GetRecordRemovedStatusValue: Variant;
+begin
+
+  Result := FRecordRemovedStatusValue;
+
 end;
 
 function TAbstractDataSetHolder.GetRecordStatusFieldName: String;
@@ -1091,6 +1162,18 @@ begin
     
 end;
 
+function TAbstractDataSetHolder.HasRecordGeneratedId(
+  const RecordId: Variant): Boolean;
+var
+    VarRes: Variant;
+begin
+
+  VarRes := LookupByRecordId(RecordId, IsRecordIdGeneratedFieldName);
+
+  Result := not VarIsNullOrEmpty(VarRes) and VarRes;
+
+end;
+
 procedure TAbstractDataSetHolder.Initialize;
 begin
 
@@ -1163,6 +1246,8 @@ function TAbstractDataSetHolder.Locate(const FieldNames: String;
   const FieldValues: Variant; const Options: TLocateOptions): Boolean;
 begin
 
+  DebugOutput(FDataSet.RecordCount);
+  
   Result := FDataSet.Locate(FieldNames, FieldValues, Options);
   
 end;
@@ -1176,7 +1261,7 @@ begin
 end;
 
 function TAbstractDataSetHolder.Lookup(const KeyFieldNames: String;
-  const KeyFieldValues: Variant; const ResultFieldNames: String): Boolean;
+  const KeyFieldValues: Variant; const ResultFieldNames: String): Variant;
 begin
 
   Result := DataSet.Lookup(KeyFieldNames, KeyFieldValues, ResultFieldNames);
@@ -1184,7 +1269,7 @@ begin
 end;
 
 function TAbstractDataSetHolder.LookupByRecordId(const IdFieldValues: Variant;
-  const ResultFieldNames: String): Boolean;
+  const ResultFieldNames: String): Variant;
 begin
 
   Result := Lookup(RecordIdFieldName, IdFieldValues, ResultFieldNames);
@@ -1286,6 +1371,14 @@ begin
   
 end;
 
+procedure TAbstractDataSetHolder.MarkCurrentRecordAsChangedIfIdIsNotGenerated;
+begin
+
+  if not IsRecordIdGeneratedFieldValue then
+    MarkCurrentRecordAsChanged;
+    
+end;
+
 procedure TAbstractDataSetHolder.MarkCurrentRecordAsAdded;
 begin
 
@@ -1297,6 +1390,16 @@ procedure TAbstractDataSetHolder.MarkCurrentRecordAsNonChanged;
 begin
 
   SetRecordStatusFieldValue(RecordNonChangedStatusValue);
+  
+end;
+
+procedure TAbstractDataSetHolder.MarkCurrentRecordAsRemovedOrDeleteIfIdIsGenerated;
+begin
+
+  if IsRecordIdGeneratedFieldValue then
+    Delete
+
+  else MarkCurrentRecordAsRemoved;
   
 end;
 
@@ -1324,8 +1427,6 @@ begin
     while not DataSet.Eof do begin
 
       MarkCurrentRecordAsNonChanged;
-
-      DataSet.Next;
 
     end;
 
@@ -1668,6 +1769,31 @@ begin
   
 end;
 
+procedure SetFieldValueForEachProc(DataSetHolder: TAbstractDataSetHolder; Context: TObject);
+begin
+
+  with TCNameValue(Context) do
+    DataSetHolder.SetFieldValue(Name, Value);
+
+end;
+
+procedure TAbstractDataSetHolder.SetFieldValueForEach(
+  const FieldName: String;
+  const FieldValue: Variant
+);
+var
+    NameValue: TCNameValue;
+    Free: IDisposable;
+begin
+
+  NameValue := TCNameValue.Create(FieldName, FieldValue);
+
+  Free := NameValue;
+  
+  ForEach(SetFieldValueForEachProc, NameValue);
+  
+end;
+
 procedure TAbstractDataSetHolder.SetGenerateRecordIdOnAdding(
   const Value: Boolean);
 begin
@@ -1706,6 +1832,22 @@ begin
 
 end;
 
+procedure TAbstractDataSetHolder.SetRecordAddedStatusValue(
+  const Value: Variant);
+begin
+
+  FRecordAddedStatusValue := Value;
+
+end;
+
+procedure TAbstractDataSetHolder.SetRecordChangedStatusValue(
+  const Value: Variant);
+begin
+
+  FRecordChangedStatusValue := Value;
+
+end;
+
 procedure TAbstractDataSetHolder.SetRecordIdFieldName(const Value: String);
 begin
 
@@ -1726,6 +1868,22 @@ begin
 
   FRecordIdGenerator := Value;
   
+end;
+
+procedure TAbstractDataSetHolder.SetRecordNonChangedStatusValue(
+  const Value: Variant);
+begin
+
+  FRecordNonChangedStatusValue := Value;
+
+end;
+
+procedure TAbstractDataSetHolder.SetRecordRemovedStatusValue(
+  const Value: Variant);
+begin
+
+  FRecordRemovedStatusValue := Value;
+
 end;
 
 procedure TAbstractDataSetHolder.SetRecordsSelected(
@@ -1833,7 +1991,6 @@ end;
 destructor TNegativeIntegerDataSetRecordIdGenerator.Destroy;
 begin
 
-  FreeAndNil(FIntegerDataSetRecordIdGenerator);
   inherited;
 
 end;
@@ -1865,6 +2022,21 @@ constructor TAbstractDataSetFieldDefs.Create;
 begin
 
   inherited;
+  
+end;
+
+function TAbstractDataSetFieldDefs.GetRecordStatusFieldName: String;
+begin
+
+  Result := FRecordStatusFieldName;
+
+end;
+
+procedure TAbstractDataSetFieldDefs.SetRecordStatusFieldName(
+  const Value: String);
+begin
+
+  FRecordStatusFieldName := Value;
   
 end;
 

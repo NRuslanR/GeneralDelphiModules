@@ -7,6 +7,7 @@ uses
   AbstractRepositoryCriteriaUnit,
   DomainObjectUnit,
   DomainObjectListUnit,
+  IGetSelfUnit,
   NameValue,
   VariantListUnit,
   SysUtils;
@@ -17,7 +18,7 @@ type
   
   end;
 
-  IDomainObjectRepository = interface
+  IDomainObjectRepository = interface (IGetSelf)
     ['{7CE44677-0B89-45C1-9168-21D7B07371DE}']
 
     function Add(DomainObject: TDomainObject): Boolean;

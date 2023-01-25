@@ -187,6 +187,8 @@ uses
 
         destructor Destroy; override;
 
+        function GetSelf: TObject;
+        
         function GetContainsRepositoryCriterionOperationClass: TContainsRepositoryCriterionOperationClass; virtual;
         function GetNegativeRepositoryCriterionClass: TBoolNegativeRepositoryCriterionClass; virtual;
         function GetConstRepositoryCriterionClass: TConstRepositoryCriterionClass; virtual;
@@ -1060,6 +1062,13 @@ function TAbstractRepository.GetOrBindingRepositoryCriterionClass: TBoolOrBindin
 begin
 
   Result := TBoolOrBinding;
+  
+end;
+
+function TAbstractRepository.GetSelf: TObject;
+begin
+
+  Result := Self;
   
 end;
 

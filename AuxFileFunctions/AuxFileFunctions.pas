@@ -26,7 +26,6 @@ uses
   DirectoryTraversarImpl,
   DirectoryTraverseEventHandlers,
   DirectoryTraverser,
-  AuxDebugFunctionsUnit,
   StrUtils,
   SearchFileInfo;
 

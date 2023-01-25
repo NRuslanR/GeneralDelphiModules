@@ -36,6 +36,8 @@ type
 
     function Build: TDataSet;
 
+    procedure ClearFields;
+
   end;
 
 implementation

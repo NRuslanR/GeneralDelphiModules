@@ -11,13 +11,13 @@ interface
 
 procedure FreeListItems(source: TList);
 procedure FreeListWithItems(var source: TList);
-function IsNotAssignedOrEmpty(List: TList): Boolean;
+function IsNotAssignedOrEmpty(List: TList): Boolean; overload;
+function IsNotAssignedOrEmpty(List: TInterfaceList): Boolean; overload;
 function IsAssignedAndNotEmpty(List: TList): Boolean;
 function GetDuplicateValues(Strings: TStrings): TStrings;
 function ValuesEquals(Values: TVariantList): Boolean;
 
 implementation
-
 
 procedure FreeListItems(source: TList);
 var
@@ -48,6 +48,13 @@ begin
 end;
 
 function IsNotAssignedOrEmpty(List: TList): Boolean;
+begin
+
+  Result := not Assigned(List) or (List.Count = 0);
+  
+end;
+
+function IsNotAssignedOrEmpty(List: TInterfaceList): Boolean;
 begin
 
   Result := not Assigned(List) or (List.Count = 0);

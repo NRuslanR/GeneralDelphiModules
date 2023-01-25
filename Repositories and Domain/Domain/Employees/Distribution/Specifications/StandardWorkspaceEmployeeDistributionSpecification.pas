@@ -39,6 +39,7 @@ implementation
 
 uses
 
+  AuxDebugFunctionsUnit,
   IDomainObjectListUnit;
   
 { TStandardWorkspaceEmployeeDistributionSpecification }
@@ -81,8 +82,11 @@ function TStandardWorkspaceEmployeeDistributionSpecification.
   IsEmployeeWorkspaceIncludesOtherEmployee(
     TargetEmployee, OtherEmployee: TEmployee
   ): Boolean;
-var TopLevelEmployees: TEmployees;
+var
+    TopLevelEmployees: TEmployees;
     FreeTopLevelEmployees: IDomainObjectList;
+
+    TopLevelEmployee: TEmployee;
 begin
 
   if TargetEmployee.IsSameAs(OtherEmployee) then begin

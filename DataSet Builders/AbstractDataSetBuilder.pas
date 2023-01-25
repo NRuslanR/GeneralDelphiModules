@@ -53,6 +53,8 @@ type
         Original: TDataSet;
         const Option: TDataSetCopyBuildingOption = cbCopyWithData
       ): TDataSet; virtual;
+      
+      procedure ClearFields;
 
   end;
 
@@ -121,6 +123,14 @@ begin
   if Option = cbCopyWithData then
     CopyDataSetData(Result, Original);
 
+end;
+
+procedure TAbstractDataSetBuilder.ClearFields;
+begin
+
+  FDataSet.Fields.Clear;
+  FDataSet.FieldDefs.Clear;
+  
 end;
 
 procedure TAbstractDataSetBuilder.CopyDataSetData(Target, Source: TDataSet);

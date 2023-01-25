@@ -6,6 +6,7 @@ uses
 
   SysUtils,
   Classes,
+  Disposable,
   VariantListUnit;
 
 type
@@ -26,6 +27,36 @@ type
       var FieldValues: TVariantList
     ); static;
     
+  end;
+
+  TCNameValue = class (TInterfacedObject, IDisposable)
+
+    private
+
+      FInternal: TNameValue;
+
+      function GetName: String;
+      function GetValue: Variant;
+      
+      procedure SetName(const Value: String);
+      procedure SetValue(const Value: Variant);
+
+    public
+
+      constructor Create(
+        const Name: String;
+        const Value: Variant
+      );
+
+      class procedure Deconstruct(
+        NameValueArr: array of TNameValue;
+        var FieldNames: TStrings;
+        var FieldValues: TVariantList
+      ); static;
+
+      property Name: String read GetName write SetName;
+      property Value: Variant read GetValue write SetValue;
+      
   end;
 
 implementation
@@ -79,6 +110,56 @@ begin
 
   end;
 
+end;
+
+{ TCNameValue }
+
+constructor TCNameValue.Create(const Name: String; const Value: Variant);
+begin
+
+  inherited Create;
+
+  FInternal := TNameValue.Create(Name, Value);
+
+end;
+
+class procedure TCNameValue.Deconstruct(
+  NameValueArr: array of TNameValue;
+  var FieldNames: TStrings;
+  var FieldValues: TVariantList
+);
+begin
+
+  TNameValue.Deconstruct(NameValueArr, FieldNames, FieldValues);
+  
+end;
+
+function TCNameValue.GetName: String;
+begin
+
+  Result := FInternal.Name;
+
+end;
+
+function TCNameValue.GetValue: Variant;
+begin
+
+  Result := FInternal.Value;
+
+end;
+
+procedure TCNameValue.SetName(const Value: String);
+begin
+
+  FInternal.Name := Value;
+
+end;
+
+procedure TCNameValue.SetValue(const Value: Variant);
+begin
+
+  FInternal.Value := Value;
+  
 end;
 
 end.
