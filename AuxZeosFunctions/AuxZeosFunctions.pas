@@ -875,11 +875,11 @@ end;
 destructor TZDebugableQuery.Destroy;
 begin
 
-  DebugOutput(String(Self.ClassName) + ' is destroying');
+  //DebugOutput(String(Self.ClassName) + ' is destroying');
 
   inherited;
 
-  DebugOutput(String(Self.ClassName) + ' has destroyed');
+  //DebugOutput(String(Self.ClassName) + ' has destroyed');
 
 end;
 
@@ -888,11 +888,11 @@ end;
 destructor TZDebugableConnection.Destroy;
 begin
 
-  DebugOutput(String(Self.ClassName) + ' is destroying');
+  //DebugOutput(String(Self.ClassName) + ' is destroying');
 
   inherited;
 
-  DebugOutput(String(Self.ClassName) + ' has destroyed');
+  //DebugOutput(String(Self.ClassName) + ' has destroyed');
 
 end;
 
@@ -901,11 +901,11 @@ end;
 destructor TZDebugableUpdateSQL.Destroy;
 begin
 
-  DebugOutput(String(Self.ClassName) + ' is destroying');
+  //DebugOutput(String(Self.ClassName) + ' is destroying');
 
   inherited;
 
-  DebugOutput(String(Self.ClassName) + ' has destroyed');
+  //DebugOutput(String(Self.ClassName) + ' has destroyed');
   
 end;
 
