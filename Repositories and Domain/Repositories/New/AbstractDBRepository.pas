@@ -2080,6 +2080,8 @@ end;
 procedure TAbstractDBRepository.Initialize;
 begin
 
+  inherited Initialize;
+  
   MarkAllModificationOperationsAsNonTransactional;
 
   FReturnIdOfDomainObjectAfterAdding := True;

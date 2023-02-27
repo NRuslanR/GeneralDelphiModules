@@ -283,6 +283,7 @@ uses
 
   IDomainObjectBaseUnit,
   IDomainObjectBaseListUnit;
+  
 { TRepositoryErrorCreator }
 
 constructor TRepositoryErrorCreator.Create(AbstractRepository: TAbstractRepository);
@@ -480,7 +481,7 @@ function TAbstractRepository.CreateAndFillDomainObjectFromDataReader(
 begin
 
   Result := CreateDomainObject(DataReader);
-
+  
   Result.InvariantsComplianceRequested :=
     DomainObjectInvariantsComplianceEnabled;
 
@@ -1089,7 +1090,7 @@ end;
 procedure TAbstractRepository.Initialize;
 begin
 
-  DomainObjectInvariantsComplianceEnabled := True;
+  DomainObjectInvariantsComplianceEnabled := False;
   EnableThrowingExceptionsForDataManipulationErrors := True;
   
 end;
