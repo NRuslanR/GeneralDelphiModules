@@ -1,4 +1,4 @@
-unit Hashes; 
+unit Hashes;
  
 {** Hash Library 
  
@@ -100,7 +100,7 @@ unit Hashes;
  
 interface 
  
-  uses SysUtils; 
+  uses SysUtils, VariantTypeUnit; 
  
   const 
     {** This constant controls the initial size of the hash. } 
@@ -296,7 +296,7 @@ interface
         function FGetItem(const Key: string): integer; 
  
         {** Set or add an item. } 
-        procedure FSetItem(const Key: string; Value: integer); 
+        procedure FSetItem(const Key: string; Value: integer);
  
         {** Move an index. } 
         procedure FMoveIndex(oldIndex, newIndex: integer); override; 
@@ -326,10 +326,10 @@ interface
         procedure FDeleteIndex(i: integer); override; 
  
         {** Get an item or raise an exception. } 
-        function FGetItem(const Key: string): TObject; 
+        function FGetItem(const Key: string): TObject;
  
         {** Set or add an item. } 
-        procedure FSetItem(const Key: string; Value: TObject); 
+        procedure FSetItem(const Key: string; Value: TObject);
  
         {** Move an index. } 
         procedure FMoveIndex(oldIndex, newIndex: integer); override; 
@@ -344,14 +344,28 @@ interface
         function FIndexMax: integer; override; 
  
       public 
-        {** Items property. } 
+        {** Items property. }
         property Items[const Key: string]: TObject read FGetItem 
           write FSetItem; default; 
  
         {** Destructor must destroy all items. } 
-        destructor Destroy; override; 
+        destructor Destroy; override;
  
-    end; 
+    end;
+
+    TVariantHash = class (TObjectHash)
+
+      protected
+
+        function FGetItem(const Key: String): Variant;
+        procedure FSetItem(const Key: String; Value: Variant);
+
+      public
+
+        property Items[const Key: String]: Variant
+        read FGetItem write FSetItem; default;
+
+    end;
  
 implementation 
  
@@ -795,11 +809,11 @@ begin
   self.f_Items[newIndex] := self.f_Items[oldIndex]; 
 end; 
  
-procedure TObjectHash.FSetItem(const Key: string; Value: TObject); 
+procedure TObjectHash.FSetItem(const Key: string; Value: TObject);
 var 
   k, x, i: integer; 
 begin 
-  if (self.FFindKey(Key, k, x)) then begin 
+  if (self.FFindKey(Key, k, x)) then begin
     self.f_Items[self.f_Keys[k][x].ItemIndex].Free; 
     self.f_Items[self.f_Keys[k][x].ItemIndex] := Value; 
   end else begin 
@@ -838,14 +852,34 @@ begin
   SetLength(self.f_Items, 0); 
 end; 
  
-destructor TObjectHash.Destroy; 
+destructor TObjectHash.Destroy;
 var 
   i: integer; 
 begin 
-  for i := 0 to High(self.f_Items) do 
+  for i := 0 to High(self.f_Items) do
     if (Assigned(self.f_Items[i])) then 
       self.f_Items[i].Free; 
   inherited; 
 end; 
  
+{ TVariantHash }
+
+function TVariantHash.FGetItem(const Key: String): Variant;
+var
+    VariantObject: TVariant;
+begin
+
+  VariantObject := TVariant(inherited FGetItem(Key));
+
+  Result := VariantObject.Value;
+
+end;
+
+procedure TVariantHash.FSetItem(const Key: String; Value: Variant);
+begin
+
+  inherited FSetItem(Key, TVariant.Create(Value));
+
+end;
+
 end.
