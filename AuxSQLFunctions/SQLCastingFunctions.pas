@@ -36,7 +36,8 @@ begin
 
     varString, varOleStr: Result := QuotedStr(VarToStr(Value));
     varDate: Result := AsSQLDateTime(Value);
-    varSingle, varDouble, varCurrency: Result := AsSQLFloat(Value)
+    varSingle, varDouble, varCurrency: Result := AsSQLFloat(Value);
+    varNull: Result := 'NULL';
 
     else Result := VarToStr(Value);
 
