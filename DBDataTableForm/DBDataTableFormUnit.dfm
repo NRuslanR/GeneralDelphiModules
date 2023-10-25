@@ -1,8 +1,8 @@
 object DBDataTableForm: TDBDataTableForm
   Left = 0
   Top = 0
-  ClientHeight = 680
-  ClientWidth = 753
+  ClientHeight = 706
+  ClientWidth = 833
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -24,7 +24,7 @@ object DBDataTableForm: TDBDataTableForm
   object DataOperationToolBar: TToolBar
     Left = 0
     Top = 0
-    Width = 753
+    Width = 833
     Height = 84
     AutoSize = True
     ButtonHeight = 36
@@ -148,8 +148,8 @@ object DBDataTableForm: TDBDataTableForm
   end
   object StatisticsInfoStatusBar: TStatusBar
     Left = 0
-    Top = 661
-    Width = 753
+    Top = 687
+    Width = 833
     Height = 19
     Panels = <
       item
@@ -161,17 +161,21 @@ object DBDataTableForm: TDBDataTableForm
       item
         Width = 200
       end>
+    ExplicitTop = 661
+    ExplicitWidth = 753
   end
   object SearchByColumnPanel: TScrollBox
     Left = 0
-    Top = 630
-    Width = 753
+    Top = 656
+    Width = 833
     Height = 31
     Align = alBottom
     BevelInner = bvNone
     BevelOuter = bvNone
     BorderStyle = bsNone
     TabOrder = 2
+    ExplicitTop = 630
+    ExplicitWidth = 753
     object Label1: TLabel
       Left = 8
       Top = 7
@@ -236,7 +240,7 @@ object DBDataTableForm: TDBDataTableForm
   object DataRecordMovingToolBar: TToolBar
     Left = 0
     Top = 84
-    Width = 753
+    Width = 833
     Height = 22
     ButtonWidth = 46
     Caption = 'DataRecordMovingToolBar'
@@ -280,19 +284,19 @@ object DBDataTableForm: TDBDataTableForm
   object ClientAreaPanel: TPanel
     Left = 0
     Top = 106
-    Width = 753
-    Height = 524
+    Width = 833
+    Height = 550
     Align = alClient
     BevelOuter = bvLowered
     Color = clWhite
     ParentBackground = False
     TabOrder = 4
     DesignSize = (
-      753
-      524)
+      833
+      550)
     object DataLoadingCanceledPanel: TPanel
-      Left = 81
-      Top = 61
+      Left = 99
+      Top = 66
       Width = 185
       Height = 61
       Anchors = []
@@ -300,6 +304,8 @@ object DBDataTableForm: TDBDataTableForm
       Color = clWhite
       ParentBackground = False
       TabOrder = 0
+      ExplicitLeft = 81
+      ExplicitTop = 61
       object imgDataOperationCanceled: TImage
         Left = 75
         Top = 8
@@ -315,8 +321,8 @@ object DBDataTableForm: TDBDataTableForm
       end
     end
     object WaitDataLoadingPanel: TPanel
-      Left = 33
-      Top = 142
+      Left = 52
+      Top = 151
       Width = 288
       Height = 98
       Anchors = []
@@ -325,6 +331,8 @@ object DBDataTableForm: TDBDataTableForm
       ParentBackground = False
       PopupMenu = DataOperationPopupMenu
       TabOrder = 1
+      ExplicitLeft = 33
+      ExplicitTop = 142
       object DataLoadingLabel: TLabel
         Left = 15
         Top = 40
@@ -361,10 +369,12 @@ object DBDataTableForm: TDBDataTableForm
     object DataRecordGrid: TcxGrid
       Left = 1
       Top = 1
-      Width = 751
-      Height = 522
+      Width = 831
+      Height = 548
       Align = alClient
       TabOrder = 2
+      ExplicitWidth = 751
+      ExplicitHeight = 522
       object DataRecordGridTableView: TcxGridDBTableView
         PopupMenu = DataOperationPopupMenu
         NavigatorButtons.ConfirmDelete = False
@@ -383,7 +393,10 @@ object DBDataTableForm: TDBDataTableForm
         OptionsSelection.MultiSelect = True
         OptionsView.NoDataToDisplayInfoText = ' '
         object IsSelectedColumn: TcxGridDBColumn
+          DataBinding.ValueType = 'Boolean'
           PropertiesClassName = 'TcxCheckBoxProperties'
+          Properties.DisplayChecked = 'True'
+          Properties.DisplayUnchecked = 'False'
           Properties.DisplayGrayed = 'False'
           Properties.ImmediatePost = True
           Properties.NullStyle = nssUnchecked
@@ -1269,7 +1282,7 @@ object DBDataTableForm: TDBDataTableForm
     Top = 184
   end
   object ExportDataPopupMenu: TPopupMenu
-    Left = 32
+    Left = 40
     Top = 264
     object ExcelXLSMenuItem: TMenuItem
       Action = actExportDataToXLS

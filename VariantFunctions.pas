@@ -17,6 +17,7 @@ function VarRecToVariant(VarRec: TVarRec): Variant;
 function ObjectToVariant(Value: TObject): Variant;
 function VariantToObject(Value: Variant): TObject;
 function VariantToPointer(Value: Variant): Pointer;
+function PointerToVariant(Value: Pointer): Variant;
 function VariantToClass(Value: Variant): TClass;
 function ClassToVariant(ClassType: TClass): Variant;
 function InterfaceToVariant(Value: IInterface): Variant;
@@ -24,7 +25,15 @@ function VariantToInterface(Value: Variant; const InterfaceGUID: TGUID; out Intf
 function IsVariantContainsValue(Arr: Variant; Value: Variant): Boolean;
 
 implementation
-  
+
+function PointerToVariant(Value: Pointer): Variant;
+begin
+
+  TVarData(Result).VType := varByRef;
+  TVarData(Result).VPointer := Value;
+
+end;
+
 function VarOrDefault(Value: Variant; Default: Variant): Variant;
 begin
 

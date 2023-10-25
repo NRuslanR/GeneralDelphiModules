@@ -6,7 +6,8 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ToolWin, ComCtrls, ImgList, PngImageList, ActnList, StdCtrls,
   ExtCtrls, DBCtrls, dxCore, cxGridStrs, cxGraphics, cxControls, cxLookAndFeels,
-  cxLookAndFeelPainters, cxStyles, dxSkinsCore, dxSkinsDefaultPainters, cxCustomData, cxFilter, cxData, cxDataStorage, cxEdit, DB,
+  cxLookAndFeelPainters, cxStyles, dxSkinsCore, dxSkinsDefaultPainters, cxCustomData,
+  cxFilter, cxData, cxDataStorage, cxEdit, DB,
   cxDBData, pngimage, cxGridLevel, cxClasses, cxGridCustomView,
   cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGrid, Menus,
   ZAbstractDataset, DataSetOperationThreadUnit, cxButtons, TableViewFilterFormUnit,
@@ -15,7 +16,7 @@ uses
   ZAbstractRODataset, ZConnection, cxExport, cxExportPivotGridLink,
   cxGridExportLink, Clipbrd, StrUtils, DeletableOnCloseFormUnit, Math,
   StackedControlUnit, VariantListUnit, cxLocalization, dxSkinscxPCPainter,
-  CancellationThreadUnit, cxCheckBox, Hashes;
+  CancellationThreadUnit, cxCheckBox, Hashes, IGetSelfUnit;
 
 const
 
@@ -153,7 +154,7 @@ type
 
   end;
 
-  TDBDataTableRecord = class
+  TDBDataTableRecord = class (TInterfacedObject, IGetSelf)
 
     protected
 
@@ -175,6 +176,8 @@ type
 
       constructor Create;
 
+      function GetSelf: TObject;
+
       function GetFieldByIndex(const Index: Integer): TDBDataTableRecordField;
 
       property FieldCount: Integer read GetFieldCount;
@@ -188,7 +191,7 @@ type
   
   TDBDataTableRecords = class;
 
-  TDBDataTableRecordsEnumerator = class (TListEnumerator)
+  TDBDataTableRecordsEnumerator = class (TInterfaceListEnumerator)
 
     protected
 
@@ -204,27 +207,22 @@ type
 
   end;
 
-  TDBDataTableRecords = class (TList)
+  TDBDataTableRecords = class (TInterfaceList)
 
     protected
 
       function GetDBDataTableRecordByIndex(Index: Integer): TDBDataTableRecord;
 
-      function AddRecord(DBDataTableRecord: TDBDataTableRecord): Integer;
-
-      procedure FreeRecords;
-
     public
 
-      destructor Destroy; override;
-
+      procedure Add(Value: TDBDataTableRecord);
+      
       function First: TDBDataTableRecord;
+      function Last: TDBDataTableRecord;
       
       function GetEnumerator: TDBDataTableRecordsEnumerator;
 
       function FetchFieldValues(const FieldName: String): TVariantList;
-      
-      procedure Clear; override;
 
       property Items[Index: Integer]: TDBDataTableRecord
       read GetDBDataTableRecordByIndex; default;
@@ -405,8 +403,6 @@ type
 
   private
 
-    function GetEnableSelectionColumn: Boolean;
-    procedure SetEnableSelectionColumn(const Value: Boolean);
     function GetFocusedRecordId: Variant;
     procedure SetFocusedRecordId(const Value: Variant);
     function GetSelectionOnly: Boolean;
@@ -560,6 +556,11 @@ type
 
     class function GetDBDataTableRecordsClass: TDBDataTableRecordsClass; virtual;
     function CreateDBDataTableRecords: TDBDataTableRecords; virtual;
+
+  protected
+
+    function GetEnableSelectionColumn: Boolean; virtual;
+    procedure SetEnableSelectionColumn(const Value: Boolean); virtual;
 
   protected
   
@@ -818,6 +819,7 @@ type
     property SelectedRecords: TDBDataTableRecords read FSelectedRecords;
 
     function CurrentSelectedRecords: TDBDataTableRecords;
+    function CurrentChoosenRecords: TDBDataTableRecords;
 
     property ConfirmedSelectedRecordCount: Integer
     read GetConfirmedSelectedRecordCount;
@@ -1654,6 +1656,55 @@ begin
    
 end;
 
+function TDBDataTableForm.CurrentChoosenRecords: TDBDataTableRecords;
+var
+    I: Integer;
+begin
+
+  Result := CreateDBDataTableRecords;
+
+  try
+  
+    with DataRecordGridTableView do begin
+
+      for I := 0 to Controller.SelectedRecordCount - 1 do begin
+
+        if
+          EnableSelectionColumn
+          and not VarOrDefault(
+            DataController.Values[
+              Controller.SelectedRecords[I].RecordIndex,
+              IsSelectedColumn.Index
+            ],
+            False
+          )
+
+        then Continue;
+
+        Result.Add(
+          CreateTableRecordViewModelFor(
+            DataController.GetRowIndexByRecordIndex(
+              Controller.SelectedRecords[I].RecordIndex,
+              False
+            )
+          )
+        );
+
+      end;
+
+    end;
+
+  except
+
+    FreeAndNil(Result);
+
+    Raise;
+
+  end;
+
+
+end;
+
 function TDBDataTableForm.CurrentSelectedRecords: TDBDataTableRecords;
 begin
 
@@ -1798,19 +1849,19 @@ procedure TDBDataTableForm.DataRecordGridTableViewCellClick(
   Sender: TcxCustomGridTableView; ACellViewInfo: TcxGridTableDataCellViewInfo;
   AButton: TMouseButton; AShift: TShiftState; var AHandled: Boolean);
 begin
-
+        
   UpdateChooseRecordsAction;
   UpdateModificationDataActions;
 
   AHandled := True;
-  
+
 end;
 
 procedure TDBDataTableForm.DataRecordGridTableViewCustomDrawCell(
   Sender: TcxCustomGridTableView; ACanvas: TcxCanvas;
   AViewInfo: TcxGridTableDataCellViewInfo; var ADone: Boolean);
 begin
-
+                                                        
   if DataRecordGridTableView.Controller.SelectedRowCount = 0 then
       if Assigned(DataRecordGridTableView.Controller.FocusedRecord) then
         DataRecordGridTableView.Controller.FocusedRecord.Selected := True;
@@ -1956,8 +2007,10 @@ procedure TDBDataTableForm.DataRecordGridTableViewSelectionChanged(
   Sender: TcxCustomGridTableView);
 var
     I: Integer;
+    GridRowIndex: Integer;
+    GridRecord: TcxCustomGridRecord;
 begin
-
+                                  
   if not EnableSelectionColumn then Exit;
 
   if not Assigned(FSelectedByColumnRecordIndices) then Exit;
@@ -1966,18 +2019,42 @@ begin
 
   with DataRecordGridTableView do begin
 
+    BeginUpdate;
+
+    try
+
       while FSelectedByColumnRecordIndices.Next do begin
 
-        ViewData.Records[
-          DataController.GetRowIndexByRecordIndex(
-            FSelectedByColumnRecordIndices[
-              FSelectedByColumnRecordIndices.CurrentKey
-            ],
-            False
-          )
-        ].Selected := True;
+        try
+
+          GridRowIndex :=
+            DataController.GetRowIndexByRecordIndex(
+              FSelectedByColumnRecordIndices[
+                FSelectedByColumnRecordIndices.CurrentKey
+              ],
+              False
+            );
+
+        except
+
+          Exit;
+
+        end;
+
+        if GridRowIndex = -1 then Exit;
+
+        GridRecord := ViewData.Records[GridRowIndex];
+
+        GridRecord.Values[IsSelectedColumn.Index] := True;
+        GridRecord.Selected := True;
 
       end;
+
+    finally
+
+      EndUpdate;
+      
+    end;
 
   end;
 
@@ -3680,16 +3757,6 @@ begin
 
   inherited Font := Value;
 
-  {
-  DataRecordGrid.Font := Value;
-  DataOperationToolBar.Font := Value;
-  DataLoadingCanceledPanel.Font := Value;
-  WaitDataLoadingPanel.Font := Value;
-  DataRecordMovingToolBar.Font := Value;
-  SearchByColumnPanel.Font := Value;
-  StatisticsInfoStatusBar.Font := Value;
-  ClientAreaPanel.Font := Value;
-   }
 end;
 
 procedure TDBDataTableForm.SetMultiSelectionModeEnabled(const Enabled: Boolean);
@@ -3724,11 +3791,6 @@ begin
 
   with DataRecordGridTableView.DataController do begin
 
-    ChangeRowSelection(
-      GetRowIndexByRecordIndex(RecordIndex, False),
-      Selected
-    );
-
     SelectedRecordIndexKey := IntToStr(RecordIndex);
 
     if not DataRecordGridTableView.OptionsSelection.MultiSelect then begin
@@ -3746,7 +3808,6 @@ begin
 
       end;
 
-      
       FSelectedByColumnRecordIndices.Clear;
 
     end;
@@ -3761,7 +3822,14 @@ begin
     else if FSelectedByColumnRecordIndices.Exists(SelectedRecordIndexKey)
     then FSelectedByColumnRecordIndices.Delete(SelectedRecordIndexKey);
 
-  end;
+    Values[RecordIndex, IsSelectedColumn.Index] := Selected;
+
+    ChangeRowSelection(
+      GetRowIndexByRecordIndex(RecordIndex, False),
+      Selected
+    );
+
+  end;             
 
 end;
 
@@ -4350,7 +4418,7 @@ begin
 
   InternalSelectedRecord := CreateTableRecordViewModelFor(RowIndex);
 
-  FSelectedRecords.AddRecord(InternalSelectedRecord);
+  FSelectedRecords.Add(InternalSelectedRecord);
 
 end;
 
@@ -4564,7 +4632,7 @@ begin
   
   UpdateTotalRecordCountPanel;
   DataOperationToolBar.Repaint;
-
+  
 end;
 
 procedure TDBDataTableForm.OnDataSetFilteringHandle(
@@ -4572,7 +4640,7 @@ procedure TDBDataTableForm.OnDataSetFilteringHandle(
   DataSet: TDataSet
 );
 begin
-
+  
   inherited;
 
 end;
@@ -5260,6 +5328,13 @@ begin
 
 end;
 
+function TDBDataTableRecord.GetSelf: TObject;
+begin
+
+  Result := Self;
+  
+end;
+
 { TDBDataTableRecordsEnumerator }
 
 constructor TDBDataTableRecordsEnumerator.Create(
@@ -5269,39 +5344,29 @@ begin
   inherited Create(DBDataTableRecords);
 
   FDBDataTableRecords := DBDataTableRecords;
-  
+
 end;
 
 function TDBDataTableRecordsEnumerator.GetCurrentDBDataTableRecord: TDBDataTableRecord;
+var
+    CurrentIntf: IInterface;
+    SelfIntf: IGetSelf;
 begin
 
-  Result := TDBDataTableRecord(GetCurrent);
+  CurrentIntf := GetCurrent;
+
+  Supports(CurrentIntf, IGetSelf, SelfIntf);
+
+  Result := TDBDataTableRecord(SelfIntf.Self);
 
 end;
 
 { TDBDataTableRecords }
 
-function TDBDataTableRecords.AddRecord(
-  DBDataTableRecord: TDBDataTableRecord): Integer;
+procedure TDBDataTableRecords.Add(Value: TDBDataTableRecord);
 begin
 
-  Result := Add(Pointer(DBDataTableRecord));
-
-end;
-
-procedure TDBDataTableRecords.Clear;
-begin
-
-  FreeRecords;
-
-  inherited;
-
-end;
-
-destructor TDBDataTableRecords.Destroy;
-begin
-
-  inherited;
+  inherited Add(Value);
 
 end;
 
@@ -5338,29 +5403,31 @@ begin
 end;
 
 function TDBDataTableRecords.First: TDBDataTableRecord;
+var
+    Intf: IInterface;
+    SelfIntf: IGetSelf;
 begin
 
-  Result := TDBDataTableRecord(inherited First);
+  Intf := inherited First;
+
+  Supports(Intf, IGetSelf, SelfIntf);
+
+  Result := TDBDataTableRecord(SelfIntf.Self);
   
-end;
-
-procedure TDBDataTableRecords.FreeRecords;
-var DBDataTableRecord: TDBDataTableRecord;
-begin
-
-  for DBDataTableRecord in Self do begin
-
-    DBDataTableRecord.Free;
-
-  end;
-
 end;
 
 function TDBDataTableRecords.GetDBDataTableRecordByIndex(
   Index: Integer): TDBDataTableRecord;
+var
+    Intf: IInterface;
+    SelfIntf: IGetSelf;
 begin
 
-  Result := TDBDataTableRecord(Get(Index));
+  Intf := Get(Index);
+
+  Supports(Intf, IGetSelf, SelfIntf);
+
+  Result := TDBDataTableRecord(SelfIntf.Self);
 
 end;
 
@@ -5369,6 +5436,20 @@ begin
 
   Result := TDBDataTableRecordsEnumerator.Create(Self);
   
+end;
+
+function TDBDataTableRecords.Last: TDBDataTableRecord;
+var
+    Intf: IInterface;
+    SelfIntf: IGetSelf;
+begin
+
+  Intf := inherited Last;
+
+  Supports(Intf, IGetSelf, SelfIntf);
+
+  Result := TDBDataTableRecord(SelfIntf.Self);
+
 end;
 
 initialization

@@ -664,9 +664,10 @@ function TAbstractDataSetHolder.ContainsRecords(
 var
     RecordId: Variant;
 begin
-
+  
   for RecordId in RecordIds do
-    if not LookupByRecordId(RecordId, RecordIdFieldName) then begin
+    if VarIsNullOrEmpty(LookupByRecordId(RecordId, RecordIdFieldName))
+    then begin
 
       Result := False;
       Exit;

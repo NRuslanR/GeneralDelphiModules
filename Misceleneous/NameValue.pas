@@ -26,6 +26,10 @@ type
       var FieldNames: TStrings;
       var FieldValues: TVariantList
     ); static;
+
+    class function Empty: TNameValue; static;
+    
+    class function FindByName(List: array of TNameValue; const Name: String): TNameValue; static;
     
   end;
 
@@ -60,6 +64,10 @@ type
   end;
 
 implementation
+
+uses
+
+  Variants;
 
 { TNameValue }
 
@@ -110,6 +118,35 @@ begin
 
   end;
 
+end;
+
+class function TNameValue.Empty: TNameValue;
+begin
+
+  Result.Name := '';
+  Result.Value := Null;
+  
+end;
+
+class function TNameValue.FindByName(List: array of TNameValue;
+  const Name: String): TNameValue;
+var
+    NameValue: TNameValue;
+begin
+
+  for NameValue in List do begin
+
+    if NameValue.Name = Name then begin
+
+      Result := NameValue;
+      Exit;
+
+    end;
+
+  end;
+
+  Result := Empty;
+  
 end;
 
 { TCNameValue }

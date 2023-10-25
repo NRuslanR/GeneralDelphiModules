@@ -368,7 +368,7 @@ interface
     end;
  
 implementation 
- 
+
   {** A basic hash function. This is pretty fast, and fairly good general 
       purpose, but you may want to swap in a specialised version. } 
   function HashThis(const s: string): cardinal; 
@@ -389,8 +389,8 @@ implementation
  
 { THash } 
  
-constructor THash.Create; 
-begin 
+constructor THash.Create;
+begin
   inherited Create; 
   self.f_CurrentIterator.ck := -1; 
   self.f_CurrentIterator.cx := 0; 

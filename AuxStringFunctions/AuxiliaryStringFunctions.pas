@@ -10,10 +10,10 @@ uses
   Windows,
   VariantListUnit;
 
-function CreateStringFromStringList(const Strings: TStrings; const Separator: string = ', '): string;
-function CreateStringFromVariantList(const VariantList: TVariantList; const Separator: string = ', '): string;
-function CreateStringFromVariantListAndFree(const VariantList: TVariantList; const Separator: string = ', '): string;
-function CreateStringFromVariantArray(const Variants: array of Variant; const Separator: string = ', '): string;
+function CreateStringFromStringList(const Strings: TStrings; const Separator: string = ', '; const ItemPrefix: String = ''): string;
+function CreateStringFromVariantList(const VariantList: TVariantList; const Separator: string = ', '; const ItemPrefix: String = ''): string;
+function CreateStringFromVariantListAndFree(const VariantList: TVariantList; const Separator: string = ', '; const ItemPrefix: String = ''): string;
+function CreateStringFromVariantArray(const Variants: array of Variant; const Separator: string = ', '; const ItemPrefix: String = ''): string;
 function ReplaceStrings(const Target: String; const ReplacedStrings: array of String; const ReplacingStrings: array of String): String;
 
 // unfinished
@@ -63,19 +63,6 @@ begin
   Result.StrictDelimiter := True;
   Result.Delimiter := Delimiter;
   Result.DelimitedText := TargetString;
-
-end;
-
-function CreateStringFromStringList(const Strings: TStrings; const Separator: string = ', '): string;
-var str: string;
-begin
-
-  Result := '';
-
-  if not Assigned(Strings) then Exit;
-
-  for str in Strings do
-    Result := IfThen(Result = '', str, Result + Separator + str);
 
 end;
 
@@ -185,7 +172,30 @@ begin
 
 end;
 
-function CreateStringFromVariantArray(const Variants: array of Variant; const Separator: string): string;
+function CreateStringFromStringList(
+  const Strings: TStrings;
+  const Separator: String;
+  const ItemPrefix: String
+): string;
+var
+    VariantList: TVariantList;
+begin
+
+  Result := '';
+
+  if not Assigned(Strings) then Exit;
+
+  VariantList := TVariantList.CreateForm(Strings);
+
+  Result := CreateStringFromVariantListAndFree(VariantList, Separator, ItemPrefix);
+
+end;
+
+function CreateStringFromVariantArray(
+  const Variants: array of Variant;
+  const Separator: String;
+  const ItemPrefix: String
+): string;
 var
     VariantList: TVariantList;
 begin
@@ -194,7 +204,7 @@ begin
 
   try
 
-    Result := CreateStringFromVariantList(VariantList, Separator);
+    Result := CreateStringFromVariantList(VariantList, Separator, ItemPrefix);
 
   finally
 
@@ -206,9 +216,12 @@ end;
 
 function CreateStringFromVariantList(
   const VariantList: TVariantList;
-  const Separator: string = ', '
+  const Separator: String;
+  const ItemPrefix: String
 ): string;
-var VariantItem: Variant;
+var
+    VariantItem: Variant;
+    StringItem: String;
 begin
 
   Result := '';
@@ -217,20 +230,22 @@ begin
 
   for VariantItem in VariantList do begin
 
-    if Result = '' then
-      Result := VarToStr(VariantItem)
+    StringItem := ItemPrefix + VarToStr(VariantItem);
 
-    else
-      Result := Result + Separator + VarToStr(VariantItem)
+    Result := IfThen(Result = '', StringItem, Result + Separator + StringItem);
 
   end;
 
 end;
 
-function CreateStringFromVariantListAndFree(const VariantList: TVariantList; const Separator: string): string;
+function CreateStringFromVariantListAndFree(
+  const VariantList: TVariantList;
+  const Separator: string;
+  const ItemPrefix: String
+): string;
 begin
 
-  Result := CreateStringFromVariantList(VariantList, Separator);
+  Result := CreateStringFromVariantList(VariantList, Separator, ItemPrefix);
 
   VariantList.Free;
 

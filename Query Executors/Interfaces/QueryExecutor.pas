@@ -7,6 +7,7 @@ uses
   IGetSelfUnit,
   DataReader,
   VariantListUnit,
+  NameValue,
   SysUtils,
   Classes;
 
@@ -55,6 +56,11 @@ type
       procedure Notify(Ptr: Pointer; Action: TListNotification); override;
 
     public
+
+      constructor CreateFrom(
+        NameValues: array of TNameValue;
+        const NamePrefix: String = ''
+      );
 
       function IsEmpty: Boolean;
 
@@ -189,6 +195,21 @@ begin
 
   Result := Self;
   
+end;
+
+constructor TQueryParams.CreateFrom(
+  NameValues: array of TNameValue;
+  const NamePrefix: String
+);
+var
+    NameValue: TNameValue;
+begin
+
+  inherited Create;
+
+  for NameValue in NameValues do
+    Add(NamePrefix + NameValue.Name, NameValue.Value);
+
 end;
 
 function TQueryParams.ExtractParam(const Index: Integer): TQueryParam;

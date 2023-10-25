@@ -1,6 +1,6 @@
 unit TableViewFilterFormUnit;
 
-// Data Set Filterating Form for Dev Express Table View
+// Data Set Filtering Form for Dev Express Table View
 interface
 
 uses

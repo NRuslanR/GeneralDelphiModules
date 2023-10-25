@@ -95,7 +95,7 @@ type
       property Current: ITypeObjectRegistryItem read GetCurrentTypeObjectRegistryItem;
       
   end;
-  
+
   TTypeObjectRegistry = class
 
     private
@@ -714,7 +714,7 @@ begin
 
   FTypeObjectRegistry := TypeObjectRegistry;
   FObjectRegistryEnumerator := TypeObjectRegistry.FObjectRegistry.GetEnumerator;
-  
+
 end;
 
 destructor TTypeObjectRegistryEnumerator.Destroy;
@@ -734,14 +734,14 @@ begin
         FObjectRegistryEnumerator.Current.RegistryKey.Self
       ).ObjectClass
     ];
-    
+
 end;
 
 function TTypeObjectRegistryEnumerator.MoveNext: Boolean;
 begin
 
   Result := FObjectRegistryEnumerator.MoveNext;
-  
+
 end;
 
 end.
